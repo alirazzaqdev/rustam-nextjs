@@ -1,16 +1,15 @@
-let PrismaClientModule: any
-try {
-  PrismaClientModule = require('@prisma/client')
-} catch {
-  PrismaClientModule = { PrismaClient: class {} }
-}
+import { PrismaClient } from '@prisma/client'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { Pool } from 'pg'
 
 const globalForPrisma = global as unknown as { prisma: any }
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClientModule.PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
-  })
+function createPrismaClient() {
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL })
+  const adapter = new PrismaPg(pool)
+  return new PrismaClient({ adapter } as any)
+}
+
+export const prisma = globalForPrisma.prisma || createPrismaClient()
 
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma

@@ -1,10 +1,25 @@
 import { Button } from '@/components/ui/button'
+import { ProductsSection } from '@/components/sections/ProductsSection'
+import { ServicesSection } from '@/components/sections/ServicesSection'
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CalculatorSection } from '@/components/sections/CalculatorSection'
+import { FAQSection } from '@/components/sections/FAQSection'
 import { ContactSection } from '@/components/sections/ContactSection'
+import { getProducts } from '@/actions/products'
+import { getServices } from '@/actions/services'
+import { getTestimonials } from '@/actions/testimonials'
+import { getFAQs } from '@/actions/faqs'
 
 export const revalidate = 3600
 
-export default function Home() {
+export default async function Home() {
+  const [products, services, testimonials, faqs] = await Promise.all([
+    getProducts(),
+    getServices(),
+    getTestimonials(),
+    getFAQs(),
+  ])
+
   return (
     <div>
       {/* Hero Section */}
@@ -21,62 +36,57 @@ export default function Home() {
               19 years of expertise providing reliable solar panels, batteries, and energy solutions for residential, commercial, and industrial customers
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-              <Button className="px-8 py-6 text-lg bg-amber-500 hover:bg-amber-600">
-                Get a Free Quote
-              </Button>
-              <Button variant="outline" className="px-8 py-6 text-lg">
-                Explore Products
-              </Button>
+              <a href="#contact">
+                <Button className="px-8 py-6 text-lg bg-amber-500 hover:bg-amber-600 w-full sm:w-auto">
+                  Get a Free Quote
+                </Button>
+              </a>
+              <a href="#products">
+                <Button variant="outline" className="px-8 py-6 text-lg w-full sm:w-auto">
+                  Explore Products
+                </Button>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* Products Section */}
-      <section id="products" className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Our Products</h2>
-          <p className="text-slate-600 mb-8">
-            Products will appear here once database is configured and seeded.
-          </p>
-          <p className="text-sm text-slate-500">
-            Follow the QUICK_START.md guide to set up your database
-          </p>
-        </div>
-      </section>
+      {products.length > 0 ? (
+        <ProductsSection products={products} />
+      ) : (
+        <section id="products" className="py-20 px-4 bg-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">Our Products</h2>
+            <p className="text-slate-600">Solar panels, batteries, inverters and more.</p>
+          </div>
+        </section>
+      )}
 
       {/* Services Section */}
-      <section id="services" className="py-20 px-4 bg-slate-50">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Our Services</h2>
-          <p className="text-slate-600">
-            Services will appear here once database is configured and seeded.
-          </p>
-        </div>
-      </section>
+      {services.length > 0 ? (
+        <ServicesSection services={services} />
+      ) : (
+        <section id="services" className="py-20 px-4 bg-slate-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">Our Services</h2>
+            <p className="text-slate-600">Installation, maintenance and consultation.</p>
+          </div>
+        </section>
+      )}
 
       {/* Testimonials Section */}
-      <section id="testimonials" className="py-20 px-4 bg-slate-50">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">What Our Customers Say</h2>
-          <p className="text-slate-600">
-            Testimonials will appear here once database is configured and seeded.
-          </p>
-        </div>
-      </section>
+      {testimonials.length > 0 ? (
+        <TestimonialsSection testimonials={testimonials} />
+      ) : null}
 
       {/* Solar Calculator Section */}
       <CalculatorSection />
 
       {/* FAQ Section */}
-      <section id="faq" className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-          <p className="text-slate-600">
-            FAQs will appear here once database is configured and seeded.
-          </p>
-        </div>
-      </section>
+      {faqs.length > 0 ? (
+        <FAQSection faqs={faqs} />
+      ) : null}
 
       {/* Contact Section */}
       <ContactSection />
