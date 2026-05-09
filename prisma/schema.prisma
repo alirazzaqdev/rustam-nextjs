@@ -19,6 +19,28 @@ model User {
   testimonials  Testimonial[]
 }
 
+model Order {
+  id            String   @id @default(cuid())
+  orderNumber   String   @unique
+  customerName  String
+  phone         String
+  whatsapp      String?
+  email         String
+  address       String
+  city          String
+  items         Json
+  subtotal      Float
+  total         Float
+  paymentMethod String
+  paymentStatus String   @default("pending")
+  orderStatus   String   @default("pending")
+  paymentRef    String?
+  screenshotUrl String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
 model QuoteRequest {
   id              String   @id @default(cuid())
   name            String

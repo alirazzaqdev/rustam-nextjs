@@ -1,162 +1,131 @@
+'use client'
+
+import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 import Link from 'next/link'
-import { CheckCircle, Phone, MapPin, Clock } from 'lucide-react'
+import { CheckCircle, XCircle, Clock, MessageCircle, Phone, MapPin } from 'lucide-react'
 
-export const metadata = {
-  title: 'Order Confirmed — Rustam Battery & Solar',
-}
+function SuccessContent() {
+  const params = useSearchParams()
+  const orderNumber = params.get('orderNumber') || params.get('ref') || ''
+  const status = params.get('status') || 'success'
+  const method = params.get('method') || params.get('payment') || ''
+  const reason = params.get('reason') || ''
 
-interface SuccessPageProps {
-  searchParams: Promise<{ ref?: string; payment?: string; name?: string }>
-}
+  const isSuccess = status === 'success'
+  const isBankTransfer = method === 'bank_transfer'
+  const isCod = method === 'cod'
 
-export default async function OrderSuccessPage({ searchParams }: SuccessPageProps) {
-  const params = await searchParams
-  const ref = params.ref || 'N/A'
-  const payment = params.payment || 'Bank Transfer'
-  const name = params.name || 'Customer'
-
-  const paymentInstructions: Record<string, { title: string; details: string[] }> = {
-    'Bank Transfer': {
-      title: 'Bank Transfer Details',
-      details: [
-        'Bank: Meezan Bank / HBL',
-        'Account Title: Rustam Battery & Solar',
-        'Account No: 1234-5678-9012-3456',
-        `Reference: Order #${ref}`,
-        'Please send payment proof on WhatsApp after transfer',
-      ],
-    },
-    EasyPaisa: {
-      title: 'EasyPaisa Payment',
-      details: [
-        'EasyPaisa Account: 0300-1234567',
-        'Account Title: Muhammad Rustam',
-        `Reference/Note: Order #${ref}`,
-        'Send screenshot on WhatsApp after payment',
-      ],
-    },
-    JazzCash: {
-      title: 'JazzCash Payment',
-      details: [
-        'JazzCash Number: 0300-1234567',
-        'Account Title: Muhammad Rustam',
-        `Reference/Note: Order #${ref}`,
-        'Send screenshot on WhatsApp after payment',
-      ],
-    },
-    'Cash on Visit': {
-      title: 'Cash Payment on Visit',
-      details: [
-        'Visit our shop: Kahna Nau, Lahore',
-        'Business Hours: Mon-Sat, 9 AM – 6 PM',
-        `Mention Order #${ref} when you arrive`,
-        'Our team will also call you to confirm',
-      ],
-    },
-    Installments: {
-      title: 'Installment Plan',
-      details: [
-        'Our team will contact you within 24 hours',
-        'Down payment: 30% of total amount',
-        'Remaining: Easy monthly installments',
-        `Mention Order #${ref} when contacted`,
-      ],
-    },
-  }
-
-  const instructions = paymentInstructions[payment] || paymentInstructions['Bank Transfer']
+  const whatsappMsg = encodeURIComponent(
+    `Hello! I placed an order *${orderNumber}* on Rustam Battery website. Please confirm my order.`
+  )
 
   return (
-    <main className="min-h-screen bg-slate-50 flex items-center justify-center py-12 px-4">
-      <div className="max-w-2xl w-full">
-        {/* Success Card */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 text-center mb-6">
-          <div className="flex justify-center mb-4">
-            <CheckCircle size={64} className="text-green-500" />
-          </div>
-          <h1 className="text-3xl font-bold text-slate-900 mb-2">Order Confirmed!</h1>
-          <p className="text-slate-600 mb-6">
-            Thank you, <strong>{decodeURIComponent(name)}</strong>. Your order has been received successfully.
-          </p>
+    <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-16">
+      <div className="max-w-lg w-full space-y-4">
+        <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 text-center">
+          {isSuccess ? (
+            <>
+              <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 ${isBankTransfer ? 'bg-amber-100' : 'bg-green-100'}`}>
+                {isBankTransfer
+                  ? <Clock className="text-amber-500" size={40} />
+                  : <CheckCircle className="text-green-500" size={40} />}
+              </div>
 
-          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 inline-block mb-6">
-            <p className="text-sm text-amber-700 font-medium mb-1">Your Order Reference</p>
-            <p className="text-3xl font-bold text-amber-600 tracking-widest">#{ref}</p>
-            <p className="text-xs text-amber-600 mt-1">Save this number for tracking</p>
-          </div>
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                {isBankTransfer ? 'Order Received!' : 'Order Confirmed!'}
+              </h1>
 
-          <p className="text-slate-600 text-sm">
-            A confirmation email has been sent to your email address. Our team will call you within <strong>24 hours</strong>.
-          </p>
-        </div>
+              {orderNumber && (
+                <div className="inline-block bg-amber-50 border border-amber-200 rounded-xl px-6 py-3 mb-4">
+                  <p className="text-xs text-amber-600 font-medium uppercase tracking-wide mb-1">Order Reference</p>
+                  <p className="text-xl font-bold text-amber-700">{orderNumber}</p>
+                </div>
+              )}
 
-        {/* Payment Instructions */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          <h2 className="text-xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <span>💳</span> {instructions.title}
-          </h2>
-          <ul className="space-y-3">
-            {instructions.details.map((detail, i) => (
-              <li key={i} className="flex items-start gap-3">
-                <span className="flex-shrink-0 w-6 h-6 bg-amber-100 text-amber-700 rounded-full flex items-center justify-center text-sm font-bold">
-                  {i + 1}
-                </span>
-                <span className="text-slate-700">{detail}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+              <p className="text-gray-600 text-sm mb-6">
+                {isBankTransfer
+                  ? 'We received your order. After verifying your bank transfer, we will confirm within 2–4 hours.'
+                  : isCod
+                  ? 'Your order is confirmed! Our team will contact you to arrange delivery.'
+                  : 'Payment successful! Your order is confirmed and will be processed shortly.'}
+              </p>
 
-        {/* Contact & Location */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          <h2 className="text-xl font-bold text-slate-900 mb-4">Need Help?</h2>
-          <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Phone size={18} className="text-amber-600" />
+              <a
+                href={`https://wa.me/923001234567?text=${whatsappMsg}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors mb-3"
+              >
+                <MessageCircle size={20} />
+                Confirm on WhatsApp
+              </a>
+            </>
+          ) : (
+            <>
+              <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-5">
+                <XCircle className="text-red-500" size={40} />
               </div>
-              <div>
-                <p className="font-semibold text-slate-900">Call / WhatsApp</p>
-                <a href="tel:+923001234567" className="text-amber-600 hover:underline">+92 300 1234567</a>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <MapPin size={18} className="text-amber-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">Visit Us</p>
-                <p className="text-slate-600 text-sm">Kahna Nau, Lahore, Punjab, Pakistan</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                <Clock size={18} className="text-amber-600" />
-              </div>
-              <div>
-                <p className="font-semibold text-slate-900">Business Hours</p>
-                <p className="text-slate-600 text-sm">Mon–Sat: 9:00 AM – 6:00 PM</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        {/* Actions */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/"
-            className="flex-1 text-center bg-amber-500 hover:bg-amber-600 text-white font-semibold py-3 px-6 rounded-xl transition-colors"
-          >
+              <h1 className="text-2xl font-bold text-gray-900 mb-2">Payment Failed</h1>
+              <p className="text-gray-600 text-sm mb-6">
+                {reason === 'invalid_hash' && 'Payment verification failed. Please contact support.'}
+                {reason === 'order_not_found' && 'Order not found. Please contact support.'}
+                {reason === 'server_error' && 'A server error occurred. Please try again.'}
+                {!reason && 'Your payment was not completed. Please try again or choose a different payment method.'}
+              </p>
+
+              <a
+                href="https://wa.me/923001234567"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors mb-3"
+              >
+                <MessageCircle size={20} />
+                Contact Support on WhatsApp
+              </a>
+
+              <Link
+                href="/checkout"
+                className="w-full flex items-center justify-center bg-amber-500 text-white py-3 rounded-xl font-semibold hover:bg-amber-600 transition-colors mb-3"
+              >
+                Try Again
+              </Link>
+            </>
+          )}
+
+          <Link href="/" className="text-sm text-gray-500 hover:text-gray-700 transition-colors">
             Back to Home
           </Link>
-          <Link
-            href="/#products"
-            className="flex-1 text-center border-2 border-slate-300 hover:border-amber-400 text-slate-700 font-semibold py-3 px-6 rounded-xl transition-colors"
-          >
-            Browse More Products
-          </Link>
+        </div>
+
+        {/* Contact block */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+          <p className="text-sm font-semibold text-gray-700 mb-3">Need help?</p>
+          <div className="flex flex-col sm:flex-row gap-3 text-sm text-gray-600">
+            <a href="tel:+923001234567" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
+              <Phone size={14} className="text-amber-500" />
+              +92 300 1234567
+            </a>
+            <span className="flex items-center gap-2">
+              <MapPin size={14} className="text-amber-500" />
+              Kahna Nau, Lahore
+            </span>
+          </div>
         </div>
       </div>
     </main>
+  )
+}
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    }>
+      <SuccessContent />
+    </Suspense>
   )
 }

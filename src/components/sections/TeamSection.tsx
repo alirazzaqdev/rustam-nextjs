@@ -14,30 +14,36 @@ const owner = {
 const staff = [
   {
     name: 'Ahmad Khan',
+    initials: 'AK',
     title: 'Senior Installation Engineer',
     bio: 'Specialist in residential and commercial solar system installation with over 8 years of field experience across Lahore.',
-    photo: '/team/staff1.svg',
     icon: Wrench,
     iconColor: 'text-sky-600',
     iconBg: 'bg-sky-100',
+    avatarFrom: 'from-sky-400',
+    avatarTo: 'to-blue-500',
   },
   {
     name: 'Sohail Malik',
+    initials: 'SM',
     title: 'Technical Advisor',
     bio: 'Expert in system design, inverter configuration, and battery management. Ensures every installation is optimized for maximum efficiency.',
-    photo: '/team/staff2.svg',
     icon: TrendingUp,
     iconColor: 'text-emerald-600',
     iconBg: 'bg-emerald-100',
+    avatarFrom: 'from-emerald-400',
+    avatarTo: 'to-teal-500',
   },
   {
     name: 'Usman Farooq',
+    initials: 'UF',
     title: 'Customer Support Manager',
     bio: 'Dedicated to after-sales service, warranty support, and maintenance. Available 6 days a week to resolve any customer issue.',
-    photo: '/team/staff3.svg',
     icon: HeadphonesIcon,
     iconColor: 'text-violet-600',
     iconBg: 'bg-violet-100',
+    avatarFrom: 'from-violet-400',
+    avatarTo: 'to-purple-500',
   },
 ]
 
@@ -60,14 +66,10 @@ export function TeamSection() {
 
         {/* Owner — featured full-width card */}
         <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-8 md:p-10 mb-10 flex flex-col md:flex-row items-center gap-8">
-          {/* Photo */}
+          {/* Avatar */}
           <div className="flex-shrink-0">
-            <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden ring-4 ring-amber-200 shadow-xl">
-              <img
-                src={owner.photo}
-                alt={owner.name}
-                className="w-full h-full object-cover"
-              />
+            <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl ring-4 ring-amber-200 shadow-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+              <span className="text-white font-extrabold text-6xl md:text-7xl select-none">MR</span>
             </div>
           </div>
 
@@ -101,13 +103,9 @@ export function TeamSection() {
               key={member.name}
               className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center"
             >
-              {/* Photo */}
-              <div className="w-32 h-32 rounded-xl overflow-hidden ring-2 ring-slate-100 mb-5 shadow">
-                <img
-                  src={member.photo}
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
+              {/* Avatar */}
+              <div className={`w-32 h-32 rounded-xl ring-2 ring-slate-100 mb-5 shadow bg-gradient-to-br ${member.avatarFrom} ${member.avatarTo} flex items-center justify-center`}>
+                <span className="text-white font-extrabold text-3xl select-none">{member.initials}</span>
               </div>
 
               {/* Role icon */}

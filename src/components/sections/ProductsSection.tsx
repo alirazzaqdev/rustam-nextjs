@@ -1,8 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Zap, Eye } from 'lucide-react'
+import { Zap, Eye, ShoppingCart, Check } from 'lucide-react'
 import { ProductModal } from '@/components/ui/ProductModal'
+import { useCartStore } from '@/lib/store'
 import type { Product } from '@/types'
 
 interface ProductsSectionProps {
@@ -20,6 +21,8 @@ export function ProductsSection({ products }: ProductsSectionProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500000])
   const [activeProduct, setActiveProduct] = useState<Product | null>(null)
+  const [addedIds, setAddedIds] = useState<Set<string>>(new Set())
+  const addItem = useCartStore(s => s.addItem)
 
   const categories = [
     { id: 'all', label: 'All Products' },
@@ -144,14 +147,33 @@ export function ProductsSection({ products }: ProductsSectionProps) {
                       </div>
                     )}
 
-                    <div className="flex items-center justify-between mt-auto pt-3 border-t border-slate-100">
-                      <p className="font-bold text-slate-900">
-                        PKR {product.price.toLocaleString()}
-                      </p>
-                      {product.inStock ? (
-                        <span className="text-xs text-green-700 bg-green-100 px-2 py-0.5 rounded-full">In Stock</span>
-                      ) : (
-                        <span className="text-xs text-red-700 bg-red-100 px-2 py-0.5 rounded-full">Out of Stock</span>
+                    <div className="mt-auto pt-3 border-t border-slate-100">
+                      <div className="flex items-center justify-between mb-3">
+                        <p className="font-bold text-slate-900">
+                          PKR {product.price.toLocaleString()}
+                        </p>
+                        {product.inStock ? (
+                          <span className="text-xs text-green-700 bg-green-100 px-2 py-0.5 rounded-full">In Stock</span>
+                        ) : (
+                          <span className="text-xs text-red-700 bg-red-100 px-2 py-0.5 rounded-full">Out of Stock</span>
+                        )}
+                      </div>
+                      {product.inStock && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            addItem({ id: product.id, name: product.name, price: product.price, category: product.category, slug: product.slug })
+                            setAddedIds(prev => new Set(prev).add(product.id))
+                            setTimeout(() => setAddedIds(prev => { const s = new Set(prev); s.delete(product.id); return s }), 1500)
+                          }}
+                          className={`w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-semibold transition-all ${
+                            addedIds.has(product.id)
+                              ? 'bg-green-500 text-white'
+                              : 'bg-amber-500 hover:bg-amber-600 text-white'
+                          }`}
+                        >
+                          {addedIds.has(product.id) ? <><Check size={14} /> Added!</> : <><ShoppingCart size={14} /> Add to Cart</>}
+                        </button>
                       )}
                     </div>
                   </div>
