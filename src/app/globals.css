@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+:root {
+  /* Solar Brand Colors */
+  --color-solar-yellow: #f59e0b;
+  --color-solar-orange: #ea580c;
+  --color-navy-dark: #001f3f;
+  --color-navy-light: #003d7a;
+  --color-white: #ffffff;
+  --color-slate-gray: #64748b;
+  --color-green-energy: #10b981;
+
+  /* Light theme */
+  --background: #ffffff;
+  --foreground: #0f172a;
+}
+
+@theme inline {
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-manrope);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f1f5f9;
+  }
+}
+
+* {
+  @apply border-slate-200;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  @apply antialiased;
+}
+
+/* Smooth scrolling and transitions */
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Selection color */
+::selection {
+  @apply bg-amber-200 text-slate-900;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-amber-500 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-amber-600;
+}
