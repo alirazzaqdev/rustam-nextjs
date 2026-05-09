@@ -1,79 +1,58 @@
 @import "tailwindcss";
 
 :root {
-  /* Solar Brand Colors */
-  --color-solar-yellow: #f59e0b;
-  --color-solar-orange: #ea580c;
-  --color-navy-dark: #001f3f;
-  --color-navy-light: #003d7a;
-  --color-white: #ffffff;
-  --color-slate-gray: #64748b;
-  --color-green-energy: #10b981;
-
-  /* Light theme */
+  --color-gold: #F59E0B;
+  --color-gold-dark: #D97706;
+  --color-navy: #0F172A;
+  --color-green: #10B981;
   --background: #ffffff;
-  --foreground: #0f172a;
+  --foreground: #0F172A;
 }
 
 @theme inline {
   --font-sans: var(--font-inter);
-  --font-serif: var(--font-manrope);
+  --font-display: var(--font-jakarta);
 }
 
-/* Dark mode disabled — site uses explicit light theme colors */
+/* Dark mode disabled — light-only site */
 
 * {
   @apply border-slate-200;
+  box-sizing: border-box;
 }
 
 html {
-  @apply scroll-smooth;
+  scroll-behavior: smooth;
   font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  @apply antialiased;
   font-family: var(--font-inter), system-ui, sans-serif;
   line-height: 1.6;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-manrope), var(--font-inter), system-ui, sans-serif;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-family: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
 }
 
 p {
   line-height: 1.7;
 }
 
-/* Smooth scrolling and transitions */
-@supports (scroll-behavior: smooth) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #F59E0B; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #D97706; }
 
-/* Selection color */
-::selection {
-  @apply bg-amber-200 text-slate-900;
-}
+/* Selection */
+::selection { background: #FDE68A; color: #0F172A; }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  @apply w-2;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-slate-100;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-amber-500 rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-amber-600;
-}
+/* Smooth section transitions */
+section { overflow: hidden; }

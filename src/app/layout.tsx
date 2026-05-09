@@ -1,20 +1,24 @@
 import type { Metadata } from "next"
-import { Inter, Manrope } from "next/font/google"
+import { Inter, Plus_Jakarta_Sans } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
 import { QuoteModal } from "@/components/ui/QuoteModal"
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
 import { generateMetadata, getStructuredData, siteConfig } from "@/lib/seo"
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
 })
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 })
 
 export const metadata: Metadata = generateMetadata(
@@ -31,7 +35,7 @@ export default function RootLayout({
   const organizationSchema = getStructuredData('organization', {})
 
   return (
-    <html lang="en" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -76,6 +80,7 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
         <Footer />
         <QuoteModal />
+        <WhatsAppButton />
       </body>
     </html>
   )
