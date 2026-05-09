@@ -59,7 +59,7 @@ export async function submitQuoteRequest(data: {
   email: string
   phone: string
   projectType: string
-  estimatedBudget?: number
+  estimatedBudget?: string | number
   description?: string
 }) {
   try {

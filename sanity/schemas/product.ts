@@ -55,13 +55,13 @@ export default defineType({
       title: 'Specifications',
       type: 'array',
       of: [
-        defineField({
+        {
           type: 'object',
           fields: [
             { name: 'key', type: 'string', title: 'Key' },
             { name: 'value', type: 'string', title: 'Value' },
           ],
-        }),
+        },
       ],
     }),
     defineField({

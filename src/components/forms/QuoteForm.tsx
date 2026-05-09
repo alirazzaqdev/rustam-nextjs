@@ -12,13 +12,8 @@ const quoteSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Invalid email address'),
   phone: z.string().regex(/^\d{10,}/, 'Phone must be at least 10 digits'),
-  projectType: z.enum(['residential', 'commercial', 'industrial'], {
-    errorMap: () => ({ message: 'Please select a project type' }),
-  }),
-  estimatedBudget: z.coerce
-    .number()
-    .optional()
-    .refine((val) => !val || val >= 100000, 'Budget must be at least PKR 100,000'),
+  projectType: z.enum(['residential', 'commercial', 'industrial']),
+  estimatedBudget: z.string().optional(),
   description: z.string().optional(),
 })
 
