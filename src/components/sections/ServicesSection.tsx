@@ -1,5 +1,6 @@
 'use client'
 
+import type { ElementType } from 'react'
 import { Compass, Wrench, Shield, BarChart3, BatteryCharging, ArrowRight } from 'lucide-react'
 import type { Service } from '@/types'
 
@@ -7,7 +8,7 @@ interface ServicesSectionProps {
   services: Service[]
 }
 
-const iconConfig: Record<string, { icon: React.ElementType; gradient: string; iconColor: string; bgLight: string }> = {
+const iconConfig: Record<string, { icon: ElementType; gradient: string; iconColor: string; bgLight: string }> = {
   'system-design-consultation': {
     icon: Compass,
     gradient: 'from-amber-400 to-orange-500',
@@ -40,7 +41,7 @@ const iconConfig: Record<string, { icon: React.ElementType; gradient: string; ic
   },
 }
 
-const defaultConfig = {
+const defaultConfig: { icon: ElementType; gradient: string; iconColor: string; bgLight: string } = {
   icon: Wrench,
   gradient: 'from-slate-400 to-slate-600',
   iconColor: 'text-slate-600',
