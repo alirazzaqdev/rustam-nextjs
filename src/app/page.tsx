@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button'
 import { ProductsSection } from '@/components/sections/ProductsSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
+import { CalculatorSection } from '@/components/sections/CalculatorSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { getProducts } from '@/actions/products'
 import { getServices } from '@/actions/services'
@@ -87,6 +88,9 @@ export default async function Home() {
           </div>
         </section>
       )}
+
+      {/* Solar Calculator Section */}
+      <CalculatorSection />
 
       {/* FAQ Section */}
       {faqs.length > 0 ? (

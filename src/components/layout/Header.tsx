@@ -14,7 +14,7 @@ export function Header() {
     { href: '#hero', label: 'Home' },
     { href: '#products', label: 'Products' },
     { href: '#services', label: 'Services' },
-    { href: '#about', label: 'About' },
+    { href: '#calculator', label: 'Calculator' },
     { href: '#testimonials', label: 'Reviews' },
     { href: '#contact', label: 'Contact' },
   ]
