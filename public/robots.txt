@@ -1,0 +1,32 @@
+# Rustam Battery & Solar Energy House - Robots.txt
+
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /.next
+Disallow: /api
+Disallow: /private
+
+# Crawl delay (optional - be respectful to servers)
+Crawl-delay: 1
+
+# Sitemaps
+Sitemap: https://rustambattery.com/sitemap.xml
+Sitemap: https://alirazzaq.dev/sitemap.xml
+
+# Google-specific
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing-specific
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
