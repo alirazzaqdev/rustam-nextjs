@@ -4,6 +4,7 @@ import Script from "next/script"
 import "./globals.css"
 import { Header } from "@/components/layout/Header"
 import { Footer } from "@/components/layout/Footer"
+import { QuoteModal } from "@/components/ui/QuoteModal"
 import { generateMetadata, getStructuredData, siteConfig } from "@/lib/seo"
 
 const inter = Inter({
@@ -74,6 +75,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <QuoteModal />
       </body>
     </html>
   )

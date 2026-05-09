@@ -5,6 +5,7 @@ import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CalculatorSection } from '@/components/sections/CalculatorSection'
 import { FAQSection } from '@/components/sections/FAQSection'
 import { ContactSection } from '@/components/sections/ContactSection'
+import { TeamSection } from '@/components/sections/TeamSection'
 import { getProducts } from '@/actions/products'
 import { getServices } from '@/actions/services'
 import { getTestimonials } from '@/actions/testimonials'
@@ -79,6 +80,9 @@ export default async function Home() {
       {testimonials.length > 0 ? (
         <TestimonialsSection testimonials={testimonials} />
       ) : null}
+
+      {/* Team Section */}
+      <TeamSection />
 
       {/* Solar Calculator Section */}
       <CalculatorSection />
