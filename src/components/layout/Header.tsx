@@ -45,10 +45,17 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/order"
+              className="hidden sm:inline-flex items-center px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-medium rounded-md transition-colors"
+            >
+              Order Now
+            </Link>
             <Button
               onClick={() => setQuoteModalOpen(true)}
-              className="hidden sm:inline-flex bg-amber-500 hover:bg-amber-600"
+              variant="outline"
+              className="hidden sm:inline-flex"
             >
               Get Quote
             </Button>
@@ -76,12 +83,20 @@ export function Header() {
                 {item.label}
               </Link>
             ))}
+            <Link
+              href="/order"
+              onClick={() => setIsOpen(false)}
+              className="block w-full text-center mt-4 py-2 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-md transition-colors"
+            >
+              Order Now
+            </Link>
             <Button
               onClick={() => {
                 setQuoteModalOpen(true)
                 setIsOpen(false)
               }}
-              className="w-full mt-4 bg-amber-500 hover:bg-amber-600"
+              variant="outline"
+              className="w-full mt-2"
             >
               Get Quote
             </Button>

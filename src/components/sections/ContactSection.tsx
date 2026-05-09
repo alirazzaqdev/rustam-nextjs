@@ -103,7 +103,7 @@ export function ContactSection() {
           <h3 className="text-2xl font-bold text-slate-900 mb-6">Find Us in Lahore</h3>
           <div className="rounded-xl overflow-hidden shadow-lg border border-slate-200">
             <iframe
-              src="https://www.google.com/maps?q=Lahore,Punjab,Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"
               width="100%"
               height="400"
               style={{ border: 0 }}
@@ -114,7 +114,7 @@ export function ContactSection() {
             />
           </div>
           <p className="text-center text-slate-500 mt-3 text-sm">
-            Lahore, Punjab, Pakistan — Call us at <span className="font-semibold text-slate-700">+92 300 1234567</span> for directions
+            Kahna Nau, Lahore, Punjab, Pakistan — Call us at <span className="font-semibold text-slate-700">+92 300 1234567</span> for directions
           </p>
         </div>
       </div>
