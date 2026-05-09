@@ -4,6 +4,7 @@ import { ServicesSection } from '@/components/sections/ServicesSection'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CalculatorSection } from '@/components/sections/CalculatorSection'
 import { FAQSection } from '@/components/sections/FAQSection'
+import { ContactSection } from '@/components/sections/ContactSection'
 import { getProducts } from '@/actions/products'
 import { getServices } from '@/actions/services'
 import { getTestimonials } from '@/actions/testimonials'
@@ -106,13 +107,8 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Contact Section Placeholder */}
-      <section id="contact" className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Contact Us</h2>
-          <p className="text-center text-slate-600">Contact form coming soon...</p>
-        </div>
-      </section>
+      {/* Contact Section */}
+      <ContactSection />
     </div>
   )
 }
