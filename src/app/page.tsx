@@ -10,6 +10,9 @@ import { getServices } from '@/actions/services'
 import { getTestimonials } from '@/actions/testimonials'
 import { getFAQs } from '@/actions/faqs'
 
+export const revalidate = false
+export const dynamic = 'force-static'
+
 export default async function Home() {
   const [products, services, testimonials, faqs] = await Promise.all([
     getProducts(),
