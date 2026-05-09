@@ -1,6 +1,21 @@
 import { Button } from '@/components/ui/button'
+import { ProductsSection } from '@/components/sections/ProductsSection'
+import { ServicesSection } from '@/components/sections/ServicesSection'
+import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
+import { FAQSection } from '@/components/sections/FAQSection'
+import { getProducts } from '@/actions/products'
+import { getServices } from '@/actions/services'
+import { getTestimonials } from '@/actions/testimonials'
+import { getFAQs } from '@/actions/faqs'
 
-export default function Home() {
+export default async function Home() {
+  const [products, services, testimonials, faqs] = await Promise.all([
+    getProducts(),
+    getServices(),
+    getTestimonials(),
+    getFAQs(),
+  ])
+
   return (
     <div>
       {/* Hero Section */}
@@ -28,21 +43,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Products Section Placeholder */}
-      <section id="products" className="py-20 px-4 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Products</h2>
-          <p className="text-center text-slate-600">Product catalog coming soon...</p>
-        </div>
-      </section>
+      {/* Products Section */}
+      {products.length > 0 ? (
+        <ProductsSection products={products} />
+      ) : (
+        <section id="products" className="py-20 px-4 bg-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">Our Products</h2>
+            <p className="text-slate-600 mb-8">
+              Products will appear here once database is configured and seeded.
+            </p>
+            <p className="text-sm text-slate-500">
+              Follow the QUICK_START.md guide to set up your database
+            </p>
+          </div>
+        </section>
+      )}
 
-      {/* Services Section Placeholder */}
-      <section id="services" className="py-20 px-4 bg-slate-50">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-4xl font-bold text-center mb-12">Our Services</h2>
-          <p className="text-center text-slate-600">Services section coming soon...</p>
-        </div>
-      </section>
+      {/* Services Section */}
+      {services.length > 0 ? (
+        <ServicesSection services={services} />
+      ) : (
+        <section id="services" className="py-20 px-4 bg-slate-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">Our Services</h2>
+            <p className="text-slate-600">
+              Services will appear here once database is configured and seeded.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* Testimonials Section */}
+      {testimonials.length > 0 ? (
+        <TestimonialsSection testimonials={testimonials} />
+      ) : (
+        <section id="testimonials" className="py-20 px-4 bg-slate-50">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">What Our Customers Say</h2>
+            <p className="text-slate-600">
+              Testimonials will appear here once database is configured and seeded.
+            </p>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ Section */}
+      {faqs.length > 0 ? (
+        <FAQSection faqs={faqs} />
+      ) : (
+        <section id="faq" className="py-20 px-4 bg-white">
+          <div className="max-w-7xl mx-auto text-center">
+            <h2 className="text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+            <p className="text-slate-600">
+              FAQs will appear here once database is configured and seeded.
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* Contact Section Placeholder */}
       <section id="contact" className="py-20 px-4 bg-white">
