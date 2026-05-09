@@ -98,12 +98,24 @@ export function ContactSection() {
           </div>
         </div>
 
-        {/* Map Section (Optional) */}
+        {/* Map Section */}
         <div className="mt-16">
-          <h3 className="text-2xl font-bold text-slate-900 mb-6">Find Us</h3>
-          <div className="bg-slate-200 rounded-lg overflow-hidden shadow-lg h-96 flex items-center justify-center">
-            <p className="text-slate-600">Interactive map coming soon</p>
+          <h3 className="text-2xl font-bold text-slate-900 mb-6">Find Us in Lahore</h3>
+          <div className="rounded-xl overflow-hidden shadow-lg border border-slate-200">
+            <iframe
+              src="https://www.google.com/maps?q=Lahore,Punjab,Pakistan&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Rustam Battery Location - Lahore, Pakistan"
+            />
           </div>
+          <p className="text-center text-slate-500 mt-3 text-sm">
+            Lahore, Punjab, Pakistan — Call us at <span className="font-semibold text-slate-700">+92 300 1234567</span> for directions
+          </p>
         </div>
       </div>
     </section>

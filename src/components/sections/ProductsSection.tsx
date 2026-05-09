@@ -169,7 +169,12 @@ export function ProductsSection({ products }: ProductsSectionProps) {
                   </div>
 
                   {/* CTA */}
-                  <Button className="w-full bg-amber-500 hover:bg-amber-600 gap-2">
+                  <Button
+                    className="w-full bg-amber-500 hover:bg-amber-600 gap-2 cursor-pointer"
+                    onClick={() => {
+                      document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+                    }}
+                  >
                     <ShoppingCart size={16} />
                     Get Quote
                   </Button>
