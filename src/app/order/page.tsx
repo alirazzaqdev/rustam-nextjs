@@ -8,8 +8,14 @@ export const metadata = {
   description: 'Order solar panels, batteries, and inverters from Rustam Battery. Flexible payment options available.',
 }
 
-export default async function OrderPage() {
+interface OrderPageProps {
+  searchParams: Promise<{ product?: string }>
+}
+
+export default async function OrderPage({ searchParams }: OrderPageProps) {
   const products = await getProducts()
+  const params = await searchParams
+  const prefilledProduct = params.product ? decodeURIComponent(params.product) : undefined
 
   return (
     <main className="min-h-screen bg-slate-50 py-12 px-4">
@@ -34,7 +40,7 @@ export default async function OrderPage() {
           </p>
         </div>
 
-        <OrderForm products={products} />
+        <OrderForm products={products} prefilledProduct={prefilledProduct} />
 
         {/* Trust badges */}
         <div className="mt-8 grid grid-cols-3 gap-4 text-center">

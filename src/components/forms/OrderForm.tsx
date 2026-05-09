@@ -34,9 +34,10 @@ const PAYMENT_METHODS = [
 
 interface OrderFormProps {
   products: Product[]
+  prefilledProduct?: string
 }
 
-export function OrderForm({ products }: OrderFormProps) {
+export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -49,7 +50,10 @@ export function OrderForm({ products }: OrderFormProps) {
     formState: { errors },
   } = useForm<OrderFormData>({
     resolver: zodResolver(orderSchema),
-    defaultValues: { paymentMethod: 'Bank Transfer' },
+    defaultValues: {
+      paymentMethod: 'Bank Transfer',
+      selectedProducts: prefilledProduct || '',
+    },
   })
 
   const onSubmit = async (data: OrderFormData) => {

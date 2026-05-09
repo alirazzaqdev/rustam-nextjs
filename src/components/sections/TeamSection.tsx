@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Award, Wrench, HeadphonesIcon, TrendingUp } from 'lucide-react'
 
 const owner = {
@@ -63,13 +62,11 @@ export function TeamSection() {
         <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-8 md:p-10 mb-10 flex flex-col md:flex-row items-center gap-8">
           {/* Photo */}
           <div className="flex-shrink-0">
-            <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden ring-4 ring-amber-200 shadow-xl">
-              <Image
+            <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden ring-4 ring-amber-200 shadow-xl">
+              <img
                 src={owner.photo}
                 alt={owner.name}
-                fill
-                className="object-cover"
-                sizes="224px"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -105,13 +102,11 @@ export function TeamSection() {
               className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center"
             >
               {/* Photo */}
-              <div className="relative w-32 h-32 rounded-xl overflow-hidden ring-2 ring-slate-100 mb-5 shadow">
-                <Image
+              <div className="w-32 h-32 rounded-xl overflow-hidden ring-2 ring-slate-100 mb-5 shadow">
+                <img
                   src={member.photo}
                   alt={member.name}
-                  fill
-                  className="object-cover"
-                  sizes="128px"
+                  className="w-full h-full object-cover"
                 />
               </div>
 
