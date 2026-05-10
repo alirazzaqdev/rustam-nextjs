@@ -1,32 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
-import { getAdminSession } from '@/lib/auth'
+import { products } from '@/data/products'
+import type { Product, ProductCategory } from '@/types'
+
+const CATEGORIES = new Set<ProductCategory>(['Battery', 'Solar Panel', 'Inverter', 'Accessory'])
+
+function isCategory(value: string): value is ProductCategory {
+  return CATEGORIES.has(value as ProductCategory)
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const category = searchParams.get('category')
+  const brand = searchParams.get('brand')
   const featured = searchParams.get('featured')
 
-  const products = await prisma.product.findMany({
-    where: {
-      ...(category ? { category } : {}),
-      ...(featured ? { featured: featured === 'true' } : {}),
-    },
-    orderBy: { createdAt: 'desc' },
-  })
-  return NextResponse.json(products)
-}
+  let result: Product[] = products
+  if (category && isCategory(category)) result = result.filter((p) => p.category === category)
+  if (brand) result = result.filter((p) => p.brand.toLowerCase() === brand.toLowerCase())
+  if (featured) result = result.filter((p) => p.featured === (featured === 'true'))
 
-export async function POST(req: NextRequest) {
-  const isAdmin = await getAdminSession()
-  if (!isAdmin) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  try {
-    const body = await req.json()
-    const product = await prisma.product.create({ data: body })
-    return NextResponse.json(product, { status: 201 })
-  } catch (err) {
-    console.error(err)
-    return NextResponse.json({ error: 'Failed to create product' }, { status: 500 })
-  }
+  return NextResponse.json(result)
 }

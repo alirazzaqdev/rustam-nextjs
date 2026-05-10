@@ -7,8 +7,8 @@ export interface CartItem {
   price: number
   quantity: number
   category: string
-  image?: string
-  slug: string
+  brand?: string
+  image?: string | null
 }
 
 interface CartState {

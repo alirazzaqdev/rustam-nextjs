@@ -1,55 +1,24 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
+import { products } from '@/data/products'
 import type { Product } from '@/types'
 
 export async function getProducts(): Promise<Product[]> {
-  try {
-    const products = await prisma.product.findMany({
-      orderBy: { createdAt: 'desc' },
-    })
-    return products as Product[]
-  } catch (error) {
-    console.error('Failed to fetch products:', error)
-    return []
-  }
+  return products
 }
 
-export async function getProductBySlug(slug: string): Promise<Product | null> {
-  try {
-    const product = await prisma.product.findUnique({
-      where: { slug },
-    })
-    return product as Product | null
-  } catch (error) {
-    console.error('Failed to fetch product:', error)
-    return null
-  }
+export async function getProductById(id: string): Promise<Product | null> {
+  return products.find((p) => p.id === id) ?? null
 }
 
-export async function getProductsByCategory(category: string): Promise<Product[]> {
-  try {
-    const products = await prisma.product.findMany({
-      where: { category },
-      orderBy: { createdAt: 'desc' },
-    })
-    return products as Product[]
-  } catch (error) {
-    console.error('Failed to fetch products by category:', error)
-    return []
-  }
+export async function getProductsByCategory(category: Product['category']): Promise<Product[]> {
+  return products.filter((p) => p.category === category)
+}
+
+export async function getProductsByBrand(brand: string): Promise<Product[]> {
+  return products.filter((p) => p.brand === brand)
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  try {
-    const products = await prisma.product.findMany({
-      where: { featured: true },
-      orderBy: { createdAt: 'desc' },
-      take: 6,
-    })
-    return products as Product[]
-  } catch (error) {
-    console.error('Failed to fetch featured products:', error)
-    return []
-  }
+  return products.filter((p) => p.featured).slice(0, 6)
 }

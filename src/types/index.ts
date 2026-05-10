@@ -1,15 +1,16 @@
-export type Product = {
+export type ProductCategory = 'Battery' | 'Solar Panel' | 'Inverter' | 'Accessory'
+
+export interface Product {
   id: string
   name: string
-  slug: string
-  description: string
-  category: string
+  category: ProductCategory
+  brand: string
   price: number
-  image: string
-  specs: Record<string, any>
-  warranty?: string
-  featured: boolean
+  specs: Record<string, string>
+  description: string
   inStock: boolean
+  featured: boolean
+  image?: string | null
 }
 
 export type Service = {

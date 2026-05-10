@@ -1,46 +1,19 @@
 'use client'
 
-import { Suspense, useEffect, useState } from 'react'
+import { Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft, Zap } from 'lucide-react'
 import { OrderForm } from '@/components/forms/OrderForm'
-import type { Product } from '@/types'
-
-// Hardcoded fallback so the page renders instantly even if DB is slow/unreachable.
-// Same shape as Prisma Product — fields not used by OrderForm are stubbed.
-const FALLBACK_PRODUCTS: Product[] = [
-  { id: 'p1', slug: 'longi-550w', name: 'LONGI 550W Mono Solar Panel', description: '', category: 'solar-panels', price: 28000, image: '', specs: {}, featured: true, inStock: true },
-  { id: 'p2', slug: 'jinko-580w', name: 'JINKO 580W N-Type Panel', description: '', category: 'solar-panels', price: 32000, image: '', specs: {}, featured: false, inStock: true },
-  { id: 'p3', slug: 'inverex-5kw', name: 'Inverex 5kW Hybrid Inverter', description: '', category: 'inverters', price: 185000, image: '', specs: {}, featured: true, inStock: true },
-  { id: 'p4', slug: 'fronus-3kw', name: 'Fronus 3kW Solar Inverter', description: '', category: 'inverters', price: 92000, image: '', specs: {}, featured: false, inStock: true },
-  { id: 'p5', slug: 'pylontech-48v', name: 'Pylontech 48V 100Ah Lithium', description: '', category: 'batteries', price: 245000, image: '', specs: {}, featured: true, inStock: true },
-  { id: 'p6', slug: 'phoenix-lead-acid', name: 'Phoenix 200Ah Tubular Battery', description: '', category: 'batteries', price: 48000, image: '', specs: {}, featured: false, inStock: true },
-  { id: 'p7', slug: 'mounting-kit', name: 'Roof Mounting Kit (Per kW)', description: '', category: 'accessories', price: 8500, image: '', specs: {}, featured: false, inStock: true },
-  { id: 'p8', slug: 'mc4-cables', name: 'MC4 Cable Set + DC Breakers', description: '', category: 'accessories', price: 5500, image: '', specs: {}, featured: false, inStock: true },
-]
+import { products } from '@/data/products'
 
 function OrderPageContent() {
   const searchParams = useSearchParams()
-  const prefilledProduct = searchParams.get('product')
-    ? decodeURIComponent(searchParams.get('product') as string)
+  const prefilledName = searchParams.get('product')
+  const prefilledPrice = searchParams.get('price')
+  const prefilledProduct = prefilledName
+    ? `${decodeURIComponent(prefilledName)}${prefilledPrice && Number(prefilledPrice) > 0 ? ` — PKR ${Number(prefilledPrice).toLocaleString('en-PK')}` : ''}`
     : undefined
-
-  // Lazy-load DB products in the background — fall back to hardcoded list if it doesn't return quickly
-  const [products, setProducts] = useState<Product[]>(FALLBACK_PRODUCTS)
-
-  useEffect(() => {
-    let cancelled = false
-    fetch('/api/products', { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : null)
-      .then((data) => {
-        if (!cancelled && Array.isArray(data) && data.length > 0) {
-          setProducts(data)
-        }
-      })
-      .catch(() => { /* keep fallback */ })
-    return () => { cancelled = true }
-  }, [])
 
   return (
     <main className="min-h-screen bg-slate-50 py-8 px-4">

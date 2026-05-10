@@ -198,19 +198,19 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
             <div className="mb-4 p-4 bg-amber-50 rounded-xl border border-amber-100">
               <p className="text-sm font-medium text-amber-800 mb-3">Quick add from our catalog:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto pr-1">
-                {products.slice(0, 8).map((p) => (
+                {products.filter(p => p.price > 0).slice(0, 8).map((p) => (
                   <button
                     key={p.id}
                     type="button"
                     onClick={() => {
                       const current = watchedProducts || ''
-                      const line = `${p.name} — PKR ${p.price.toLocaleString()}`
+                      const line = `${p.name} — PKR ${p.price.toLocaleString('en-PK')}`
                       setValue('selectedProducts', current ? `${current}\n${line}` : line, { shouldValidate: true })
                     }}
                     className="text-left text-xs px-3 py-2 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors text-slate-700"
                   >
                     <span className="font-medium block">{p.name}</span>
-                    <span className="text-amber-700">PKR {p.price.toLocaleString()}</span>
+                    <span className="text-amber-700">PKR {p.price.toLocaleString('en-PK')}</span>
                   </button>
                 ))}
               </div>
