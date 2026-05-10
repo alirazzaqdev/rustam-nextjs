@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma'
 import { Resend } from 'resend'
 
 const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@rustambattery.com'
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rustambattery.com'
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'ia6969537@gmail.com'
 
 export type OrderData = {
   name: string
@@ -94,7 +94,7 @@ async function sendEmails(data: OrderData, orderId: string): Promise<void> {
         <p>Hi ${data.name},</p>
         <p>Thank you for your order. Reference: <strong>${orderId}</strong></p>
         <p>Our team will contact you at <strong>${data.phone}</strong> within 24 hours.</p>
-        <p>Best regards,<br><strong>Rustam Battery & Solar Energy House</strong><br>Kahna Nau, Lahore | +92 300 1234567</p>
+        <p>Best regards,<br><strong>Rustam Battery & Solar Energy House</strong><br>Kahna Nau, Lahore | +92 321 3770402</p>
       `,
     })
   } catch (err) {

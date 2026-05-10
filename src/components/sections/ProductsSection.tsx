@@ -22,7 +22,7 @@ const CATEGORY_MAP: Record<string, Product['category']> = {
   Accessories:    'Accessory',
 }
 
-const WHATSAPP_NUMBER = '923001234567'
+const WHATSAPP_NUMBER = '923213770402'
 
 function whatsappOrderUrl(product: Product): string {
   const msg = product.price > 0

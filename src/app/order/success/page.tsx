@@ -52,7 +52,7 @@ function SuccessContent() {
               </p>
 
               <a
-                href={`https://wa.me/923001234567?text=${whatsappMsg}`}
+                href={`https://wa.me/923213770402?text=${whatsappMsg}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors mb-3"
@@ -76,7 +76,7 @@ function SuccessContent() {
               </p>
 
               <a
-                href="https://wa.me/923001234567"
+                href="https://wa.me/923213770402"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full flex items-center justify-center gap-2 bg-green-500 text-white py-3 rounded-xl font-semibold hover:bg-green-600 transition-colors mb-3"
@@ -103,9 +103,9 @@ function SuccessContent() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
           <p className="text-sm font-semibold text-gray-700 mb-3">Need help?</p>
           <div className="flex flex-col sm:flex-row gap-3 text-sm text-gray-600">
-            <a href="tel:+923001234567" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
+            <a href="tel:+923213770402" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
               <Phone size={14} className="text-amber-500" />
-              +92 300 1234567
+              +92 321 3770402
             </a>
             <span className="flex items-center gap-2">
               <MapPin size={14} className="text-amber-500" />

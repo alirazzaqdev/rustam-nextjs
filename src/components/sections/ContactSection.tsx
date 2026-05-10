@@ -6,8 +6,8 @@ import { QuoteForm } from '@/components/forms/QuoteForm'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const contactCards = [
-  { icon: Phone,  title: 'Phone',    primary: '+92 300 1234567',          secondary: 'Call us anytime' },
-  { icon: Mail,   title: 'Email',    primary: 'info@rustambattery.com',   secondary: 'Send us a message', href: 'mailto:info@rustambattery.com' },
+  { icon: Phone,  title: 'Phone',    primary: '+92 321 3770402',          secondary: 'Call us anytime' },
+  { icon: Mail,   title: 'Email',    primary: 'ia6969537@gmail.com',      secondary: 'Send us a message', href: 'mailto:ia6969537@gmail.com' },
   { icon: MapPin, title: 'Location', primary: 'Kahna Nau, Lahore',         secondary: 'Punjab, Pakistan' },
 ]
 
@@ -60,7 +60,7 @@ export function ContactSection() {
             </div>
             <div className="text-base text-gray-600">
               <p className="mb-1">For emergencies outside business hours:</p>
-              <p className="font-semibold text-slate-900">+92 300 1234567 <span className="text-gray-500 font-normal">(24/7)</span></p>
+              <p className="font-semibold text-slate-900">+92 321 3770402 <span className="text-gray-500 font-normal">(24/7)</span></p>
             </div>
           </div>
         </div>

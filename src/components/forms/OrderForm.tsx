@@ -95,7 +95,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
       data.notes ? `*Notes:* ${data.notes}` : '',
     ].filter(Boolean).join('\n')
 
-    return `https://wa.me/923001234567?text=${encodeURIComponent(lines)}`
+    return `https://wa.me/923213770402?text=${encodeURIComponent(lines)}`
   }
 
   const onSubmit = async (data: OrderFormData) => {
@@ -127,7 +127,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
         `/order/success?ref=${orderId}&payment=${encodeURIComponent(data.paymentMethod)}&name=${encodeURIComponent(data.name)}`
       )
     } catch {
-      setError('Something went wrong opening WhatsApp. Please call +92 300 1234567 directly.')
+      setError('Something went wrong opening WhatsApp. Please call +92 321 3770402 directly.')
       setLoading(false)
     }
   }

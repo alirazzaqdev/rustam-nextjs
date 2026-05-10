@@ -1,4 +1,4 @@
-const WA_NUMBER = '923001234567'
+const WA_NUMBER = '923213770402'
 const WA_MESSAGE = 'Hello! I am interested in solar panels/batteries. Please share details.'
 
 export function WhatsAppButton() {
