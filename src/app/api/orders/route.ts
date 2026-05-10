@@ -2,9 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@rustambattery.com'
 const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@rustambattery.com'
+
+function getResend(): Resend | null {
+  const key = process.env.RESEND_API_KEY
+  if (!key) return null
+  return new Resend(key)
+}
 
 function generateOrderNumber(): string {
   const ts = Date.now().toString(36).toUpperCase()
@@ -55,6 +60,16 @@ export async function POST(req: NextRequest) {
     const itemsHtml = body.items
       .map((i) => `<tr><td style="padding:6px 12px;border:1px solid #e2e8f0">${i.name}</td><td style="padding:6px 12px;border:1px solid #e2e8f0;text-align:center">${i.quantity}</td><td style="padding:6px 12px;border:1px solid #e2e8f0;text-align:right">PKR ${(i.price * i.quantity).toLocaleString()}</td></tr>`)
       .join('')
+
+    const resend = getResend()
+    if (!resend) {
+      return NextResponse.json({
+        success: true,
+        orderId: order.id,
+        orderNumber: order.orderNumber,
+        warning: 'Email not configured',
+      })
+    }
 
     // Customer email
     await resend.emails.send({

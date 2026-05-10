@@ -3,6 +3,8 @@ import { prisma } from '@/lib/prisma'
 import AdminShell from '@/components/admin/AdminShell'
 import { ShoppingBag, DollarSign, Clock } from 'lucide-react'
 
+export const dynamic = 'force-dynamic'
+
 async function getStats() {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
