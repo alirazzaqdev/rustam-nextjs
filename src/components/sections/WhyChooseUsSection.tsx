@@ -1,143 +1,44 @@
-'use client'
-
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
 import {
   ShieldCheck, Award, PackageCheck, HeadphonesIcon,
   Lightbulb, Clock, Wrench, Leaf
 } from 'lucide-react'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const reasons = [
-  {
-    icon: Award,
-    title: '19 Years of Expertise',
-    desc: 'Since 2006, we have powered hundreds of homes and businesses across Lahore with reliable solar solutions.',
-    color: 'text-amber-600',
-    bg: 'bg-amber-50',
-    border: 'border-amber-100',
-  },
-  {
-    icon: PackageCheck,
-    title: 'Original Products Only',
-    desc: 'We stock genuine, certified solar panels, batteries, and inverters — no counterfeits, ever.',
-    color: 'text-emerald-600',
-    bg: 'bg-emerald-50',
-    border: 'border-emerald-100',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Full Warranty Support',
-    desc: 'Every product comes with manufacturer warranty. We handle all warranty claims on your behalf.',
-    color: 'text-sky-600',
-    bg: 'bg-sky-50',
-    border: 'border-sky-100',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Free Expert Consultation',
-    desc: 'Our engineers assess your site and design the perfect system — no cost, no obligation.',
-    color: 'text-violet-600',
-    bg: 'bg-violet-50',
-    border: 'border-violet-100',
-  },
-  {
-    icon: Wrench,
-    title: 'Licensed Engineers',
-    desc: 'Every installation is done by certified technicians following NEPRA safety standards.',
-    color: 'text-rose-600',
-    bg: 'bg-rose-50',
-    border: 'border-rose-100',
-  },
-  {
-    icon: HeadphonesIcon,
-    title: 'After-Sales Service',
-    desc: '24/7 WhatsApp support and scheduled AMC visits to keep your system running at peak performance.',
-    color: 'text-orange-600',
-    bg: 'bg-orange-50',
-    border: 'border-orange-100',
-  },
-  {
-    icon: Clock,
-    title: 'Fast Installation',
-    desc: 'Residential systems installed in 3–5 days. We handle permits, net metering, and inspections.',
-    color: 'text-teal-600',
-    bg: 'bg-teal-50',
-    border: 'border-teal-100',
-  },
-  {
-    icon: Leaf,
-    title: 'Eco-Friendly Impact',
-    desc: 'Every system we install reduces Pakistan\'s carbon footprint. Go green, save money, help the planet.',
-    color: 'text-green-600',
-    bg: 'bg-green-50',
-    border: 'border-green-100',
-  },
+  { icon: Award,         title: '19 Years of Expertise',     desc: 'Since 2006, we have powered hundreds of homes and businesses across Lahore.' },
+  { icon: PackageCheck,  title: 'Original Products Only',    desc: 'Genuine, certified solar panels, batteries, and inverters from trusted brands.' },
+  { icon: ShieldCheck,   title: 'Full Warranty Support',     desc: 'Manufacturer warranty on every product. We handle all warranty claims for you.' },
+  { icon: Lightbulb,     title: 'Free Expert Consultation',  desc: 'Our engineers assess your site and design the perfect system — no obligation.' },
+  { icon: Wrench,        title: 'Licensed Engineers',        desc: 'Certified technicians following NEPRA safety and installation standards.' },
+  { icon: HeadphonesIcon, title: 'After-Sales Service',      desc: '24/7 WhatsApp support and scheduled AMC visits for ongoing peak performance.' },
+  { icon: Clock,         title: 'Fast Installation',         desc: 'Residential systems in 3–5 days. We handle permits, net metering, and inspections.' },
+  { icon: Leaf,          title: 'Eco-Friendly Impact',       desc: 'Every system reduces Pakistan’s carbon footprint. Go green, save money.' },
 ]
 
 export function WhyChooseUsSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
-    <section id="why-us" className="py-24 px-4 bg-white">
-      <div className="max-w-7xl mx-auto" ref={ref}>
+    <section id="why-us" className="bg-white py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="Why Rustam Battery"
+          title="Built on trust, backed by 19 years"
+          description="We don't just sell solar — we build long-term energy partnerships with every customer in Lahore."
+        />
 
-        {/* Header */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-block bg-slate-900 text-amber-400 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-            Why Rustam Battery?
-          </span>
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4">
-            Built on Trust,<br />
-            <span className="bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-              Backed by 19 Years
-            </span>
-          </h2>
-          <p className="text-xl text-slate-500 max-w-2xl mx-auto">
-            We don't just sell solar — we build long-term energy partnerships with every customer in Lahore
-          </p>
-        </motion.div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {reasons.map((r, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
-              className={`group border ${r.border} rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-200`}
+        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {reasons.map(({ icon: Icon, title, desc }) => (
+            <div
+              key={title}
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-amber-300 hover:shadow-md transition-all duration-200"
             >
-              <div className={`w-12 h-12 ${r.bg} rounded-xl flex items-center justify-center mb-4`}>
-                <r.icon size={22} className={r.color} />
+              <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                <Icon size={20} className="text-amber-600" strokeWidth={2.25} />
               </div>
-              <h3 className="font-bold text-slate-900 mb-2 text-base">{r.title}</h3>
-              <p className="text-sm text-slate-500 leading-relaxed">{r.desc}</p>
-            </motion.div>
+              <h3 className="text-xl font-semibold text-slate-800 tracking-tight mb-2">{title}</h3>
+              <p className="text-base text-gray-600 leading-relaxed">{desc}</p>
+            </div>
           ))}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-14 text-center"
-        >
-          <p className="text-slate-500 mb-4">Ready to switch to solar?</p>
-          <a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-            className="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-bold px-8 py-4 rounded-2xl text-base shadow-lg shadow-amber-100 transition-all"
-          >
-            Book Free Consultation →
-          </a>
-        </motion.div>
       </div>
     </section>
   )

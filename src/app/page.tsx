@@ -27,43 +27,13 @@ export default async function Home() {
     <div>
       <HeroSection />
       <StatsSection />
-
-      {products.length > 0 ? (
-        <ProductsSection products={products} />
-      ) : (
-        <section id="products" className="py-20 px-4 bg-white">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-4 text-slate-900">Our Products</h2>
-            <p className="text-slate-500">Solar panels, batteries, inverters and more.</p>
-          </div>
-        </section>
-      )}
-
-      {services.length > 0 ? (
-        <ServicesSection services={services} />
-      ) : (
-        <section id="services" className="py-20 px-4 bg-slate-50">
-          <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-4 text-slate-900">Our Services</h2>
-            <p className="text-slate-500">Installation, maintenance and consultation.</p>
-          </div>
-        </section>
-      )}
-
+      <ProductsSection products={products} />
+      <ServicesSection services={services} />
       <WhyChooseUsSection />
-
       <TeamSection />
-
-      {testimonials.length > 0 && (
-        <TestimonialsSection testimonials={testimonials} />
-      )}
-
+      <TestimonialsSection testimonials={testimonials} />
       <CalculatorSection />
-
-      {faqs.length > 0 && (
-        <FAQSection faqs={faqs} />
-      )}
-
+      <FAQSection faqs={faqs} />
       <ContactSection />
     </div>
   )

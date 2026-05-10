@@ -90,8 +90,8 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               </div>
             )}
             {product.featured && (
-              <div className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                ⭐ Featured
+              <div className="absolute top-4 left-4 bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                Featured
               </div>
             )}
           </div>

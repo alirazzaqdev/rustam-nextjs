@@ -1,71 +1,22 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
-import { motion, useInView } from 'framer-motion'
-
 const stats = [
-  { value: 19,  suffix: '+', label: 'Years Experience',    color: 'text-amber-500' },
-  { value: 500, suffix: '+', label: 'Happy Customers',     color: 'text-emerald-500' },
-  { value: 70,  suffix: '%', label: 'Avg Bill Reduction',  color: 'text-sky-500' },
-  { value: 5,   suffix: 'kW',label: 'Avg System Size',    color: 'text-violet-500' },
+  { value: '19+', label: 'Years experience' },
+  { value: '500+', label: 'Happy customers' },
+  { value: '70%', label: 'Avg bill reduction' },
+  { value: '5kW', label: 'Avg system size' },
 ]
 
-function CountUp({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
-  const ref = useRef<HTMLSpanElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-80px' })
-
-  useEffect(() => {
-    if (!inView) return
-    const duration = 1800
-    const steps = 50
-    const step = target / steps
-    let current = 0
-    const timer = setInterval(() => {
-      current += step
-      if (current >= target) {
-        setCount(target)
-        clearInterval(timer)
-      } else {
-        setCount(Math.floor(current))
-      }
-    }, duration / steps)
-    return () => clearInterval(timer)
-  }, [inView, target])
-
-  return (
-    <span ref={ref} className="font-extrabold tabular-nums" style={{ fontFamily: 'var(--font-jakarta)' }}>
-      {count}{suffix}
-    </span>
-  )
-}
-
 export function StatsSection() {
-  const ref = useRef<HTMLDivElement>(null)
-  const inView = useInView(ref, { once: true, margin: '-60px' })
-
   return (
-    <section ref={ref} className="relative py-16 px-4 bg-slate-900 overflow-hidden">
-      {/* Subtle grid */}
-      <div className="absolute inset-0 opacity-5"
-        style={{ backgroundImage: 'linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)', backgroundSize: '40px 40px' }}
-      />
-
-      <div className="relative max-w-5xl mx-auto">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="text-center"
-            >
-              <p className={`text-5xl md:text-6xl mb-2 ${s.color}`}>
-                <CountUp target={s.value} suffix={s.suffix} />
+    <section className="bg-slate-50 py-12 border-y border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gray-200">
+          {stats.map((s) => (
+            <div key={s.label} className="text-center px-4 py-6 md:py-2">
+              <p className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
+                {s.value}
               </p>
-              <p className="text-slate-400 text-sm font-medium tracking-wide uppercase">{s.label}</p>
-            </motion.div>
+              <p className="text-sm text-gray-500 mt-2">{s.label}</p>
+            </div>
           ))}
         </div>
       </div>

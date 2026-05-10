@@ -82,16 +82,14 @@ export function FAQSection({ faqs }: FAQSectionProps) {
       : STATIC_FAQS
 
   return (
-    <section id="faq" className="py-20 px-4 bg-white">
-      <div className="max-w-3xl mx-auto">
-        <div className="text-center mb-12">
-          <span className="inline-block bg-amber-100 text-amber-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-            FAQs
-          </span>
-          <h2 className="text-4xl font-bold mb-4 text-slate-900">
+    <section id="faq" className="bg-slate-50 py-20 md:py-24">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-12">
+          <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-3">FAQs</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-slate-600">
+          <p className="mt-4 text-base text-gray-500 leading-relaxed">
             Find answers to common questions about our solar solutions
           </p>
         </div>

@@ -1,27 +1,32 @@
 import { Award, Wrench, HeadphonesIcon, TrendingUp } from 'lucide-react'
+import type { ElementType } from 'react'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
-const owner = {
+interface Member {
+  name: string
+  initials: string
+  title: string
+  bio: string
+  icon: ElementType
+  experience?: string
+}
+
+const owner: Member = {
   name: 'Muhammad Rustam',
+  initials: 'MR',
   title: 'Founder & Owner',
   experience: '19 Years Experience',
   bio: 'Muhammad Rustam founded Rustam Battery & Solar Energy House with a vision to bring reliable, affordable solar solutions to Lahore. With 19 years of hands-on expertise, he personally oversees every project to ensure the highest quality standards.',
-  photo: '/team/owner.svg',
   icon: Award,
-  iconColor: 'text-amber-600',
-  iconBg: 'bg-amber-100',
 }
 
-const staff = [
+const staff: Member[] = [
   {
     name: 'Ahmad Khan',
     initials: 'AK',
     title: 'Senior Installation Engineer',
     bio: 'Specialist in residential and commercial solar system installation with over 8 years of field experience across Lahore.',
     icon: Wrench,
-    iconColor: 'text-sky-600',
-    iconBg: 'bg-sky-100',
-    avatarFrom: 'from-sky-400',
-    avatarTo: 'to-blue-500',
   },
   {
     name: 'Sohail Malik',
@@ -29,10 +34,6 @@ const staff = [
     title: 'Technical Advisor',
     bio: 'Expert in system design, inverter configuration, and battery management. Ensures every installation is optimized for maximum efficiency.',
     icon: TrendingUp,
-    iconColor: 'text-emerald-600',
-    iconBg: 'bg-emerald-100',
-    avatarFrom: 'from-emerald-400',
-    avatarTo: 'to-teal-500',
   },
   {
     name: 'Usman Farooq',
@@ -40,90 +41,61 @@ const staff = [
     title: 'Customer Support Manager',
     bio: 'Dedicated to after-sales service, warranty support, and maintenance. Available 6 days a week to resolve any customer issue.',
     icon: HeadphonesIcon,
-    iconColor: 'text-violet-600',
-    iconBg: 'bg-violet-100',
-    avatarFrom: 'from-violet-400',
-    avatarTo: 'to-purple-500',
   },
 ]
 
 export function TeamSection() {
   return (
-    <section id="team" className="py-20 px-4 bg-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <span className="inline-block bg-amber-100 text-amber-700 text-sm font-semibold px-4 py-1.5 rounded-full mb-4">
-            Our Team
-          </span>
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
-            The People Behind Rustam Battery
-          </h2>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            A dedicated team of solar energy professionals committed to powering Lahore with clean, reliable energy
-          </p>
-        </div>
+    <section id="team" className="bg-slate-50 py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="Our Team"
+          title="The people behind Rustam Battery"
+          description="A dedicated team of solar energy professionals committed to powering Lahore with clean, reliable energy."
+        />
 
-        {/* Owner — featured full-width card */}
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-100 rounded-2xl p-8 md:p-10 mb-10 flex flex-col md:flex-row items-center gap-8">
-          {/* Avatar */}
-          <div className="flex-shrink-0">
-            <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl ring-4 ring-amber-200 shadow-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
-              <span className="text-white font-extrabold text-6xl md:text-7xl select-none">MR</span>
-            </div>
+        {/* Owner — featured */}
+        <div className="mt-12 bg-white border border-gray-100 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-8">
+          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
+            <span className="text-white font-bold text-2xl select-none">{owner.initials}</span>
           </div>
 
-          {/* Info */}
           <div className="flex-1 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 mb-3">
-              <div className={`w-9 h-9 ${owner.iconBg} rounded-lg flex items-center justify-center`}>
-                <owner.icon size={18} className={owner.iconColor} />
-              </div>
-              <span className="text-sm font-semibold text-amber-700 bg-amber-100 px-3 py-1 rounded-full">
+            <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+              <span className="bg-amber-100 text-amber-600 text-xs font-semibold px-2.5 py-1 rounded-full">
                 {owner.experience}
               </span>
             </div>
-            <h3 className="text-2xl md:text-3xl font-bold text-slate-900 mb-1">{owner.name}</h3>
-            <p className="text-amber-600 font-semibold mb-4">{owner.title}</p>
-            <p className="text-slate-600 leading-relaxed max-w-xl">{owner.bio}</p>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start mt-6">
-              {['Solar Systems', 'Battery Storage', 'System Design', 'Quality Assurance'].map((tag) => (
-                <span key={tag} className="text-xs font-medium bg-white border border-amber-200 text-amber-700 px-3 py-1 rounded-full">
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{owner.name}</h3>
+            <p className="text-amber-600 font-semibold text-sm mb-4">{owner.title}</p>
+            <p className="text-base text-gray-600 leading-relaxed max-w-2xl">{owner.bio}</p>
           </div>
         </div>
 
-        {/* Staff — 3 column grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {staff.map((member) => (
-            <div
-              key={member.name}
-              className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center"
-            >
-              {/* Avatar */}
-              <div className={`w-32 h-32 rounded-xl ring-2 ring-slate-100 mb-5 shadow bg-gradient-to-br ${member.avatarFrom} ${member.avatarTo} flex items-center justify-center`}>
-                <span className="text-white font-extrabold text-3xl select-none">{member.initials}</span>
+        {/* Staff grid */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {staff.map((member) => {
+            const Icon = member.icon
+            return (
+              <div
+                key={member.name}
+                className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow"
+              >
+                <div className="flex items-start gap-4 mb-4">
+                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
+                    <span className="text-white font-bold text-2xl select-none">{member.initials}</span>
+                  </div>
+                  <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                    <Icon size={18} className="text-amber-600" strokeWidth={2.25} />
+                  </div>
+                </div>
+                <h3 className="text-xl font-semibold text-slate-800 tracking-tight">{member.name}</h3>
+                <p className="text-amber-600 font-semibold text-sm mb-3">{member.title}</p>
+                <p className="text-base text-gray-600 leading-relaxed">{member.bio}</p>
               </div>
-
-              {/* Role icon */}
-              <div className={`w-9 h-9 ${member.iconBg} rounded-lg flex items-center justify-center mb-3`}>
-                <member.icon size={18} className={member.iconColor} />
-              </div>
-
-              <h3 className="text-lg font-bold text-slate-900 mb-0.5">{member.name}</h3>
-              <p className={`text-sm font-semibold mb-3 ${member.iconColor}`}>{member.title}</p>
-              <p className="text-sm text-slate-500 leading-relaxed">{member.bio}</p>
-            </div>
-          ))}
+            )
+          })}
         </div>
-
-        {/* Bottom note */}
-        <p className="text-center text-slate-400 text-sm mt-10">
-          📸 Team photos coming soon — replacing placeholders with real portraits
-        </p>
       </div>
     </section>
   )
