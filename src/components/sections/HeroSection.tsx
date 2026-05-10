@@ -177,21 +177,20 @@ export function HeroSection() {
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-slate-900 mb-6 leading-[1.05]"
+              className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 mb-6 leading-[1.05]"
             >
               Power Your Life<br />
-              with{' '}
-              <span className="relative">
+              with Clean{' '}
+              <span className="relative inline-block">
                 <span className="relative z-10 bg-gradient-to-r from-amber-500 to-orange-500 bg-clip-text text-transparent">
-                  Clean Solar
+                  Solar Energy
                 </span>
                 <motion.span
                   className="absolute -bottom-1 left-0 right-0 h-3 bg-amber-200/60 rounded-full -z-0"
                   initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
                   transition={{ duration: 0.8, delay: 0.8 }}
                 />
-              </span>{' '}
-              Energy
+              </span>
             </motion.h1>
 
             {/* Sub */}

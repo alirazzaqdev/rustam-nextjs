@@ -149,6 +149,11 @@ export function Footer() {
             <Link href="/order" className="text-amber-400 hover:text-amber-300 transition-colors font-medium">Order Now</Link>
           </div>
         </div>
+
+        {/* Made-with line */}
+        <div className="text-center mt-6 pt-4 border-t border-slate-800/60 text-xs text-slate-500">
+          Made with <span className="text-amber-400">☀️</span> in Lahore, Pakistan <span aria-label="Pakistan flag">🇵🇰</span>
+        </div>
       </div>
     </footer>
   )
