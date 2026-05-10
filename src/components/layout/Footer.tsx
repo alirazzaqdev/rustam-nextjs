@@ -97,10 +97,17 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-3 text-sm">
           <p>&copy; {currentYear} Rustam Battery & Solar Energy House. All rights reserved.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
-          </div>
+          <p className="text-gray-500 text-xs">
+            Designed & Developed by{' '}
+            <a
+              href="https://github.com/alirazzaqdev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+            >
+              Ali Razzaq
+            </a>
+          </p>
         </div>
       </div>
     </footer>
