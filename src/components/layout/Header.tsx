@@ -75,7 +75,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-emerald-700 transition-colors"
+                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-emerald-600 transition-colors duration-200"
               >
                 {item.label}
               </Link>
@@ -98,7 +98,7 @@ export function Header() {
             </Link>
             <button
               onClick={() => setQuoteModalOpen(true)}
-              className="text-sm font-semibold text-gray-700 hover:text-emerald-700 px-3 py-2 transition-colors"
+              className="text-emerald-600 font-semibold text-sm px-4 py-2 border border-emerald-200 rounded-xl hover:bg-emerald-50 transition-all duration-200"
             >
               Get Quote
             </button>

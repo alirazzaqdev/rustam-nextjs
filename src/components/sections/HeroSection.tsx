@@ -11,11 +11,6 @@ const heroStats = [
   { value: '2.4 t', label: 'CO₂ saved per year', icon: Leaf, color: 'text-sky-600', bg: 'bg-sky-50' },
 ]
 
-const trustStats = [
-  { value: '19', label: 'Years' },
-  { value: '500+', label: 'Installs' },
-  { value: 'Lahore', label: 'Based' },
-]
 
 export function HeroSection() {
   const { setQuoteModalOpen } = useAppStore()
@@ -35,17 +30,20 @@ export function HeroSection() {
               Solar Energy Specialists · Lahore
             </p>
 
-            <h1 className="text-5xl md:text-6xl font-black tracking-tight text-slate-900 leading-[1.05] mb-6">
-              Power your life with clean solar energy
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.05] mb-6">
+              Lahore&apos;s most<br />
+              trusted{' '}
+              <span className="text-emerald-600">solar energy</span><br />
+              company
             </h1>
 
-            <p className="text-base md:text-lg text-gray-600 leading-relaxed mb-10 max-w-xl">
-              Trusted solar panels, batteries, and inverters from Pakistan&apos;s most
-              experienced installer. Reduce your electricity bill by up to 70% with
-              systems built to last.
+            <p className="text-lg text-gray-500 leading-relaxed mb-8 max-w-lg">
+              19 years serving Lahore homes and businesses.
+              Solar panels, batteries, and inverters from world&apos;s top brands.
+              Free site visit and consultation.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row gap-4 mb-8">
               <button
                 onClick={() => setQuoteModalOpen(true)}
                 className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
@@ -61,17 +59,17 @@ export function HeroSection() {
               </Link>
             </div>
 
-            {/* Trust stats */}
-            <div className="flex items-center gap-8">
-              {trustStats.map((s, i) => (
-                <div key={s.label} className="flex items-center gap-3">
-                  <div>
-                    <p className="text-2xl font-black text-slate-900 leading-none">{s.value}</p>
-                    <p className="text-sm text-gray-500 mt-1">{s.label}</p>
-                  </div>
-                  {i < trustStats.length - 1 && (
-                    <div className="w-px h-10 bg-gray-200 ml-5" aria-hidden />
-                  )}
+            {/* Trust badges */}
+            <div className="flex flex-wrap items-center gap-4 pt-8 border-t border-gray-100">
+              {[
+                'Est. 2006',
+                '500+ Installations',
+                'Kahna Nau, Lahore',
+                'Free Site Visit',
+              ].map((badge) => (
+                <div key={badge} className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-emerald-500 rounded-full" />
+                  <span className="text-xs text-gray-500 font-medium">{badge}</span>
                 </div>
               ))}
             </div>

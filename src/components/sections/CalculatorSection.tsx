@@ -277,18 +277,18 @@ export function CalculatorSection() {
             </div>
 
             {/* System Cost Card */}
-            <Card className="bg-slate-900 text-white">
+            <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
               <CardHeader>
-                <CardTitle className="text-lg">Estimated System Cost</CardTitle>
+                <CardTitle className="text-lg text-gray-500">Estimated System Cost</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-3xl font-bold mb-2">
+                <div className="text-3xl font-black text-emerald-600 mb-2">
                   PKR {results.systemCost.toLocaleString()}
                 </div>
-                <p className="text-sm text-slate-300 mb-3">
+                <p className="text-sm text-gray-500 mb-3">
                   Approximate cost for {results.systemSize} kW system
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-gray-400">
                   * Includes solar panels, inverter, wiring, installation
                 </p>
               </CardContent>
