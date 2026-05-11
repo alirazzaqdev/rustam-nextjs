@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { X } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import ProductImage from '@/components/ui/ProductImage'
+import SparkEffect from '@/components/ui/SparkEffect'
 import type { Product } from '@/types'
 
 interface ProductsSectionProps {
@@ -15,11 +16,11 @@ type TabLabel = 'All' | 'Batteries' | 'Solar Panels' | 'Inverters' | 'Accessorie
 const TABS: TabLabel[] = ['All', 'Batteries', 'Solar Panels', 'Inverters', 'Accessories']
 
 const CATEGORY_MAP: Record<TabLabel, string | null> = {
-  All:           null,
-  Batteries:     'Battery',
-  'Solar Panels':'Solar Panel',
-  Inverters:     'Inverter',
-  Accessories:   'Accessory',
+  All:            null,
+  Batteries:      'Battery',
+  'Solar Panels': 'Solar Panel',
+  Inverters:      'Inverter',
+  Accessories:    'Accessory',
 }
 
 const BATTERY_BRANDS   = ['All Brands', 'Osaka', 'Phoenix', 'AGS', 'Alaska', 'Knox']
@@ -57,8 +58,13 @@ function whatsappOrderUrlLong(product: Product): string {
 
 export function ProductsSection({ products }: ProductsSectionProps) {
   const [activeCategory, setActiveCategory] = useState<TabLabel>('All')
-  const [activeBrand, setActiveBrand] = useState<string>('All Brands')
-  const [selected, setSelected] = useState<Product | null>(null)
+  const [activeBrand, setActiveBrand]       = useState<string>('All Brands')
+  const [selected, setSelected]             = useState<Product | null>(null)
+
+  // Spark state
+  const [sparkActive, setSparkActive]   = useState(false)
+  const [sparkPos, setSparkPos]         = useState({ x: 0, y: 0 })
+  const [glowCardId, setGlowCardId]     = useState<string | null>(null)
 
   useEffect(() => {
     if (!selected) return
@@ -79,6 +85,22 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     setActiveBrand('All Brands')
   }
 
+  const handleCardClick = useCallback((
+    e: React.MouseEvent,
+    product: Product,
+    action: () => void,
+  ) => {
+    setSparkPos({ x: e.clientX, y: e.clientY })
+    setSparkActive(true)
+    setGlowCardId(product.id)
+    setTimeout(() => setGlowCardId(null), 800)
+    setTimeout(() => action(), 200)
+  }, [])
+
+  const handleSparkComplete = useCallback(() => {
+    setSparkActive(false)
+  }, [])
+
   const filtered = products.filter((p) => {
     const cat = CATEGORY_MAP[activeCategory]
     if (cat !== null && p.category !== cat) return false
@@ -90,8 +112,8 @@ export function ProductsSection({ products }: ProductsSectionProps) {
       return p.brand === activeBrand
     }
     if (activeCategory === 'Inverters' && activeBrand !== 'All Brands') {
-      if (activeBrand === 'Knox Hybrid')   return KNOX_HYBRID_IDS.has(p.id)
-      if (activeBrand === 'Knox On-Grid')  return !KNOX_HYBRID_IDS.has(p.id) && p.brand === 'Knox'
+      if (activeBrand === 'Knox Hybrid')  return KNOX_HYBRID_IDS.has(p.id)
+      if (activeBrand === 'Knox On-Grid') return !KNOX_HYBRID_IDS.has(p.id) && p.brand === 'Knox'
     }
     return true
   })
@@ -102,12 +124,19 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     activeCategory === 'Inverters'
 
   const brandOptions =
-    activeCategory === 'Batteries'     ? BATTERY_BRANDS :
-    activeCategory === 'Solar Panels'  ? SOLAR_BRANDS :
-    activeCategory === 'Inverters'     ? INVERTER_FILTERS : []
+    activeCategory === 'Batteries'    ? BATTERY_BRANDS :
+    activeCategory === 'Solar Panels' ? SOLAR_BRANDS :
+    activeCategory === 'Inverters'    ? INVERTER_FILTERS : []
 
   return (
     <section id="products" className="bg-slate-50 py-20 md:py-24">
+      <SparkEffect
+        trigger={sparkActive}
+        x={sparkPos.x}
+        y={sparkPos.y}
+        onComplete={handleSparkComplete}
+      />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Product Catalogue"
@@ -170,7 +199,18 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         {filtered.length > 0 ? (
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filtered.map((product) => (
-              <ProductCard key={product.id} product={product} onSelect={setSelected} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                glowing={glowCardId === product.id}
+                onSelect={(e) => handleCardClick(e, product, () => setSelected(product))}
+                onOrder={(e) => {
+                  e.stopPropagation()
+                  handleCardClick(e, product, () =>
+                    window.open(whatsappOrderUrl(product), '_blank', 'noopener,noreferrer')
+                  )
+                }}
+              />
             ))}
           </div>
         ) : (
@@ -187,18 +227,27 @@ export function ProductsSection({ products }: ProductsSectionProps) {
   )
 }
 
-function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Product) => void }) {
+interface ProductCardProps {
+  product: Product
+  glowing: boolean
+  onSelect: (e: React.MouseEvent) => void
+  onOrder:  (e: React.MouseEvent) => void
+}
+
+function ProductCard({ product, glowing, onSelect, onOrder }: ProductCardProps) {
   const perWatt = product.category === 'Solar Panel' ? product.specs['Per Watt'] : null
 
   return (
     <div
       role="button"
       tabIndex={0}
-      onClick={() => onSelect(product)}
+      onClick={onSelect}
       onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(product) }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(e as unknown as React.MouseEvent) }
       }}
-      className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+      className={`bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer ${
+        glowing ? 'card-spark-glow' : ''
+      }`}
     >
       <ProductImage
         src={product.image}
@@ -210,7 +259,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
 
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
+          <span className="text-xs font-bold text-emerald-600 uppercase tracking-widest">
             {product.brand}
           </span>
           <span className="text-gray-300" aria-hidden>·</span>
@@ -242,7 +291,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
               )}
             </>
           ) : (
-            <span className="text-base font-semibold text-emerald-700">
+            <span className="text-base font-semibold text-emerald-600">
               Contact for Price
             </span>
           )}
@@ -251,17 +300,14 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); onSelect(product) }}
+            onClick={onSelect}
             className="flex-1 py-2 text-sm font-semibold text-slate-700 border border-gray-200 rounded-xl hover:border-emerald-500 hover:text-emerald-700 transition-all duration-150"
           >
             View Details
           </button>
           <button
             type="button"
-            onClick={(e) => {
-              e.stopPropagation()
-              window.open(whatsappOrderUrl(product), '_blank', 'noopener,noreferrer')
-            }}
+            onClick={onOrder}
             className="flex-1 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all duration-150"
           >
             Order Now
@@ -311,14 +357,14 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
               }`}>
                 {product.inStock ? 'In Stock' : 'Out of Stock'}
               </span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-amber-700">
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-emerald-700">
                 {product.brand}
               </span>
             </div>
           </div>
 
           <div className="md:w-3/5 p-6 md:p-8">
-            <p className="text-xs font-bold text-emerald-700 uppercase tracking-widest mb-2">
+            <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">
               {product.category} · {product.brand}
             </p>
 
@@ -328,7 +374,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
 
             {product.price > 0 ? (
               <div className="mb-4">
-                <p className="text-3xl font-black text-emerald-700">
+                <p className="text-3xl font-black text-emerald-600">
                   PKR {product.price.toLocaleString('en-PK')}
                 </p>
                 {perWatt && (
@@ -336,7 +382,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
                 )}
               </div>
             ) : (
-              <p className="text-lg font-bold text-emerald-700 mb-4">
+              <p className="text-lg font-bold text-emerald-600 mb-4">
                 Contact us for pricing
               </p>
             )}

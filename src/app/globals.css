@@ -56,3 +56,15 @@ p {
 
 /* Smooth section transitions */
 section { overflow: hidden; }
+
+/* Product card spark glow */
+@keyframes cardGlow {
+  0%   { box-shadow: 0 0 0px rgba(5, 150, 105, 0); }
+  30%  { box-shadow: 0 0 20px rgba(5, 150, 105, 0.8), 0 0 40px rgba(110, 231, 183, 0.4); }
+  60%  { box-shadow: 0 0 10px rgba(5, 150, 105, 0.4); }
+  100% { box-shadow: 0 0 0px rgba(5, 150, 105, 0); }
+}
+
+.card-spark-glow {
+  animation: cardGlow 0.8s ease-out forwards;
+}
