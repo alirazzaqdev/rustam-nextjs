@@ -18,10 +18,14 @@ export function SectionHeader({
   const isCenter = align === 'center'
   return (
     <div className={`${isCenter ? 'text-center max-w-2xl mx-auto' : 'max-w-2xl'} ${className}`}>
-      <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-3">
-        {label}
-      </p>
-      <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
+      <div className={`inline-flex items-center gap-3 mb-4 ${isCenter ? '' : ''}`}>
+        <span className="h-px w-6 bg-emerald-500 inline-block" />
+        <p className="text-emerald-600 text-xs font-bold tracking-[0.18em] uppercase">
+          {label}
+        </p>
+        <span className="h-px w-6 bg-emerald-500 inline-block" />
+      </div>
+      <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
         {title}
       </h2>
       {description && (

@@ -21,7 +21,7 @@ export function Header() {
   const totalItems = useCartStore((s) => s.getTotalItems())
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8)
+    const onScroll = () => setScrolled(window.scrollY > 12)
     window.addEventListener('scroll', onScroll, { passive: true })
     onScroll()
     return () => window.removeEventListener('scroll', onScroll)
@@ -29,16 +29,18 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm transition-shadow ${
-        scrolled ? 'border-b border-gray-100 shadow-sm' : 'border-b border-gray-100'
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/98 backdrop-blur-md border-b border-gray-100 shadow-[0_2px_20px_rgba(0,0,0,0.06)]'
+          : 'bg-white/95 backdrop-blur-sm border-b border-gray-100'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-[68px]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0">
-            <svg width="40" height="40" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <Link href="/" className="flex items-center gap-3 shrink-0 group">
+            <svg width="38" height="38" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="transition-transform duration-300 group-hover:scale-105">
               <defs>
                 <linearGradient id="navgi" x1="0%" y1="0%" x2="100%" y2="100%">
                   <stop offset="0%" stopColor="#ffffff"/>
@@ -59,23 +61,23 @@ export function Header() {
               <circle cx="117" cy="200" r="4" fill="#6EE7B7"/>
               <circle cx="117" cy="120" r="4" fill="#6EE7B7"/>
             </svg>
-            <div className="hidden sm:flex flex-col">
-              <span className="text-lg font-black text-slate-900 leading-none tracking-tight">
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className="text-[15px] font-black text-slate-900 tracking-tight">
                 Rustam Battery
               </span>
-              <span className="text-xs font-semibold text-emerald-600 tracking-widest uppercase">
+              <span className="text-[10px] font-bold text-emerald-600 tracking-[0.15em] uppercase mt-0.5">
                 & Solar Energy House
               </span>
             </div>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-1">
+          <nav className="hidden md:flex items-center gap-0.5">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-emerald-600 transition-colors duration-200"
+                className="px-3.5 py-2 text-sm font-medium text-gray-600 hover:text-emerald-700 hover:bg-emerald-50/60 rounded-lg transition-all duration-200"
               >
                 {item.label}
               </Link>
@@ -87,46 +89,46 @@ export function Header() {
             <Link
               href="/cart"
               aria-label="Cart"
-              className="relative p-2 text-gray-600 hover:text-emerald-700 transition-colors"
+              className="relative p-2 text-gray-500 hover:text-emerald-700 hover:bg-emerald-50/60 rounded-lg transition-all duration-200"
             >
-              <ShoppingCart size={20} />
+              <ShoppingCart size={19} />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center leading-none">
                   {totalItems > 9 ? '9+' : totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setQuoteModalOpen(true)}
-              className="text-emerald-600 font-semibold text-sm px-4 py-2 border border-emerald-200 rounded-xl hover:bg-emerald-50 transition-all duration-200"
+              className="text-emerald-700 font-semibold text-sm px-4 py-2 border border-emerald-200 rounded-xl hover:bg-emerald-50 hover:border-emerald-300 transition-all duration-200"
             >
               Get Quote
             </button>
             <Link
               href="/order"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-5 py-2 rounded-xl text-sm transition-all duration-200 shadow-sm shadow-emerald-200 hover:shadow-md hover:shadow-emerald-200"
             >
               Order Now
             </Link>
           </div>
 
-          {/* Mobile cart + toggle */}
+          {/* Mobile: cart + hamburger */}
           <div className="md:hidden flex items-center gap-1">
             <Link
               href="/cart"
               aria-label="Cart"
-              className="relative p-2 text-gray-600 hover:text-emerald-700 transition-colors"
+              className="relative p-2 text-gray-500 hover:text-emerald-700 transition-colors rounded-lg"
             >
-              <ShoppingCart size={20} />
+              <ShoppingCart size={19} />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center leading-none">
                   {totalItems > 9 ? '9+' : totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-50 transition-colors"
+              className="w-9 h-9 flex items-center justify-center rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={20} /> : <Menu size={20} />}
@@ -137,29 +139,29 @@ export function Header() {
 
       {/* Mobile menu */}
       {isOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white">
-          <nav className="px-4 py-4 space-y-1">
+        <div className="md:hidden border-t border-gray-100 bg-white shadow-lg">
+          <nav className="px-4 pt-3 pb-5 space-y-0.5">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-700 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center px-4 py-3 text-sm font-medium text-gray-700 hover:text-emerald-700 hover:bg-emerald-50 rounded-xl transition-colors"
               >
                 {item.label}
               </Link>
             ))}
-            <div className="pt-3 flex flex-col gap-2 border-t border-gray-100 mt-3">
+            <div className="pt-3 grid grid-cols-2 gap-2 border-t border-gray-100 mt-2">
               <button
                 onClick={() => { setQuoteModalOpen(true); setIsOpen(false) }}
-                className="w-full text-center border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                className="text-center border border-emerald-300 text-emerald-700 hover:bg-emerald-50 font-semibold py-2.5 rounded-xl text-sm transition-colors"
               >
                 Get Quote
               </button>
               <Link
                 href="/order"
                 onClick={() => setIsOpen(false)}
-                className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors shadow-sm shadow-emerald-200"
               >
                 Order Now
               </Link>

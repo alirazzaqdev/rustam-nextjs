@@ -59,8 +59,8 @@ p {
 /* Focus ring */
 *:focus-visible { outline: 2px solid #059669; outline-offset: 2px; border-radius: 4px; }
 
-/* Smooth section transitions */
-section { overflow: hidden; }
+/* Prevent horizontal scroll without clipping absolute children within sections */
+body { overflow-x: hidden; }
 
 /* Product card spark glow */
 @keyframes cardGlow {
