@@ -2,13 +2,13 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight, TrendingDown, Clock, Leaf } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
 
 const heroStats = [
-  { value: '70%',   label: 'Avg. bill reduction', icon: TrendingDown, color: 'text-amber-600', bg: 'bg-amber-50'  },
-  { value: '4 yrs', label: 'System payback',       icon: Clock,        color: 'text-amber-700', bg: 'bg-amber-50'  },
-  { value: '2.4 t', label: 'CO₂ saved / year',     icon: Leaf,         color: 'text-sky-600',   bg: 'bg-sky-50'   },
+  { value: '70%',   label: 'Avg. bill reduction' },
+  { value: '4 yrs', label: 'System payback'       },
+  { value: '2.4 t', label: 'CO₂ saved / year'     },
 ]
 
 export function HeroSection() {
@@ -132,18 +132,13 @@ export function HeroSection() {
                 </h3>
 
                 <div className="space-y-3">
-                  {heroStats.map(({ value, label, icon: Icon, color, bg }) => (
+                  {heroStats.map(({ value, label }) => (
                     <div
                       key={label}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-gray-50/80 hover:bg-gray-50 border border-gray-100 hover:border-gray-200 transition-all duration-200"
+                      className="flex items-center justify-between p-4 rounded-xl bg-gray-50/80 hover:bg-gray-50 border border-gray-100 hover:border-gray-200 transition-all duration-200"
                     >
-                      <div className={`w-11 h-11 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
-                        <Icon size={19} className={color} strokeWidth={2.25} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-2xl font-black text-slate-900 leading-none tracking-tight">{value}</p>
-                        <p className="text-xs text-gray-500 mt-1 font-medium">{label}</p>
-                      </div>
+                      <p className="text-sm text-gray-500 font-medium">{label}</p>
+                      <p className="text-2xl font-black text-slate-900 leading-none tracking-tight">{value}</p>
                     </div>
                   ))}
                 </div>
