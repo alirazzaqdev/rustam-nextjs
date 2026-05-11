@@ -32,7 +32,7 @@ export function Footer() {
                 src="/logo.png"
                 alt="Rustam Battery & Solar Energy House"
                 className="h-16 w-auto object-contain"
-                style={{ maxWidth: '160px', filter: 'brightness(0) invert(1)' }}
+                style={{ maxWidth: '160px' }}
               />
             </Link>
             <p className="text-sm leading-relaxed">

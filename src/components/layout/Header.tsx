@@ -40,12 +40,14 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0">
-            <img
-              src="/logo.png"
-              alt="Rustam Battery & Solar Energy House"
-              className="h-14 w-auto object-contain"
-              style={{ maxWidth: '160px' }}
-            />
+            <div className="bg-slate-900 rounded-xl px-3 py-1.5 hover:bg-slate-800 transition-colors duration-200">
+              <img
+                src="/logo.png"
+                alt="Rustam Battery & Solar Energy House"
+                className="h-11 w-auto object-contain block"
+                style={{ maxWidth: '140px' }}
+              />
+            </div>
           </Link>
 
           {/* Desktop Nav */}
