@@ -260,18 +260,22 @@ function ProductCard({ product, glowing, glowType, onSelect, onOrder }: ProductC
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(e as unknown as React.MouseEvent) }
       }}
-      className={`bg-white rounded-2xl overflow-hidden cursor-pointer border border-gray-100 border-t-2 border-t-emerald-500 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-50 hover:-translate-y-1 transition-all duration-200 ${
+      className={`product-card bg-white rounded-2xl overflow-visible cursor-pointer border border-gray-100 border-t-2 border-t-emerald-500 ${
         glowing && glowType === 'spark'   ? 'card-spark-glow' :
         glowing && glowType === 'battery' ? 'card-battery-glow' : ''
       }`}
     >
-      <ProductImage
-        src={product.image}
-        name={product.name}
-        brand={product.brand}
-        category={product.category}
-        size="card"
-      />
+      <div className="card-corner-bl" />
+      <div className="card-corner-br" />
+      <div className="overflow-hidden rounded-t-2xl">
+        <ProductImage
+          src={product.image}
+          name={product.name}
+          brand={product.brand}
+          category={product.category}
+          size="card"
+        />
+      </div>
 
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2">

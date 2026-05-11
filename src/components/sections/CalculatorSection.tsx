@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo } from 'react'
-import { Zap, TrendingUp, Leaf, Clock } from 'lucide-react'
+import { Zap, TrendingUp, Leaf } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
@@ -247,70 +247,51 @@ export function CalculatorSection() {
             {/* Financial Metrics Grid */}
             <div className="grid grid-cols-2 gap-4">
               {/* ROI Card */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm">10-Year ROI</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-blue-600">
-                    {results.roi}%
-                  </div>
-                  <p className="text-xs text-slate-600 mt-1">Return on investment</p>
-                </CardContent>
-              </Card>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <p className="text-gray-500 text-sm font-medium mb-3">10-Year ROI</p>
+                <div className="text-3xl font-black text-emerald-600">
+                  {results.roi}%
+                </div>
+                <p className="text-gray-400 text-xs mt-1">Return on investment</p>
+              </div>
 
               {/* Payback Period Card */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-sm flex items-center gap-1">
-                    <Clock size={16} />
-                    Payback Period
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-purple-600">
-                    {results.paybackPeriod}y
-                  </div>
-                  <p className="text-xs text-slate-600 mt-1">Years to break even</p>
-                </CardContent>
-              </Card>
+              <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
+                <p className="text-gray-500 text-sm font-medium mb-3">Payback Period</p>
+                <div className="text-3xl font-black text-emerald-600">
+                  {results.paybackPeriod}y
+                </div>
+                <p className="text-gray-400 text-xs mt-1">Years to break even</p>
+              </div>
             </div>
 
             {/* System Cost Card */}
-            <Card className="bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-              <CardHeader>
-                <CardTitle className="text-lg text-gray-500">Estimated System Cost</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-black text-emerald-600 mb-2">
-                  PKR {results.systemCost.toLocaleString()}
-                </div>
-                <p className="text-sm text-gray-500 mb-3">
-                  Approximate cost for {results.systemSize} kW system
-                </p>
-                <p className="text-xs text-gray-400">
-                  * Includes solar panels, inverter, wiring, installation
-                </p>
-              </CardContent>
-            </Card>
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
+              <p className="text-gray-500 text-sm font-medium mb-3">Estimated System Cost</p>
+              <div className="text-3xl font-black text-emerald-600 mb-2">
+                PKR {results.systemCost.toLocaleString()}
+              </div>
+              <p className="text-gray-500 text-sm mb-1">
+                Approximate cost for {results.systemSize} kW system
+              </p>
+              <p className="text-gray-400 text-xs">
+                * Includes solar panels, inverter, wiring, installation
+              </p>
+            </div>
 
-            {/* CO2 Savings Card */}
-            <Card className="bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-200">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Leaf className="text-emerald-600" size={24} />
-                  Environmental Impact
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-3xl font-bold text-emerald-600 mb-2">
-                  {results.co2Savings.toLocaleString()} kg
-                </div>
-                <p className="text-sm text-slate-600">
-                  CO₂ reduction per year (equivalent to planting {Math.round(results.co2Savings / 21)} trees)
-                </p>
-              </CardContent>
-            </Card>
+            {/* Environmental Impact Card */}
+            <div className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-200">
+              <div className="flex items-center gap-2 mb-3">
+                <Leaf className="text-emerald-600" size={18} />
+                <p className="text-gray-500 text-sm font-medium">Environmental Impact</p>
+              </div>
+              <div className="text-3xl font-black text-emerald-600 mb-2">
+                {results.co2Savings.toLocaleString()} kg
+              </div>
+              <p className="text-gray-600 text-sm">
+                CO₂ reduction per year (equivalent to planting {Math.round(results.co2Savings / 21)} trees)
+              </p>
+            </div>
           </div>
         </div>
 
