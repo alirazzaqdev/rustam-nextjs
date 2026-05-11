@@ -1,5 +1,6 @@
 import { HeroSection } from '@/components/sections/HeroSection'
 import { StatsSection } from '@/components/sections/StatsSection'
+import { BrandsSection } from '@/components/sections/BrandsSection'
 import { ProductsSection } from '@/components/sections/ProductsSection'
 import { ServicesSection } from '@/components/sections/ServicesSection'
 import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection'
@@ -27,6 +28,7 @@ export default async function Home() {
     <div>
       <HeroSection />
       <StatsSection />
+      <BrandsSection />
       <ProductsSection products={products} />
       <ServicesSection services={services} />
       <WhyChooseUsSection />
