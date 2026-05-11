@@ -10,17 +10,27 @@ interface ProductsSectionProps {
   products: Product[]
 }
 
-const TABS: Array<'All' | 'Batteries' | 'Solar Panels' | 'Inverters' | 'Accessories'> =
-  ['All', 'Batteries', 'Solar Panels', 'Inverters', 'Accessories']
+type TabLabel = 'All' | 'Batteries' | 'Solar Panels' | 'Inverters' | 'Accessories'
 
-const BRANDS = ['All Brands', 'Osaka', 'Phoenix', 'AGS', 'Alaska']
+const TABS: TabLabel[] = ['All', 'Batteries', 'Solar Panels', 'Inverters', 'Accessories']
 
-const CATEGORY_MAP: Record<string, Product['category']> = {
-  Batteries:      'Battery',
-  'Solar Panels': 'Solar Panel',
-  Inverters:      'Inverter',
-  Accessories:    'Accessory',
+const CATEGORY_MAP: Record<TabLabel, string | null> = {
+  All:           null,
+  Batteries:     'Battery',
+  'Solar Panels':'Solar Panel',
+  Inverters:     'Inverter',
+  Accessories:   'Accessory',
 }
+
+const BATTERY_BRANDS   = ['All Brands', 'Osaka', 'Phoenix', 'AGS', 'Alaska', 'Knox']
+const SOLAR_BRANDS     = ['All Brands', 'Canadian Solar', 'JinkoSolar', 'JA Solar', 'LONGi', 'Astro Energy', 'Risen', 'Trina', 'AIKO', 'Ronma', 'Inverex Jollywood', 'Coretech']
+const INVERTER_FILTERS = ['All Brands', 'Knox Hybrid', 'Knox On-Grid']
+
+const KNOX_HYBRID_IDS = new Set([
+  'knox-eco-4000', 'knox-eco-5000', 'knox-eco-6600',
+  'knox-6000', 'knox-6500', 'knox-9000', 'knox-9055',
+  'knox-12002', 'knox-13002', 'knox-15002',
+])
 
 const WHATSAPP_NUMBER = '923213770402'
 
@@ -39,21 +49,17 @@ function whatsappOrderUrlLong(product: Product): string {
 }
 
 export function ProductsSection({ products }: ProductsSectionProps) {
-  const [activeCategory, setActiveCategory] = useState<typeof TABS[number]>('All')
+  const [activeCategory, setActiveCategory] = useState<TabLabel>('All')
   const [activeBrand, setActiveBrand] = useState<string>('All Brands')
   const [selected, setSelected] = useState<Product | null>(null)
 
-  // ESC closes modal
   useEffect(() => {
     if (!selected) return
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelected(null)
-    }
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') setSelected(null) }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
   }, [selected])
 
-  // Lock body scroll when modal is open
   useEffect(() => {
     if (selected) {
       document.body.style.overflow = 'hidden'
@@ -61,14 +67,37 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     }
   }, [selected])
 
+  function changeCategory(tab: TabLabel) {
+    setActiveCategory(tab)
+    setActiveBrand('All Brands')
+  }
+
   const filtered = products.filter((p) => {
-    if (activeCategory === 'All') return true
-    if (p.category !== CATEGORY_MAP[activeCategory]) return false
+    const cat = CATEGORY_MAP[activeCategory]
+    if (cat !== null && p.category !== cat) return false
+
     if (activeCategory === 'Batteries' && activeBrand !== 'All Brands') {
       return p.brand === activeBrand
     }
+    if (activeCategory === 'Solar Panels' && activeBrand !== 'All Brands') {
+      return p.brand === activeBrand
+    }
+    if (activeCategory === 'Inverters' && activeBrand !== 'All Brands') {
+      if (activeBrand === 'Knox Hybrid')   return KNOX_HYBRID_IDS.has(p.id)
+      if (activeBrand === 'Knox On-Grid')  return !KNOX_HYBRID_IDS.has(p.id) && p.brand === 'Knox'
+    }
     return true
   })
+
+  const showBrandFilter =
+    activeCategory === 'Batteries' ||
+    activeCategory === 'Solar Panels' ||
+    activeCategory === 'Inverters'
+
+  const brandOptions =
+    activeCategory === 'Batteries'     ? BATTERY_BRANDS :
+    activeCategory === 'Solar Panels'  ? SOLAR_BRANDS :
+    activeCategory === 'Inverters'     ? INVERTER_FILTERS : []
 
   return (
     <section id="products" className="bg-slate-50 py-20 md:py-24">
@@ -76,7 +105,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         <SectionHeader
           label="Product Catalogue"
           title="Premium batteries & solar equipment"
-          description="50+ batteries from Osaka, Phoenix, AGS, and Alaska — plus solar panels, inverters, and accessories. Click any product for full specs and to order."
+          description="50+ batteries, 18 solar panel models, 19 Knox inverters — all from trusted brands. Click any product for full specs and to order."
         />
 
         {/* Category tabs */}
@@ -87,7 +116,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
               <button
                 key={tab}
                 type="button"
-                onClick={() => { setActiveCategory(tab); setActiveBrand('All Brands') }}
+                onClick={() => changeCategory(tab)}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                   active
                     ? 'bg-amber-500 text-white shadow-sm'
@@ -100,10 +129,10 @@ export function ProductsSection({ products }: ProductsSectionProps) {
           })}
         </div>
 
-        {/* Brand sub-filter (only for Batteries) */}
-        {activeCategory === 'Batteries' && (
+        {/* Brand sub-filter */}
+        {showBrandFilter && (
           <div className="flex flex-wrap gap-2 justify-center mt-3">
-            {BRANDS.map((brand) => {
+            {brandOptions.map((brand) => {
               const active = activeBrand === brand
               return (
                 <button
@@ -127,7 +156,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         <p className="text-sm text-gray-500 text-center mt-6">
           Showing {filtered.length} of {products.length} products
           {activeCategory !== 'All' && ` · ${activeCategory}`}
-          {activeCategory === 'Batteries' && activeBrand !== 'All Brands' && ` · ${activeBrand}`}
+          {activeBrand !== 'All Brands' && ` · ${activeBrand}`}
         </p>
 
         {/* Grid */}
@@ -144,7 +173,6 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         )}
       </div>
 
-      {/* Modal */}
       {selected && (
         <ProductDetailModal product={selected} onClose={() => setSelected(null)} />
       )}
@@ -153,6 +181,8 @@ export function ProductsSection({ products }: ProductsSectionProps) {
 }
 
 function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Product) => void }) {
+  const perWatt = product.category === 'Solar Panel' ? product.specs['Per Watt'] : null
+
   return (
     <div
       role="button"
@@ -172,7 +202,6 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
       />
 
       <div className="p-5">
-        {/* Brand + Category label */}
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
             {product.brand}
@@ -187,21 +216,24 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
           {product.name}
         </h3>
 
-        {/* Spec pills */}
         <div className="flex flex-wrap gap-1.5 mb-4 min-h-[24px]">
-          {Object.entries(product.specs).slice(0, 2).map(([key, value]) => (
+          {Object.entries(product.specs).filter(([k]) => k !== 'Per Watt').slice(0, 2).map(([key, value]) => (
             <span key={key} className="text-xs bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full font-medium">
               {value}
             </span>
           ))}
         </div>
 
-        {/* Price */}
         <div className="mb-4">
           {product.price > 0 ? (
-            <span className="text-2xl font-black text-slate-900">
-              PKR {product.price.toLocaleString('en-PK')}
-            </span>
+            <>
+              <span className="text-2xl font-black text-slate-900">
+                PKR {product.price.toLocaleString('en-PK')}
+              </span>
+              {perWatt && (
+                <p className="text-xs text-gray-500 mt-0.5">{perWatt}</p>
+              )}
+            </>
           ) : (
             <span className="text-base font-semibold text-amber-600">
               Contact for Price
@@ -209,7 +241,6 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
           )}
         </div>
 
-        {/* Buttons */}
         <div className="flex gap-2">
           <button
             type="button"
@@ -235,6 +266,8 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
 }
 
 function ProductDetailModal({ product, onClose }: { product: Product; onClose: () => void }) {
+  const perWatt = product.category === 'Solar Panel' ? product.specs['Per Watt'] : null
+
   return (
     <div
       role="dialog"
@@ -257,7 +290,6 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
         </button>
 
         <div className="md:flex">
-          {/* LEFT — Image */}
           <div className="md:w-2/5">
             <ProductImage
               src={product.image}
@@ -268,9 +300,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
             />
             <div className="p-4 flex gap-2">
               <span className={`text-xs font-bold px-3 py-1 rounded-full ${
-                product.inStock
-                  ? 'bg-emerald-100 text-emerald-700'
-                  : 'bg-red-100 text-red-700'
+                product.inStock ? 'bg-emerald-100 text-emerald-700' : 'bg-red-100 text-red-700'
               }`}>
                 {product.inStock ? 'In Stock' : 'Out of Stock'}
               </span>
@@ -280,7 +310,6 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
             </div>
           </div>
 
-          {/* RIGHT — Details */}
           <div className="md:w-3/5 p-6 md:p-8">
             <p className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">
               {product.category} · {product.brand}
@@ -291,9 +320,14 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
             </h2>
 
             {product.price > 0 ? (
-              <p className="text-3xl font-black text-amber-600 mb-4">
-                PKR {product.price.toLocaleString('en-PK')}
-              </p>
+              <div className="mb-4">
+                <p className="text-3xl font-black text-amber-600">
+                  PKR {product.price.toLocaleString('en-PK')}
+                </p>
+                {perWatt && (
+                  <p className="text-sm text-gray-500 mt-0.5">{perWatt}</p>
+                )}
+              </div>
             ) : (
               <p className="text-lg font-bold text-amber-600 mb-4">
                 Contact us for pricing
@@ -306,7 +340,6 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
               {product.description}
             </p>
 
-            {/* Specs Table */}
             <div className="rounded-xl overflow-hidden border border-gray-100 mb-6">
               {Object.entries(product.specs).map(([key, value], i) => (
                 <div

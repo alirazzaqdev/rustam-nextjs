@@ -241,25 +241,248 @@ export const products: Product[] = [
     description: "Alaska's flagship battery for industrial solar. Maximum capacity with 24 month warranty.",
     inStock: true, featured: true },
 
-  // ─── SOLAR PANELS ──────────────────────────
-  { id: 'solar-coming-soon', name: 'Solar Panels — Coming Soon', category: 'Solar Panel',
-    brand: 'Various', price: 0, image: null,
-    specs: { Note: 'Contact us for latest pricing', Brands: 'LONGI, JinkoSolar, Canadian Solar' },
-    description: 'We stock premium solar panels from LONGI, JinkoSolar, Canadian Solar and more. Contact us for current prices and availability.',
+  // ─── KNOX LITHIUM BATTERIES (LFP) ──────────
+  { id: 'knox-powerwall-3', name: 'Knox Powerwall 3.0 LCD 2.56kWh', category: 'Battery', brand: 'Knox', price: 137500, image: null,
+    specs: { Voltage: '25.6V', Capacity: '100Ah', Energy: '2.56kWh', Type: 'LFP Lithium', Connectivity: 'WiFi + Bluetooth', Rating: 'IP20', Warranty: '5 Years', Mount: 'Wall Mounted' },
+    description: 'Knox Powerwall 3.0 LCD Lithium LFP battery. 25.6V 100Ah with WiFi and Bluetooth monitoring. 5-year warranty. Wall-mounted design with DC cables included.',
     inStock: true, featured: false },
 
-  // ─── INVERTERS ─────────────────────────────
-  { id: 'inverter-coming-soon', name: 'Inverters — Coming Soon', category: 'Inverter',
-    brand: 'Various', price: 0, image: null,
-    specs: { Note: 'Contact us for latest pricing', Types: 'Hybrid, Grid-Tied, Off-Grid' },
-    description: 'We stock hybrid, grid-tied, and off-grid inverters from leading brands. Contact us for current prices.',
+  { id: 'knox-powerwall-6', name: 'Knox Powerwall 6.0 LCD 5.12kWh', category: 'Battery', brand: 'Knox', price: 242500, image: null,
+    specs: { Voltage: '51.2V', Capacity: '100Ah', Energy: '5.12kWh', Type: 'LFP Lithium', Connectivity: 'WiFi + Bluetooth', Rating: 'IP20', Warranty: '5 Years', Mount: 'Wall Mounted' },
+    description: 'Knox Powerwall 6.0 LCD Lithium LFP battery. 51.2V 100Ah with WiFi and Bluetooth. 5-year warranty. Premium wall-mount lithium battery for home solar systems.',
+    inStock: true, featured: true },
+
+  { id: 'knox-powerwall-4-15', name: 'Knox Powerwall 4.15 IP54 1.5C 2.56kWh', category: 'Battery', brand: 'Knox', price: 157500, image: null,
+    specs: { Voltage: '25.6V', Capacity: '100Ah', Energy: '3.84kWh', Rate: '1.5C', Type: 'LFP Lithium', Display: 'Touch LCD', Rating: 'IP54', Warranty: '5 Years' },
+    description: 'Knox Powerwall 4.15 IP54 Lithium LFP battery. 1.5C discharge rate for high-power output. IP54 weatherproof with touch LCD display. 5-year warranty.',
     inStock: true, featured: false },
 
-  // ─── ACCESSORIES ───────────────────────────
-  { id: 'accessory-coming-soon', name: 'Accessories — Coming Soon', category: 'Accessory',
-    brand: 'Various', price: 0, image: null,
-    specs: { Note: 'Contact us for latest pricing', Items: 'Cables, Connectors, Brackets, Controllers' },
-    description: 'Solar cables, MC4 connectors, mounting brackets, charge controllers and more. Contact us for availability.',
+  { id: 'knox-powerwall-ip54', name: 'Knox Powerwall IP54 1.5C 5.12kWh', category: 'Battery', brand: 'Knox', price: 257500, image: null,
+    specs: { Voltage: '51.2V', Capacity: '100Ah', Energy: '5.32kWh', Rate: '1.5C', Type: 'LFP Lithium', Display: 'Touch LCD', Rating: 'IP54', Warranty: '5 Years' },
+    description: 'Knox Powerwall IP54 51.2V Lithium LFP battery. IP54 rated, 1.5C discharge, touch LCD display. Premium 5-year warranty lithium battery for serious solar installations.',
+    inStock: true, featured: true },
+
+  { id: 'knox-powerbase-16', name: 'Knox Powerbase IP54 16 — 16kWh', category: 'Battery', brand: 'Knox', price: 622500, image: null,
+    specs: { Voltage: '51.2V', Capacity: '314Ah', Energy: '16kWh', Rate: '0.6C', Type: 'LFP Lithium', Connectivity: 'WiFi + Bluetooth', Display: 'Touch LCD', Rating: 'IP54', Cycles: '8000', Warranty: '5 Years' },
+    description: 'Knox Powerbase IP54-16 Lithium LFP 314Ah battery. 16kWh energy storage with 8000 cycle life. WiFi and Bluetooth monitoring. For large commercial solar storage.',
+    inStock: true, featured: false },
+
+  { id: 'knox-powerbase-32', name: 'Knox Powerbase IP54 32 — 32kWh', category: 'Battery', brand: 'Knox', price: 1092500, image: null,
+    specs: { Voltage: '51.2V', Capacity: '628Ah', Energy: '32kWh', Rate: '0.5C', Type: 'LFP Lithium', Display: 'Touch LCD', Rating: 'IP54', Cycles: '8000', Warranty: '5 Years' },
+    description: 'Knox Powerbase IP54-32 Lithium LFP 628Ah — 32kWh industrial energy storage. 8000 cycle life, 5-year warranty. Maximum capacity lithium storage for industrial solar.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — CANADIAN SOLAR ─────────
+  { id: 'canadian-585w', name: 'Canadian Solar 585W N-Type Bifacial', category: 'Solar Panel', brand: 'Canadian Solar', price: 26179, image: null,
+    specs: { Wattage: '585W', 'Per Watt': 'PKR 44.75/W', Type: 'N-Type Bifacial', Cells: 'Multi BB', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Canadian Solar 585W N-Type Bifacial — globally trusted brand with excellent low-light performance. Ideal for residential rooftops across Lahore.',
+    inStock: true, featured: true },
+
+  { id: 'canadian-590w', name: 'Canadian Solar 590W N-Type Bifacial', category: 'Solar Panel', brand: 'Canadian Solar', price: 26108, image: null,
+    specs: { Wattage: '590W', 'Per Watt': 'PKR 44.25/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Canadian Solar 590W N-Type Bifacial. Superior bifacial gain from reflected light maximizes total energy yield. Perfect for Lahore rooftop installations.',
+    inStock: true, featured: false },
+
+  { id: 'canadian-615w', name: 'Canadian Solar 615W N-Type Bifacial', category: 'Solar Panel', brand: 'Canadian Solar', price: 26291, image: null,
+    specs: { Wattage: '615W', 'Per Watt': 'PKR 42.75/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Canadian Solar 615W high-output N-Type Bifacial. Best value per watt in the lineup. Excellent choice for medium to large solar systems.',
+    inStock: true, featured: false },
+
+  { id: 'canadian-715w', name: 'Canadian Solar 715W N-Type Bifacial', category: 'Solar Panel', brand: 'Canadian Solar', price: 30030, image: null,
+    specs: { Wattage: '715W', 'Per Watt': 'PKR 42.00/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Canadian Solar 715W ultra-high power N-Type Bifacial. Maximum output per panel reduces total installation cost. Best for commercial and industrial systems.',
+    inStock: true, featured: true },
+
+  // ─── SOLAR PANELS — JINKO SOLAR ────────────
+  { id: 'jinko-585w', name: 'JinkoSolar 585W N-Type Bifacial', category: 'Solar Panel', brand: 'JinkoSolar', price: 25302, image: null,
+    specs: { Wattage: '585W', 'Per Watt': 'PKR 43.25/W', Type: 'N-Type Bifacial', Cells: 'Multi BB', Warranty: '25 Years Performance' },
+    description: "JinkoSolar 585W N-Type Bifacial — world's #1 solar brand by shipments. Industry-leading efficiency and 25-year performance warranty. Most popular in Lahore.",
+    inStock: true, featured: true },
+
+  { id: 'jinko-635w', name: 'JinkoSolar 635W N-Type Bifacial', category: 'Solar Panel', brand: 'JinkoSolar', price: 27146, image: null,
+    specs: { Wattage: '635W', 'Per Watt': 'PKR 42.75/W', Type: 'N-Type Bifacial', Stock: 'x20 Available', Warranty: '25 Years Performance' },
+    description: 'JinkoSolar 635W high-power N-Type Bifacial. Premium efficiency for demanding installations. Limited stock of 20 panels — order fast.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — JA SOLAR ───────────────
+  { id: 'ja-625w', name: 'JA Solar 625W N-Type Bifacial', category: 'Solar Panel', brand: 'JA Solar', price: 24531, image: null,
+    specs: { Wattage: '625W', 'Per Watt': 'PKR 39.25/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: "JA Solar 625W N-Type Bifacial — exceptional value for money. One of Pakistan's most installed solar brands. Great low-light performance for Lahore weather.",
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — LONGI ──────────────────
+  { id: 'longi-x7-620w', name: 'LONGi X7 620W N-Type Bifacial 18BB', category: 'Solar Panel', brand: 'LONGi', price: 24800, image: null,
+    specs: { Wattage: '620W', 'Per Watt': 'PKR 40.00/W', Type: 'N-Type Bifacial', Cells: '18BB', Series: 'X7', Warranty: '25 Years Performance' },
+    description: "LONGi X7 620W N-Type Bifacial with 18BB cell technology. LONGi is the world's largest solar manufacturer. X7 series delivers outstanding efficiency and durability.",
+    inStock: true, featured: true },
+
+  { id: 'longi-x10-645w', name: 'LONGi X10 645W N-Type Bifacial', category: 'Solar Panel', brand: 'LONGi', price: 27735, image: null,
+    specs: { Wattage: '645W', 'Per Watt': 'PKR 43.00/W', Type: 'N-Type Bifacial', Series: 'X10', Warranty: '25 Years Performance' },
+    description: 'LONGi X10 645W — flagship LONGi panel with premium bifacial technology. Maximum power density for premium residential and commercial solar systems.',
+    inStock: true, featured: true },
+
+  { id: 'longi-225w', name: 'LONGi 225W Horizon Series 12V', category: 'Solar Panel', brand: 'LONGi', price: 9000, image: null,
+    specs: { Wattage: '225W', Voltage: '12V', Series: 'Horizon', Type: 'Monocrystalline', Warranty: '25 Years Performance' },
+    description: 'LONGi 225W Horizon Series 12V panel. Perfect for smaller solar setups, water pumping, and 12V off-grid systems. Compact and highly reliable.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — ASTRO ENERGY ───────────
+  { id: 'astro-590w', name: 'Astro Energy 590W N-Type Bifacial 20BB', category: 'Solar Panel', brand: 'Astro Energy', price: 24338, image: null,
+    specs: { Wattage: '590W', 'Per Watt': 'PKR 41.25/W', Type: 'N-Type Bifacial', Cells: '20BB', Warranty: '25 Years Performance' },
+    description: 'Astro Energy 590W N-Type Bifacial with 20BB cell technology. Premium multi-busbar design for reduced resistance and higher energy output.',
+    inStock: true, featured: false },
+
+  { id: 'astro-625w', name: 'Astro Energy 625W N-Type Bifacial', category: 'Solar Panel', brand: 'Astro Energy', price: 24688, image: null,
+    specs: { Wattage: '625W', 'Per Watt': 'PKR 39.50/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Astro Energy 625W N-Type Bifacial. Excellent efficiency at competitive pricing. Strong choice for both residential and commercial solar in Pakistan.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — RISEN HJT ──────────────
+  { id: 'risen-740w', name: 'Risen HJT 740W N-Type Bifacial', category: 'Solar Panel', brand: 'Risen', price: 30340, image: null,
+    specs: { Wattage: '740W', 'Per Watt': 'PKR 41.00/W', Type: 'HJT N-Type Bifacial', Technology: 'Heterojunction (HJT)', Warranty: '25 Years Performance' },
+    description: 'Risen HJT 740W — cutting-edge Heterojunction Technology. Highest efficiency available in Pakistan market. Best temperature coefficient for hot Lahore summers.',
+    inStock: true, featured: true },
+
+  // ─── SOLAR PANELS — TRINA ──────────────────
+  { id: 'trina-720w', name: 'Trina Solar 720W N-Type Bifacial', category: 'Solar Panel', brand: 'Trina', price: 28080, image: null,
+    specs: { Wattage: '720W', 'Per Watt': 'PKR 39.00/W', Type: 'N-Type Bifacial', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Trina Solar 720W N-Type Bifacial. Trina is a top-5 global solar brand with proven reliability. Excellent value for high-power commercial installations.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — AIKO ───────────────────
+  { id: 'aiko-665w', name: 'AIKO Stellar 665W N-Type Bifacial', category: 'Solar Panel', brand: 'AIKO', price: 27099, image: null,
+    specs: { Wattage: '665W', 'Per Watt': 'PKR 40.75/W', Type: 'N-Type Bifacial', Series: 'Stellar', Warranty: '25 Years Performance' },
+    description: "AIKO Stellar 665W N-Type Bifacial. AIKO's proprietary ABC cell technology delivers industry-leading efficiency. Premium choice for performance-focused installations.",
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — RONMA ──────────────────
+  { id: 'ronma-620w', name: 'Ronma 620W Shiny Glass Bifacial', category: 'Solar Panel', brand: 'Ronma', price: 22785, image: null,
+    specs: { Wattage: '620W', 'Per Watt': 'PKR 36.75/W', Type: 'Bifacial Shiny Glass', Frame: 'Aluminum Alloy', Warranty: '25 Years Performance' },
+    description: 'Ronma 620W Shiny Glass Bifacial. Most affordable high-wattage option with glass-glass bifacial construction. Best budget choice for maximizing solar output.',
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — INVEREX JOLLYWOOD ──────
+  { id: 'inverex-jollywood-620w', name: 'Inverex Jollywood 620W N-Type Bifacial Steel Frame', category: 'Solar Panel', brand: 'Inverex Jollywood', price: 26350, image: null,
+    specs: { Wattage: '620W', 'Per Watt': 'PKR 42.50/W', Type: 'N-Type Bifacial', Frame: 'Steel Frame', Warranty: '25 Years Performance' },
+    description: "Inverex Jollywood 620W N-Type Bifacial with heavy-duty Steel Frame. Extra durability for Pakistani weather conditions. Backed by Inverex's local warranty support.",
+    inStock: true, featured: false },
+
+  // ─── SOLAR PANELS — CORETECH ───────────────
+  { id: 'coretech-585w', name: 'Coretech 585W 18BB', category: 'Solar Panel', brand: 'Coretech', price: 22376, image: null,
+    specs: { Wattage: '585W', 'Per Watt': 'PKR 38.25/W', Type: 'Monocrystalline', Cells: '18BB', Warranty: '25 Years Performance' },
+    description: 'Coretech 585W 18BB monocrystalline panel. Affordable and reliable 18 busbar technology for budget-conscious solar installations without compromising quality.',
+    inStock: true, featured: false },
+
+  // ─── KNOX HYBRID INVERTERS ─────────────────
+  { id: 'knox-eco-4000', name: 'Knox Krypton ECO 4000 Wi-Fi 3kW', category: 'Inverter', brand: 'Knox', price: 82500, image: null,
+    specs: { Power: '3kW', 'Max PV': '4000W', Voltage: '24VDC', WiFi: 'Built-in', Voltronic: 'Genuine VP Taiwan', Operation: 'Battery-less possible' },
+    description: 'Knox Krypton ECO-4000 3kW hybrid inverter with built-in Wi-Fi. Genuine Voltronic Power Taiwan. Battery-less operation capable. Perfect for small home solar systems.',
+    inStock: true, featured: false },
+
+  { id: 'knox-eco-5000', name: 'Knox Krypton ECO 5000 Wi-Fi 4.2kW', category: 'Inverter', brand: 'Knox', price: 102500, image: null,
+    specs: { Power: '4.2kW', 'Max PV': '5000W', Voltage: '24VDC', WiFi: 'Built-in', Voltronic: 'Genuine VP Taiwan', Operation: 'Battery-less possible' },
+    description: 'Knox Krypton ECO-5000 4.2kW hybrid inverter. Built-in Wi-Fi monitoring and battery-less operation. Genuine Voltronic Power Taiwan — ideal for medium homes.',
+    inStock: true, featured: false },
+
+  { id: 'knox-eco-6600', name: 'Knox Krypton ECO 6600 Wi-Fi 6.2kW', category: 'Inverter', brand: 'Knox', price: 122500, image: null,
+    specs: { Power: '6.2kW', 'Max PV': '6600W', Voltage: '48VDC', WiFi: 'Built-in', Voltronic: 'Genuine VP Taiwan', Operation: 'Battery-less possible' },
+    description: 'Knox Krypton ECO-6600 6.2kW 48V hybrid inverter with Wi-Fi. Battery-less operation. Genuine Voltronic Power — best for larger homes and small offices.',
+    inStock: true, featured: false },
+
+  { id: 'knox-6000', name: 'Knox Krypton 6000 4kW Hybrid', category: 'Inverter', brand: 'Knox', price: 120500, image: null,
+    specs: { Power: '4kW', 'Max PV': '6000W', Voltage: '24VDC', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 6000 4kW hybrid inverter. Built-in Wi-Fi, BMS and Dual Output. Genuine Voltronic Power Taiwan. Most popular Knox model for residential solar in Lahore.',
+    inStock: true, featured: true },
+
+  { id: 'knox-6500', name: 'Knox Krypton 6500 4.5kW Hybrid', category: 'Inverter', brand: 'Knox', price: 127500, image: null,
+    specs: { Power: '4.5kW', 'Max PV': '6500W', Voltage: '24VDC', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 6500 4.5kW hybrid with dual output. Built-in Wi-Fi and BMS. Genuine Voltronic Power — step up from 6000 for homes with higher energy demands.',
+    inStock: true, featured: false },
+
+  { id: 'knox-9000', name: 'Knox Krypton 9000 RGB 6.2kW Hybrid', category: 'Inverter', brand: 'Knox', price: 162500, image: null,
+    specs: { Power: '6.2kW', 'Max PV': '9000W', WiFi: 'Built-in', BMS: 'Built-in', Display: 'RGB', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 9000 RGB 6.2kW hybrid inverter. Dual output with built-in BMS and Wi-Fi. RGB display panel. Genuine Voltronic Power Taiwan — ideal for larger homes.',
+    inStock: true, featured: true },
+
+  { id: 'knox-9055', name: 'Knox Krypton 9055 RGB 6.5kW Hybrid', category: 'Inverter', brand: 'Knox', price: 182500, image: null,
+    specs: { Power: '6.5kW', 'Max PV': '9000W', 'PV+Bat': '8000W', 'Grid Feed': '8000W', Display: 'HMI Touch', WiFi: 'Built-in', BMS: 'Built-in', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 9055 RGB 6.5kW with HMI touch display. Grid feeding 8000W. Dual output with BMS and Wi-Fi. Genuine Voltronic — premium choice for solar exporters.',
+    inStock: true, featured: false },
+
+  { id: 'knox-12002', name: 'Knox Krypton 12002 RGB 8.5kW Hybrid', category: 'Inverter', brand: 'Knox', price: 267500, image: null,
+    specs: { Power: '8.5kW', 'Max PV': '12000W', Display: '7" HMI Touch', MPPT: 'Dual MPPT', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 12002 RGB 8.5kW — 7 inch HMI touch display, dual MPPT, built-in BMS and Wi-Fi. Genuine Voltronic Power Taiwan. Best for large homes and commercial use.',
+    inStock: true, featured: true },
+
+  { id: 'knox-13002', name: 'Knox Krypton 13002 RGB 10kW Hybrid', category: 'Inverter', brand: 'Knox', price: 297500, image: null,
+    specs: { Power: '10kW', 'Max PV': '13000W', Display: '7" HMI Touch', MPPT: 'Dual MPPT', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 13002 10kW hybrid with 7 inch HMI touch display. Dual MPPT for maximum solar harvest. Genuine Voltronic Power — designed for commercial solar systems.',
+    inStock: true, featured: false },
+
+  { id: 'knox-15002', name: 'Knox Krypton 15002 RGB 11.5kW Hybrid', category: 'Inverter', brand: 'Knox', price: 312500, image: null,
+    specs: { Power: '11.5kW', 'Max PV': '15000W', Display: '7" HMI Touch', MPPT: 'Dual MPPT', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Voltronic: 'Genuine VP Taiwan' },
+    description: 'Knox Krypton 15002 11.5kW — most powerful Krypton series inverter. Dual MPPT, 7 inch HMI touch. Genuine Voltronic Power Taiwan. Built for heavy commercial loads.',
+    inStock: true, featured: false },
+
+  // ─── KNOX ON-GRID INVERTERS ─────────────────
+  { id: 'knox-xenon-12066', name: 'Knox Xenon 12066 IP66 6kW On-Grid', category: 'Inverter', brand: 'Knox', price: 237500, image: null,
+    specs: { Power: '6kW', 'Max PV': '12000W', Rating: 'IP66', ISC: '22A', Display: 'HMI LCD 7"', WiFi: 'Built-in', BMS: 'Built-in', Output: 'Dual Output', Warranty: '5 Year Board Replacement' },
+    description: 'Knox Xenon 12066 IP66 6kW on-grid inverter. IP66 weatherproof rating with 7 inch HMI LCD. 5-year free board replacement warranty. Genuine Voltronic Power Taiwan.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xenon-18000', name: 'Knox Xenon 18000 IP65 12kW On-Grid', category: 'Inverter', brand: 'Knox', price: 572500, image: null,
+    specs: { Power: '12kW', 'Max PV': '18000W', Rating: 'IP65', Voltage: '48VDC', MPPT: 'Dual PV Controller', WiFi: 'Built-in', BMS: 'Built-in', Voltronic: 'Genuine VP' },
+    description: 'Knox Xenon 18000 IP65 12kW on-grid inverter. Dual PV controller and dual output. IP65 weatherproof. Genuine Voltronic Power — perfect for large commercial solar.',
+    inStock: true, featured: false },
+
+  { id: 'knox-zynex-8kw', name: 'Knox Zynex 8kW 3MPPT IP66 On-Grid', category: 'Inverter', brand: 'Knox', price: 347500, image: null,
+    specs: { Power: '8kW', 'Max PV': '16000W', Rating: 'IP66', MPPT: '3 MPPT', Voltage: '48VDC', WiFi: 'Built-in', BMS: 'Built-in', Warranty: '5 Year Board Replacement' },
+    description: 'Knox Zynex 8kW IP66 with triple MPPT controller. Maximum solar harvest from multiple roof orientations. 5-year board replacement warranty. For serious commercial installations.',
+    inStock: true, featured: true },
+
+  { id: 'knox-zynex-10kw', name: 'Knox Zynex 10kW 3MPPT IP66 On-Grid', category: 'Inverter', brand: 'Knox', price: 377500, image: null,
+    specs: { Power: '10kW', 'Max PV': '18000W', Rating: 'IP66', MPPT: '3 MPPT', Voltage: '48VDC', WiFi: 'Built-in', BMS: 'Built-in', Warranty: '5 Year Board Replacement' },
+    description: 'Knox Zynex 10kW IP66 with triple MPPT. Handles 18000W solar input across 3 independent MPPT trackers. 5-year board replacement warranty. Industrial grade reliability.',
+    inStock: true, featured: false },
+
+  { id: 'knox-asw-5000t', name: 'Knox ASW 5000-T On-Grid 5kW', category: 'Inverter', brand: 'Knox', price: 132500, image: null,
+    specs: { Power: '5kW', 'Max PV': '7.5kW', ISC: '18A/18A', Edition: 'Limited Edition LE & G2' },
+    description: 'Knox ASW 5000-T Limited Edition 5kW on-grid inverter. Dual 18A ISC input. LE & G2 technology for improved efficiency and reliability in Pakistani grid conditions.',
+    inStock: true, featured: false },
+
+  { id: 'knox-asw-6000t', name: 'Knox ASW 6000-T On-Grid 6kW', category: 'Inverter', brand: 'Knox', price: 137500, image: null,
+    specs: { Power: '6kW', 'Max PV': '9kW', ISC: '18A/18A', Edition: 'Limited Edition LE & G2' },
+    description: 'Knox ASW 6000-T Limited Edition 6kW on-grid inverter. Dual 18A ISC input. Premium LE & G2 version for optimized grid-tied solar performance.',
+    inStock: true, featured: false },
+
+  { id: 'knox-asw-8k-lt-g2', name: 'Knox ASW 8K-LT-G2 On-Grid 8kW', category: 'Inverter', brand: 'Knox', price: 142500, image: null,
+    specs: { Power: '8kW', 'Max PV': '12kW', ISC: '26A/13A', Output: '40A-20A' },
+    description: 'Knox ASW 8K-LT-G2 8kW on-grid inverter. High ISC input for large panel arrays. G2 generation technology for superior efficiency.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xerox-g4-10kw', name: 'Knox Xerox G4 10kW On-Grid', category: 'Inverter', brand: 'Knox', price: 172500, image: null,
+    specs: { Power: '10kW', 'Max PV': '15kW', ISC: '20A', 'Max Output': '11kW' },
+    description: 'Knox Xerox G4 10kW on-grid inverter. G4 fourth generation technology with maximum 11kW output. Reliable grid-tied performance for large commercial installations.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xerox-g4-pro-10-2', name: 'Knox Xerox G4 Pro 10.2kW On-Grid', category: 'Inverter', brand: 'Knox', price: 187500, image: null,
+    specs: { Power: '10kW', 'Max PV': '17kW', ISC: '32A/20A', 'Max Output': '13.2kW' },
+    description: 'Knox Xerox G4 Pro 10.2kW on-grid inverter. High ISC 32A input with 13.2kW maximum output. Pro series for premium commercial grid-tied systems.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xerox-g4-pro-15-2', name: 'Knox Xerox G4 Pro 15.2kW On-Grid', category: 'Inverter', brand: 'Knox', price: 222500, image: null,
+    specs: { Power: '15kW', 'Max PV': '23kW', ISC: '32A/20A', 'Max Output': '16.5kW' },
+    description: 'Knox Xerox G4 Pro 15.2kW on-grid inverter with 16.5kW maximum output. G4 Pro series for industrial solar. Top choice for factories and large commercial buildings.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xerox-g4-pro-20-2', name: 'Knox Xerox G4 Pro 20.2kW On-Grid', category: 'Inverter', brand: 'Knox', price: 272500, image: null,
+    specs: { Power: '20kW', 'Max PV': '30kW', ISC: '32A/32A', 'Max Output': '22kW' },
+    description: 'Knox Xerox G4 Pro 20.2kW on-grid inverter. Maximum 22kW output with dual 32A ISC. Industrial-grade reliability for large factories and commercial complexes.',
+    inStock: true, featured: false },
+
+  { id: 'knox-xerox-g4-pro-25-2', name: 'Knox Xerox G4 Pro 25.2kW On-Grid', category: 'Inverter', brand: 'Knox', price: 302500, image: null,
+    specs: { Power: '25kW', 'Max PV': '38kW', ISC: '40A/32A', 'Max Output': '27.5kW' },
+    description: 'Knox Xerox G4 Pro 25.2kW on-grid inverter. 27.5kW maximum output for heavy industrial solar. Best choice for warehouses and large manufacturing facilities.',
     inStock: true, featured: false },
 
 ]
