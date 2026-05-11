@@ -21,11 +21,22 @@ const jakarta = Plus_Jakarta_Sans({
   display: "swap",
 })
 
-export const metadata: Metadata = generateMetadata(
-  "Solar & Battery Solutions for Lahore",
-  siteConfig.description,
-  "/"
-)
+export const metadata: Metadata = {
+  ...generateMetadata(
+    "Solar & Battery Solutions for Lahore",
+    siteConfig.description,
+    "/"
+  ),
+  icons: {
+    icon: [
+      { url: '/logo.png', type: 'image/png' },
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
+}
 
 export default function RootLayout({
   children,
@@ -39,10 +50,6 @@ export default function RootLayout({
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/logo.png" type="image/png" />
-        <link rel="icon" href="/logo.png" sizes="32x32" type="image/png" />
-        <link rel="icon" href="/logo.png" sizes="16x16" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#D97706" />
 
