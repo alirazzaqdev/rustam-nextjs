@@ -87,7 +87,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
         <div className="text-center max-w-2xl mx-auto mb-12">
           <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-3">FAQs</p>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
-            Frequently Asked Questions
+            Frequently Asked Questions About Solar in Lahore
           </h2>
           <p className="mt-4 text-base text-gray-500 leading-relaxed">
             Find answers to common questions about our solar solutions

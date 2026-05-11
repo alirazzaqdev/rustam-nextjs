@@ -15,7 +15,7 @@ export function HeroSection() {
   const { setQuoteModalOpen } = useAppStore()
 
   return (
-    <section id="hero" className="relative bg-white border-b border-gray-100 overflow-hidden">
+    <section id="hero" aria-label="Hero section" className="relative bg-white border-b border-gray-100 overflow-hidden">
 
       {/* Thin premium amber accent at very top */}
       <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-amber-500 to-transparent pointer-events-none" aria-hidden />

@@ -96,7 +96,7 @@ export function TeamSection() {
                 {member.image ? (
                   <img
                     src={member.image}
-                    alt={member.name}
+                    alt={`${member.name} — ${member.role} at Rustam Battery Solar Lahore`}
                     className="w-full h-full object-cover object-top"
                   />
                 ) : (
@@ -161,7 +161,7 @@ export function TeamSection() {
                   {member.image ? (
                     <img
                       src={member.image}
-                      alt={member.name}
+                      alt={`${member.name} — ${member.role} at Rustam Battery Solar Lahore`}
                       className="w-full h-full object-cover object-top"
                     />
                   ) : (

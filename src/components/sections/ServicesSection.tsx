@@ -34,7 +34,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="What we offer"
-          title="End-to-end solar solutions"
+          title="Solar Installation Services in Lahore"
           description="From expert design to installation, monitoring, and lifetime support — everything you need from a single trusted team."
         />
 

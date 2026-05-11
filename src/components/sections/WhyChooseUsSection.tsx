@@ -17,7 +17,7 @@ export function WhyChooseUsSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Why Rustam Battery"
-          title="Built on trust, backed by 19 years"
+          title="Why Choose Rustam Battery for Solar in Lahore?"
           description="We don't just sell solar — we build long-term energy partnerships with every customer in Lahore."
         />
 

@@ -21,7 +21,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-slate-900 text-gray-400">
+    <footer role="contentinfo" className="bg-slate-900 text-gray-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
 
@@ -30,7 +30,7 @@ export function Footer() {
             <Link href="/" className="inline-block mb-4">
               <img
                 src="/logo.png"
-                alt="Rustam Battery & Solar Energy House"
+                alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
                 className="h-16 w-auto object-contain"
                 style={{ maxWidth: '160px' }}
               />
@@ -115,8 +115,25 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Schema.org address markup — crawlable by Google */}
+        <address
+          className="not-italic text-xs text-gray-500 mt-8"
+          itemScope
+          itemType="https://schema.org/LocalBusiness"
+        >
+          <span itemProp="name" className="hidden">Rustam Battery &amp; Solar Energy House</span>
+          <span itemProp="telephone" className="hidden">+92-321-3770402</span>
+          <span itemProp="email" className="hidden">ia6969537@gmail.com</span>
+          <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+            <span itemProp="streetAddress" className="hidden">Kahna Nau</span>
+            <span itemProp="addressLocality" className="hidden">Lahore</span>
+            <span itemProp="addressRegion" className="hidden">Punjab</span>
+            <span itemProp="addressCountry" className="hidden">Pakistan</span>
+          </span>
+        </address>
+
         {/* Bottom bar */}
-        <div className="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-gray-500">
+        <div className="mt-6 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-gray-500">
           <p>&copy; {currentYear} Rustam Battery & Solar Energy House. All rights reserved.</p>
           <p className="text-gray-600">Serving Lahore since 2006 · Kahna Nau, Punjab, Pakistan</p>
           <p>

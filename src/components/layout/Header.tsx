@@ -43,7 +43,7 @@ export function Header() {
             <div className="bg-slate-900 rounded-xl px-3 py-1.5 hover:bg-slate-800 transition-colors duration-200">
               <img
                 src="/logo.png"
-                alt="Rustam Battery & Solar Energy House"
+                alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
                 className="h-11 w-auto object-contain block"
                 style={{ maxWidth: '140px' }}
               />
@@ -51,7 +51,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-0.5">
+          <nav role="navigation" aria-label="Main navigation" className="hidden md:flex items-center gap-0.5">
             {navItems.map((item) => (
               <Link
                 key={item.href}

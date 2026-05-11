@@ -153,8 +153,8 @@ export function ProductsSection({ products }: ProductsSectionProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Product Catalogue"
-          title="Premium batteries & solar equipment"
-          description="50+ batteries, 18 solar panel models, 19 Knox inverters — all from trusted brands. Click any product for full specs and to order."
+          title="Solar Panels, Batteries & Inverters in Lahore"
+          description="93 products — Osaka, AGS, Phoenix, Alaska batteries · Canadian Solar, JinkoSolar, LONGi panels · Knox hybrid inverters. Click any product for full specs."
         />
 
         {/* Category tabs */}

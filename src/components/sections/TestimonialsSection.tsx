@@ -97,7 +97,7 @@ export function TestimonialsSection({ testimonials: _ }: TestimonialsSectionProp
             <span className="h-px w-6 bg-emerald-500 inline-block" />
           </div>
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
-            What our customers say
+            What Lahore Customers Say About Our Solar Systems
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-base">
             Real experiences from homeowners, businesses, and factories across Lahore — since 2006.

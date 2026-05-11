@@ -17,7 +17,7 @@ export function ContactSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           label="Get in touch"
-          title="We're here to help"
+          title="Contact Rustam Battery — Solar Company in Lahore"
           description="Have questions about solar solutions? Reach out below or request a free quote — our team responds within 24 hours."
         />
 
