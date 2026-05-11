@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import { Battery, Sun, Zap, Package } from 'lucide-react'
 
 interface ProductImageProps {
@@ -47,11 +46,10 @@ export default function ProductImage({ src, name, brand, category, size = 'card'
   if (src && !imgError) {
     return (
       <div className={`relative w-full ${isModal ? 'h-64' : 'h-40'} overflow-hidden bg-gray-50`}>
-        <Image
+        <img
           src={src}
           alt={name}
-          fill
-          className="object-contain p-4"
+          className="w-full h-full object-contain p-4"
           onError={() => setImgError(true)}
         />
       </div>
