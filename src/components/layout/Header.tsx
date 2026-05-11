@@ -38,7 +38,7 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-9 h-9 bg-amber-500 rounded-lg flex items-center justify-center">
+            <div className="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center">
               <Zap size={18} className="text-white" fill="white" strokeWidth={2} />
             </div>
             <div className="hidden sm:block leading-none">
@@ -57,7 +57,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-amber-600 transition-colors"
+                className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-emerald-700 transition-colors"
               >
                 {item.label}
               </Link>
@@ -69,24 +69,24 @@ export function Header() {
             <Link
               href="/cart"
               aria-label="Cart"
-              className="relative p-2 text-gray-600 hover:text-amber-600 transition-colors"
+              className="relative p-2 text-gray-600 hover:text-emerald-700 transition-colors"
             >
               <ShoppingCart size={20} />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
                   {totalItems > 9 ? '9+' : totalItems}
                 </span>
               )}
             </Link>
             <button
               onClick={() => setQuoteModalOpen(true)}
-              className="text-sm font-semibold text-gray-700 hover:text-amber-600 px-3 py-2 transition-colors"
+              className="text-sm font-semibold text-gray-700 hover:text-emerald-700 px-3 py-2 transition-colors"
             >
               Get Quote
             </button>
             <Link
               href="/order"
-              className="bg-amber-500 hover:bg-amber-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors"
             >
               Order Now
             </Link>
@@ -97,11 +97,11 @@ export function Header() {
             <Link
               href="/cart"
               aria-label="Cart"
-              className="relative p-2 text-gray-600 hover:text-amber-600 transition-colors"
+              className="relative p-2 text-gray-600 hover:text-emerald-700 transition-colors"
             >
               <ShoppingCart size={20} />
               {totalItems > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-amber-500 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
+                <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center leading-none">
                   {totalItems > 9 ? '9+' : totalItems}
                 </span>
               )}
@@ -126,7 +126,7 @@ export function Header() {
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-emerald-700 hover:bg-gray-50 rounded-lg transition-colors"
               >
                 {item.label}
               </Link>
@@ -134,14 +134,14 @@ export function Header() {
             <div className="pt-3 flex flex-col gap-2 border-t border-gray-100 mt-3">
               <button
                 onClick={() => { setQuoteModalOpen(true); setIsOpen(false) }}
-                className="w-full text-center border-2 border-amber-500 text-amber-600 hover:bg-amber-50 font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                className="w-full text-center border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-semibold py-2.5 rounded-lg text-sm transition-colors"
               >
                 Get Quote
               </button>
               <Link
                 href="/order"
                 onClick={() => setIsOpen(false)}
-                className="block text-center bg-amber-500 hover:bg-amber-600 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
+                className="block text-center bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-2.5 rounded-lg text-sm transition-colors"
               >
                 Order Now
               </Link>

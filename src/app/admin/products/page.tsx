@@ -44,7 +44,7 @@ export default function AdminProductsPage() {
                     <td className="px-4 py-3 text-gray-900">
                       {p.price > 0
                         ? `PKR ${p.price.toLocaleString('en-PK')}`
-                        : <span className="text-amber-600 font-medium">Contact</span>}
+                        : <span className="text-emerald-700 font-medium">Contact</span>}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs font-medium ${p.inStock ? 'text-green-600' : 'text-red-500'}`}>
@@ -52,7 +52,7 @@ export default function AdminProductsPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`text-xs font-medium ${p.featured ? 'text-amber-600' : 'text-gray-400'}`}>
+                      <span className={`text-xs font-medium ${p.featured ? 'text-emerald-700' : 'text-gray-400'}`}>
                         {p.featured ? 'Yes' : 'No'}
                       </span>
                     </td>

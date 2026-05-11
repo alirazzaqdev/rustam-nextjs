@@ -16,7 +16,7 @@ export default function CartPage() {
           <p className="text-gray-500 mb-6">Add some products to get started.</p>
           <Link
             href="/#products"
-            className="inline-flex items-center gap-2 bg-amber-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-amber-600 transition-colors"
+            className="inline-flex items-center gap-2 bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 transition-colors"
           >
             Browse Products
           </Link>
@@ -38,13 +38,13 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-4">
             {items.map((item) => (
               <div key={item.id} className="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 flex gap-4">
-                <div className="w-20 h-20 bg-amber-50 rounded-xl flex items-center justify-center shrink-0">
-                  <ShoppingCart className="text-amber-400" size={28} />
+                <div className="w-20 h-20 bg-emerald-50 rounded-xl flex items-center justify-center shrink-0">
+                  <ShoppingCart className="text-emerald-500" size={28} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs text-amber-600 font-medium uppercase tracking-wide">{item.category}</p>
+                  <p className="text-xs text-emerald-700 font-medium uppercase tracking-wide">{item.category}</p>
                   <h3 className="font-semibold text-gray-900 mt-0.5 leading-snug">{item.name}</h3>
-                  <p className="text-amber-600 font-bold mt-1">PKR {item.price.toLocaleString()}</p>
+                  <p className="text-emerald-700 font-bold mt-1">PKR {item.price.toLocaleString()}</p>
 
                   <div className="flex items-center gap-3 mt-3">
                     <button
@@ -98,13 +98,13 @@ export default function CartPage() {
                 </div>
                 <div className="border-t pt-3 flex justify-between font-bold text-gray-900 text-base">
                   <span>Total</span>
-                  <span className="text-amber-600">PKR {total.toLocaleString()}</span>
+                  <span className="text-emerald-700">PKR {total.toLocaleString()}</span>
                 </div>
               </div>
 
               <Link
                 href="/checkout"
-                className="w-full flex items-center justify-center gap-2 bg-amber-500 text-white py-3 rounded-xl font-semibold hover:bg-amber-600 transition-colors"
+                className="w-full flex items-center justify-center gap-2 bg-emerald-600 text-white py-3 rounded-xl font-semibold hover:bg-emerald-700 transition-colors"
               >
                 Proceed to Checkout
                 <ArrowRight size={18} />

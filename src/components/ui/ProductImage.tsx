@@ -17,7 +17,7 @@ const brandGradients: Record<string, string> = {
   Phoenix: 'from-red-600 to-red-800',
   AGS:     'from-emerald-600 to-emerald-800',
   Alaska:  'from-violet-600 to-violet-800',
-  default: 'from-amber-500 to-orange-600',
+  default: 'from-emerald-600 to-orange-600',
 }
 
 function CategoryIcon({ category, size }: { category: string; size: 'card' | 'modal' }) {

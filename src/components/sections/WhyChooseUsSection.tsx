@@ -29,10 +29,10 @@ export function WhyChooseUsSection() {
           {reasons.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-amber-300 hover:shadow-md transition-all duration-200"
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-md transition-all duration-200"
             >
-              <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                <Icon size={20} className="text-amber-600" strokeWidth={2.25} />
+              <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                <Icon size={20} className="text-emerald-700" strokeWidth={2.25} />
               </div>
               <h3 className="text-xl font-semibold text-slate-800 tracking-tight mb-2">{title}</h3>
               <p className="text-base text-gray-600 leading-relaxed">{desc}</p>

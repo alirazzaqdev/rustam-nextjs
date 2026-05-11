@@ -25,7 +25,7 @@ export default async function AdminDashboard() {
 
   const stats = [
     { label: 'Total Orders', value: total, icon: ShoppingBag, color: 'bg-blue-50 text-blue-600' },
-    { label: 'Today', value: todayCount, icon: Clock, color: 'bg-amber-50 text-amber-600' },
+    { label: 'Today', value: todayCount, icon: Clock, color: 'bg-emerald-50 text-emerald-700' },
     { label: 'Pending', value: pending, icon: Clock, color: 'bg-red-50 text-red-600' },
     { label: 'Revenue (paid)', value: `PKR ${revenue.toLocaleString()}`, icon: DollarSign, color: 'bg-green-50 text-green-600' },
   ]
@@ -52,7 +52,7 @@ export default async function AdminDashboard() {
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Recent Orders</h2>
-            <a href="/admin/orders" className="text-sm text-amber-600 hover:text-amber-700 font-medium">View all</a>
+            <a href="/admin/orders" className="text-sm text-emerald-700 hover:text-amber-700 font-medium">View all</a>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">

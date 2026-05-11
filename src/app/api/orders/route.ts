@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
       subject: `Order Confirmed — ${order.orderNumber}`,
       html: `
         <div style="font-family:sans-serif;max-width:600px;margin:auto">
-          <div style="background:#F59E0B;padding:24px;border-radius:12px 12px 0 0;text-align:center">
+          <div style="background:#059669;padding:24px;border-radius:12px 12px 0 0;text-align:center">
             <h1 style="color:white;margin:0;font-size:24px">Order Received!</h1>
           </div>
           <div style="background:white;padding:24px;border:1px solid #e2e8f0;border-radius:0 0 12px 12px">
@@ -93,7 +93,7 @@ export async function POST(req: NextRequest) {
               <tbody>${itemsHtml}</tbody>
               <tfoot><tr style="background:#fffbeb">
                 <td colspan="2" style="padding:8px 12px;border:1px solid #e2e8f0;font-weight:700">Total</td>
-                <td style="padding:8px 12px;border:1px solid #e2e8f0;text-align:right;font-weight:700;color:#F59E0B">PKR ${body.total.toLocaleString()}</td>
+                <td style="padding:8px 12px;border:1px solid #e2e8f0;text-align:right;font-weight:700;color:#059669">PKR ${body.total.toLocaleString()}</td>
               </tr></tfoot>
             </table>
             <p><strong>Payment Method:</strong> ${body.paymentMethod.replace('_', ' ').toUpperCase()}</p>

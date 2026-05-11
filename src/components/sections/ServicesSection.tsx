@@ -45,16 +45,16 @@ export function ServicesSection({ services }: ServicesSectionProps) {
             return (
               <div
                 key={service.id}
-                className="group relative bg-white border border-gray-100 rounded-2xl p-6 hover:border-amber-300 hover:shadow-md transition-all duration-200"
+                className="group relative bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-md transition-all duration-200"
               >
                 {isPopular && (
-                  <span className="absolute -top-2.5 right-6 bg-amber-500 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                  <span className="absolute -top-2.5 right-6 bg-emerald-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
                     Most Popular
                   </span>
                 )}
 
-                <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-amber-600" strokeWidth={2.25} />
+                <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                  <Icon size={20} className="text-emerald-700" strokeWidth={2.25} />
                 </div>
 
                 <h3 className="text-xl font-semibold text-slate-800 mb-2 tracking-tight">
@@ -67,7 +67,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                 <button
                   type="button"
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-amber-600 hover:text-amber-700 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:text-amber-700 transition-colors"
                 >
                   Learn more
                   <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />

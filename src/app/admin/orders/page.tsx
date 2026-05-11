@@ -53,13 +53,13 @@ export default function AdminOrdersPage() {
             <select
               value={filter}
               onChange={e => setFilter(e.target.value)}
-              className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-amber-200"
+              className="border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 outline-none focus:ring-2 focus:ring-emerald-300"
             >
               <option value="">All Statuses</option>
               {ORDER_STATUSES.map(s => <option key={s} value={s} className="capitalize">{s}</option>)}
             </select>
             <button onClick={load} className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-              <RefreshCw size={16} className={loading ? 'animate-spin text-amber-500' : 'text-gray-500'} />
+              <RefreshCw size={16} className={loading ? 'animate-spin text-emerald-600' : 'text-gray-500'} />
             </button>
           </div>
         </div>
@@ -88,7 +88,7 @@ export default function AdminOrdersPage() {
                 )}
                 {!loading && orders.map(order => (
                   <tr key={order.id} className="hover:bg-gray-50">
-                    <td className="px-4 py-3 font-medium text-amber-600">{order.orderNumber}</td>
+                    <td className="px-4 py-3 font-medium text-emerald-700">{order.orderNumber}</td>
                     <td className="px-4 py-3">
                       <p className="font-medium text-gray-900">{order.customerName}</p>
                       <p className="text-gray-500 text-xs">{order.phone}</p>
@@ -103,7 +103,7 @@ export default function AdminOrdersPage() {
                       <select
                         value={order.orderStatus}
                         onChange={e => updateStatus(order.id, e.target.value)}
-                        className="border border-gray-200 rounded-lg px-2 py-1 text-xs outline-none focus:ring-2 focus:ring-amber-200 capitalize"
+                        className="border border-gray-200 rounded-lg px-2 py-1 text-xs outline-none focus:ring-2 focus:ring-emerald-300 capitalize"
                       >
                         {ORDER_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
                       </select>

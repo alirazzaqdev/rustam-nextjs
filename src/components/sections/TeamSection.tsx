@@ -56,18 +56,18 @@ export function TeamSection() {
 
         {/* Owner — featured */}
         <div className="mt-12 bg-white border border-gray-100 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
+          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-600 to-orange-600 flex items-center justify-center shrink-0">
             <span className="text-white font-bold text-2xl select-none">{owner.initials}</span>
           </div>
 
           <div className="flex-1 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-              <span className="bg-amber-100 text-amber-600 text-xs font-semibold px-2.5 py-1 rounded-full">
+              <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
                 {owner.experience}
               </span>
             </div>
             <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{owner.name}</h3>
-            <p className="text-amber-600 font-semibold text-sm mb-4">{owner.title}</p>
+            <p className="text-emerald-700 font-semibold text-sm mb-4">{owner.title}</p>
             <p className="text-base text-gray-600 leading-relaxed max-w-2xl">{owner.bio}</p>
           </div>
         </div>
@@ -82,15 +82,15 @@ export function TeamSection() {
                 className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center shrink-0">
+                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-600 to-orange-600 flex items-center justify-center shrink-0">
                     <span className="text-white font-bold text-2xl select-none">{member.initials}</span>
                   </div>
-                  <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon size={18} className="text-amber-600" strokeWidth={2.25} />
+                  <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
+                    <Icon size={18} className="text-emerald-700" strokeWidth={2.25} />
                   </div>
                 </div>
                 <h3 className="text-xl font-semibold text-slate-800 tracking-tight">{member.name}</h3>
-                <p className="text-amber-600 font-semibold text-sm mb-3">{member.title}</p>
+                <p className="text-emerald-700 font-semibold text-sm mb-3">{member.title}</p>
                 <p className="text-base text-gray-600 leading-relaxed">{member.bio}</p>
               </div>
             )

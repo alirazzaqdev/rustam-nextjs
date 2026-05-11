@@ -70,7 +70,7 @@ async function sendEmails(data: OrderData, orderId: string): Promise<void> {
       to: ADMIN_EMAIL,
       subject: `New Order Request ${orderId} — ${data.name}`,
       html: `
-        <h2 style="color:#f59e0b">New Order Request</h2>
+        <h2 style="color:#059669">New Order Request</h2>
         <p><strong>Order ID:</strong> ${orderId}</p>
         <p><strong>Name:</strong> ${data.name}</p>
         <p><strong>Email:</strong> ${data.email}</p>
@@ -90,7 +90,7 @@ async function sendEmails(data: OrderData, orderId: string): Promise<void> {
       to: data.email,
       subject: `Order Confirmed — Ref ${orderId}`,
       html: `
-        <h2 style="color:#f59e0b">Your order has been received!</h2>
+        <h2 style="color:#059669">Your order has been received!</h2>
         <p>Hi ${data.name},</p>
         <p>Thank you for your order. Reference: <strong>${orderId}</strong></p>
         <p>Our team will contact you at <strong>${data.phone}</strong> within 24 hours.</p>

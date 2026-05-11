@@ -73,7 +73,7 @@ export function CalculatorSection() {
     <section id="calculator" className="bg-white py-20 md:py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-3">Savings Calculator</p>
+          <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-3">Savings Calculator</p>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             Estimate your solar savings
           </h2>
@@ -97,11 +97,11 @@ export function CalculatorSection() {
                 step="500"
                 value={monthlyBill}
                 onChange={(e) => setMonthlyBill(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
               />
               <div className="flex justify-between items-center mt-3">
                 <span className="text-sm text-slate-600">PKR 1,000</span>
-                <span className="text-2xl font-bold text-amber-600">
+                <span className="text-2xl font-bold text-emerald-700">
                   PKR {monthlyBill.toLocaleString()}
                 </span>
                 <span className="text-sm text-slate-600">PKR 50,000</span>
@@ -120,11 +120,11 @@ export function CalculatorSection() {
                 step="0.5"
                 value={sunHours}
                 onChange={(e) => setSunHours(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
               />
               <div className="flex justify-between items-center mt-3">
                 <span className="text-sm text-slate-600">3 hrs</span>
-                <span className="text-2xl font-bold text-amber-600">{sunHours} hrs</span>
+                <span className="text-2xl font-bold text-emerald-700">{sunHours} hrs</span>
                 <span className="text-sm text-slate-600">7 hrs</span>
               </div>
               <p className="text-xs text-slate-500 mt-2">
@@ -144,11 +144,11 @@ export function CalculatorSection() {
                 step="1"
                 value={electricityRate}
                 onChange={(e) => setElectricityRate(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600"
               />
               <div className="flex justify-between items-center mt-3">
                 <span className="text-sm text-slate-600">PKR 15</span>
-                <span className="text-2xl font-bold text-amber-600">
+                <span className="text-2xl font-bold text-emerald-700">
                   PKR {electricityRate}/kWh
                 </span>
                 <span className="text-sm text-slate-600">PKR 40</span>
@@ -170,7 +170,7 @@ export function CalculatorSection() {
                     onClick={() => setSystemType(type.id)}
                     className={`p-3 rounded-lg font-medium transition-colors ${
                       systemType === type.id
-                        ? 'bg-amber-500 text-white'
+                        ? 'bg-emerald-600 text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
                     }`}
                   >
@@ -183,7 +183,7 @@ export function CalculatorSection() {
             {/* Call to Action */}
             <Button
               onClick={handleQuote}
-              className="w-full bg-amber-500 hover:bg-amber-600 text-white py-6 text-lg font-semibold"
+              className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-6 text-lg font-semibold"
             >
               Get Detailed Quote
             </Button>
@@ -192,15 +192,15 @@ export function CalculatorSection() {
           {/* Results Section */}
           <div className="space-y-6">
             {/* System Size Card */}
-            <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+            <Card className="bg-gradient-to-br from-emerald-50 to-emerald-50 border-emerald-300">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <Zap className="text-amber-600" size={24} />
+                  <Zap className="text-emerald-700" size={24} />
                   System Size
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-amber-600 mb-2">
+                <div className="text-4xl font-bold text-emerald-700 mb-2">
                   {results.systemSize} kW
                 </div>
                 <p className="text-sm text-slate-600">

@@ -31,7 +31,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       <aside className={`fixed inset-y-0 left-0 z-40 w-56 bg-white border-r border-gray-100 flex flex-col transition-transform lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
         <div className="p-4 border-b border-gray-100">
           <Link href="/admin" className="flex items-center gap-2 font-bold text-gray-900">
-            <span className="bg-amber-500 text-white rounded-lg p-1.5"><Zap size={16} /></span>
+            <span className="bg-emerald-600 text-white rounded-lg p-1.5"><Zap size={16} /></span>
             Rustam Admin
           </Link>
         </div>
@@ -46,7 +46,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
                 onClick={() => setOpen(false)}
                 className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
                   active
-                    ? 'bg-amber-50 text-amber-700'
+                    ? 'bg-emerald-50 text-amber-700'
                     : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >

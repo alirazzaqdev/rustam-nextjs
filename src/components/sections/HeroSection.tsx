@@ -7,7 +7,7 @@ import { useAppStore } from '@/lib/store'
 
 const heroStats = [
   { value: '70%', label: 'Avg. bill reduction', icon: TrendingDown, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-  { value: '4 yrs', label: 'System payback', icon: Clock, color: 'text-amber-600', bg: 'bg-amber-50' },
+  { value: '4 yrs', label: 'System payback', icon: Clock, color: 'text-emerald-700', bg: 'bg-emerald-50' },
   { value: '2.4 t', label: 'CO₂ saved per year', icon: Leaf, color: 'text-sky-600', bg: 'bg-sky-50' },
 ]
 
@@ -31,7 +31,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
           >
-            <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-4">
+            <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-4">
               Solar Energy Specialists · Lahore
             </p>
 
@@ -48,14 +48,14 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <button
                 onClick={() => setQuoteModalOpen(true)}
-                className="inline-flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
               >
                 Get Free Quote
                 <ArrowRight size={18} />
               </button>
               <Link
                 href="/#products"
-                className="inline-flex items-center justify-center border-2 border-amber-500 text-amber-600 hover:bg-amber-50 font-semibold px-6 py-3 rounded-xl transition-colors"
+                className="inline-flex items-center justify-center border-2 border-emerald-600 text-emerald-700 hover:bg-emerald-50 font-semibold px-6 py-3 rounded-xl transition-colors"
               >
                 Explore Products
               </Link>
@@ -85,7 +85,7 @@ export function HeroSection() {
             className="relative"
           >
             <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
-              <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-2">
+              <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-2">
                 What you save
               </p>
               <h3 className="text-xl font-semibold text-slate-800 mb-6">

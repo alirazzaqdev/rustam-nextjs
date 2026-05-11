@@ -81,7 +81,7 @@ export function ContactForm() {
         <input
           {...register('name')}
           type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="Your name"
           disabled={loading}
         />
@@ -98,7 +98,7 @@ export function ContactForm() {
         <input
           {...register('email')}
           type="email"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="your@email.com"
           disabled={loading}
         />
@@ -115,7 +115,7 @@ export function ContactForm() {
         <input
           {...register('subject')}
           type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="How can we help?"
           disabled={loading}
         />
@@ -132,7 +132,7 @@ export function ContactForm() {
         <textarea
           {...register('message')}
           rows={5}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="Your message..."
           disabled={loading}
         />
@@ -145,7 +145,7 @@ export function ContactForm() {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 font-semibold rounded-lg"
+        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-semibold rounded-lg"
       >
         {loading ? 'Sending...' : 'Send Message'}
       </Button>

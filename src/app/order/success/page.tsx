@@ -26,9 +26,9 @@ function SuccessContent() {
         <div className="bg-white rounded-3xl shadow-lg border border-gray-100 p-8 text-center">
           {isSuccess ? (
             <>
-              <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 ${isBankTransfer ? 'bg-amber-100' : 'bg-green-100'}`}>
+              <div className={`w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5 ${isBankTransfer ? 'bg-emerald-100' : 'bg-green-100'}`}>
                 {isBankTransfer
-                  ? <Clock className="text-amber-500" size={40} />
+                  ? <Clock className="text-emerald-600" size={40} />
                   : <CheckCircle className="text-green-500" size={40} />}
               </div>
 
@@ -37,8 +37,8 @@ function SuccessContent() {
               </h1>
 
               {orderNumber && (
-                <div className="inline-block bg-amber-50 border border-amber-200 rounded-xl px-6 py-3 mb-4">
-                  <p className="text-xs text-amber-600 font-medium uppercase tracking-wide mb-1">Order Reference</p>
+                <div className="inline-block bg-emerald-50 border border-emerald-300 rounded-xl px-6 py-3 mb-4">
+                  <p className="text-xs text-emerald-700 font-medium uppercase tracking-wide mb-1">Order Reference</p>
                   <p className="text-xl font-bold text-amber-700">{orderNumber}</p>
                 </div>
               )}
@@ -87,7 +87,7 @@ function SuccessContent() {
 
               <Link
                 href="/checkout"
-                className="w-full flex items-center justify-center bg-amber-500 text-white py-3 rounded-xl font-semibold hover:bg-amber-600 transition-colors mb-3"
+                className="w-full flex items-center justify-center bg-emerald-600 text-white py-3 rounded-xl font-semibold hover:bg-emerald-700 transition-colors mb-3"
               >
                 Try Again
               </Link>
@@ -103,12 +103,12 @@ function SuccessContent() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
           <p className="text-sm font-semibold text-gray-700 mb-3">Need help?</p>
           <div className="flex flex-col sm:flex-row gap-3 text-sm text-gray-600">
-            <a href="tel:+923213770402" className="flex items-center gap-2 hover:text-amber-600 transition-colors">
-              <Phone size={14} className="text-amber-500" />
+            <a href="tel:+923213770402" className="flex items-center gap-2 hover:text-emerald-700 transition-colors">
+              <Phone size={14} className="text-emerald-600" />
               +92 321 3770402
             </a>
             <span className="flex items-center gap-2">
-              <MapPin size={14} className="text-amber-500" />
+              <MapPin size={14} className="text-emerald-600" />
               Kahna Nau, Lahore
             </span>
           </div>

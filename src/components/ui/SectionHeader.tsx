@@ -18,7 +18,7 @@ export function SectionHeader({
   const isCenter = align === 'center'
   return (
     <div className={`${isCenter ? 'text-center max-w-2xl mx-auto' : 'max-w-2xl'} ${className}`}>
-      <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-3">
+      <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-3">
         {label}
       </p>
       <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">

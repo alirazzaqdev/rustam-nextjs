@@ -34,7 +34,7 @@ const PAYMENT_TABS = [
   { id: 'JazzCash' as const, label: 'JazzCash', icon: Smartphone, gradient: 'from-orange-500 to-red-500', text: 'text-orange-600' },
   { id: 'EasyPaisa' as const, label: 'EasyPaisa', icon: CreditCard, gradient: 'from-emerald-500 to-green-600', text: 'text-emerald-600' },
   { id: 'Bank Transfer' as const, label: 'Bank Transfer', icon: Building2, gradient: 'from-slate-700 to-slate-900', text: 'text-slate-700' },
-  { id: 'Cash on Delivery' as const, label: 'Cash on Delivery', icon: Truck, gradient: 'from-amber-400 to-amber-600', text: 'text-amber-600' },
+  { id: 'Cash on Delivery' as const, label: 'Cash on Delivery', icon: Truck, gradient: 'from-emerald-500 to-emerald-700', text: 'text-emerald-700' },
 ]
 
 interface OrderFormProps {
@@ -146,10 +146,10 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
           ].map((s, i, arr) => (
             <div key={s.n} className="flex-1 flex items-center">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shrink-0">{s.n}</div>
+                <div className="w-7 h-7 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xs shrink-0">{s.n}</div>
                 <span className="font-medium text-slate-700 hidden sm:inline">{s.label}</span>
               </div>
-              {i < arr.length - 1 && <div className="flex-1 h-0.5 bg-amber-200 mx-2" />}
+              {i < arr.length - 1 && <div className="flex-1 h-0.5 bg-emerald-300 mx-2" />}
             </div>
           ))}
         </div>
@@ -195,7 +195,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
         {/* Section 2 */}
         <Section title="2. What to Order">
           {products.length > 0 && (
-            <div className="mb-4 p-4 bg-amber-50 rounded-xl border border-amber-100">
+            <div className="mb-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
               <p className="text-sm font-medium text-amber-800 mb-3">Quick add from our catalog:</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto pr-1">
                 {products.filter(p => p.price > 0).slice(0, 8).map((p) => (
@@ -207,7 +207,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
                       const line = `${p.name} — PKR ${p.price.toLocaleString('en-PK')}`
                       setValue('selectedProducts', current ? `${current}\n${line}` : line, { shouldValidate: true })
                     }}
-                    className="text-left text-xs px-3 py-2 bg-white border border-amber-200 rounded-lg hover:bg-amber-100 transition-colors text-slate-700"
+                    className="text-left text-xs px-3 py-2 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100 transition-colors text-slate-700"
                   >
                     <span className="font-medium block">{p.name}</span>
                     <span className="text-amber-700">PKR {p.price.toLocaleString('en-PK')}</span>
@@ -256,8 +256,8 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
                   disabled={loading}
                   className={`relative p-3 rounded-xl border-2 text-center transition-all ${
                     active
-                      ? `border-amber-500 bg-amber-50 shadow-md`
-                      : 'border-slate-200 bg-white hover:border-amber-300'
+                      ? `border-emerald-600 bg-emerald-50 shadow-md`
+                      : 'border-slate-200 bg-white hover:border-emerald-400'
                   }`}
                 >
                   <div className={`w-10 h-10 mx-auto rounded-xl bg-gradient-to-br ${t.gradient} flex items-center justify-center mb-2`}>
@@ -265,7 +265,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
                   </div>
                   <p className={`text-xs font-semibold ${active ? 'text-amber-700' : 'text-slate-700'}`}>{t.label}</p>
                   {active && (
-                    <span className="absolute -top-2 -right-2 bg-amber-500 text-white rounded-full p-1">
+                    <span className="absolute -top-2 -right-2 bg-emerald-600 text-white rounded-full p-1">
                       <Check size={10} strokeWidth={3} />
                     </span>
                   )}
@@ -276,7 +276,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
 
           {/* Tab content */}
           {activeTab === 'JazzCash' && (
-            <div className="bg-gradient-to-br from-orange-50 to-red-50 border border-orange-200 rounded-xl p-5">
+            <div className="bg-gradient-to-br from-emerald-50 to-red-50 border border-orange-200 rounded-xl p-5">
               <div className="flex items-center gap-3 mb-3">
                 <div className="px-3 py-1.5 bg-orange-600 text-white rounded-lg font-bold text-sm">JazzCash</div>
                 <p className="text-sm text-orange-800">Mobile Wallet</p>
@@ -338,8 +338,8 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
           )}
 
           {activeTab === 'Cash on Delivery' && (
-            <div className="bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200 rounded-xl p-5 flex items-start gap-3">
-              <Truck size={20} className="text-amber-600 mt-0.5 shrink-0" />
+            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 border border-emerald-300 rounded-xl p-5 flex items-start gap-3">
+              <Truck size={20} className="text-emerald-700 mt-0.5 shrink-0" />
               <div>
                 <p className="font-semibold text-amber-900 mb-1">Cash on Delivery</p>
                 <p className="text-sm text-amber-800">Available in Lahore. Pay in cash when our team delivers your order. We will call to confirm delivery time.</p>
@@ -364,7 +364,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
       <div className="lg:col-span-2">
         <div className="sticky top-6 space-y-4">
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100">
-            <div className="h-1 bg-gradient-to-r from-amber-400 to-orange-500" />
+            <div className="h-1 bg-gradient-to-r from-emerald-500 to-orange-500" />
             <div className="p-6">
               <h3 className="font-bold text-slate-900 mb-4 text-lg">Order Summary</h3>
 
@@ -387,14 +387,14 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
                 </div>
                 <div className="flex justify-between font-bold text-slate-900 text-base border-t border-slate-100 pt-2 mt-2">
                   <span>Total</span>
-                  <span className="text-amber-600">PKR {estimatedTotal.toLocaleString()}</span>
+                  <span className="text-emerald-700">PKR {estimatedTotal.toLocaleString()}</span>
                 </div>
               </div>
 
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full mt-5 flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-white py-4 text-base font-bold rounded-xl shadow-md shadow-amber-200 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                className="w-full mt-5 flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white py-4 text-base font-bold rounded-xl shadow-md shadow-emerald-300 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <><Loader2 size={20} className="animate-spin" /> Placing Order...</>
@@ -414,7 +414,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
             <p className="text-xs font-semibold text-slate-700 mb-3 uppercase tracking-wide">Why customers trust us</p>
             <div className="grid grid-cols-3 gap-3 text-center">
               <Trust icon={<Shield size={16} className="text-emerald-500" />} label="Secure Order" />
-              <Trust icon={<Phone size={16} className="text-amber-500" />} label="24h Support" />
+              <Trust icon={<Phone size={16} className="text-emerald-600" />} label="24h Support" />
               <Trust icon={<Wrench size={16} className="text-blue-500" />} label="19yr Experience" />
             </div>
           </div>
@@ -428,7 +428,7 @@ function inp(hasError: boolean) {
   return `w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 text-slate-900 bg-white transition-colors ${
     hasError
       ? 'border-red-300 focus:ring-red-200 bg-red-50'
-      : 'border-slate-200 focus:ring-amber-200 focus:border-amber-400'
+      : 'border-slate-200 focus:ring-emerald-300 focus:border-emerald-500'
   }`
 }
 

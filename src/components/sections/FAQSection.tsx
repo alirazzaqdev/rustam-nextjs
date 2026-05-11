@@ -85,7 +85,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
     <section id="faq" className="bg-slate-50 py-20 md:py-24">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-3">FAQs</p>
+          <p className="text-emerald-600 text-sm font-semibold tracking-widest uppercase mb-3">FAQs</p>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight">
             Frequently Asked Questions
           </h2>
@@ -97,7 +97,7 @@ export function FAQSection({ faqs }: FAQSectionProps) {
         <Accordion type="single" collapsible className="w-full">
           {items.map((faq) => (
             <AccordionItem key={faq.id} value={faq.id}>
-              <AccordionTrigger className="text-left hover:text-amber-600">
+              <AccordionTrigger className="text-left hover:text-emerald-700">
                 {faq.question}
               </AccordionTrigger>
               <AccordionContent className="text-slate-600 leading-relaxed">

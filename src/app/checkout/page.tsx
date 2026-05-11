@@ -49,7 +49,7 @@ export default function CheckoutPage() {
       <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-800 mb-4">Your cart is empty</h1>
-          <Link href="/#products" className="bg-amber-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-amber-600 transition-colors inline-block">
+          <Link href="/#products" className="bg-emerald-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-emerald-700 transition-colors inline-block">
             Browse Products
           </Link>
         </div>
@@ -287,7 +287,7 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentMethod(tab.id)}
                       className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 text-sm font-medium transition-all ${
                         paymentMethod === tab.id
-                          ? 'border-amber-500 bg-amber-50 text-amber-700'
+                          ? 'border-emerald-600 bg-emerald-50 text-amber-700'
                           : 'border-gray-200 text-gray-600 hover:border-gray-300'
                       }`}
                     >
@@ -362,7 +362,7 @@ export default function CheckoutPage() {
                         <button
                           type="button"
                           onClick={() => fileRef.current?.click()}
-                          className="flex items-center gap-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl px-4 py-3 hover:border-amber-400 hover:text-amber-600 transition-colors text-sm"
+                          className="flex items-center gap-2 border-2 border-dashed border-gray-300 text-gray-500 rounded-xl px-4 py-3 hover:border-emerald-500 hover:text-emerald-700 transition-colors text-sm"
                         >
                           <Upload size={16} />
                           Choose screenshot
@@ -381,7 +381,7 @@ export default function CheckoutPage() {
 
                 {/* COD */}
                 {paymentMethod === 'cod' && (
-                  <div className="flex items-start gap-3 bg-amber-50 text-amber-800 rounded-xl p-4 text-sm">
+                  <div className="flex items-start gap-3 bg-emerald-50 text-amber-800 rounded-xl p-4 text-sm">
                     <Truck size={16} className="mt-0.5 shrink-0" />
                     <p>Pay in cash when your order is delivered. Our team will contact you to confirm delivery time.</p>
                   </div>
@@ -414,14 +414,14 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between font-bold text-base text-gray-900 border-t pt-3">
                     <span>Total</span>
-                    <span className="text-amber-600">PKR {total.toLocaleString()}</span>
+                    <span className="text-emerald-700">PKR {total.toLocaleString()}</span>
                   </div>
                 </div>
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full mt-5 flex items-center justify-center gap-2 bg-amber-500 text-white py-3.5 rounded-xl font-bold hover:bg-amber-600 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full mt-5 flex items-center justify-center gap-2 bg-emerald-600 text-white py-3.5 rounded-xl font-bold hover:bg-emerald-700 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Processing...' : (
                     <>
@@ -447,7 +447,7 @@ function input(hasError: boolean) {
   return `w-full border rounded-lg px-3 py-2.5 text-sm text-gray-900 outline-none transition-colors focus:ring-2 ${
     hasError
       ? 'border-red-400 focus:ring-red-200 bg-red-50'
-      : 'border-gray-200 focus:ring-amber-200 focus:border-amber-400 bg-white'
+      : 'border-gray-200 focus:ring-emerald-300 focus:border-emerald-500 bg-white'
   }`
 }
 

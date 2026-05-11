@@ -126,8 +126,8 @@ export function ProductsSection({ products }: ProductsSectionProps) {
                 onClick={() => changeCategory(tab)}
                 className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 ${
                   active
-                    ? 'bg-amber-500 text-white shadow-sm'
-                    : 'bg-white text-gray-600 border border-gray-200 hover:border-amber-300 hover:text-amber-600'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'bg-white text-gray-600 border border-gray-200 hover:border-emerald-400 hover:text-emerald-700'
                 }`}
               >
                 {tab}
@@ -210,7 +210,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
 
       <div className="p-5">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-xs font-bold text-amber-600 uppercase tracking-widest">
+          <span className="text-xs font-bold text-emerald-700 uppercase tracking-widest">
             {product.brand}
           </span>
           <span className="text-gray-300" aria-hidden>·</span>
@@ -242,7 +242,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
               )}
             </>
           ) : (
-            <span className="text-base font-semibold text-amber-600">
+            <span className="text-base font-semibold text-emerald-700">
               Contact for Price
             </span>
           )}
@@ -252,7 +252,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); onSelect(product) }}
-            className="flex-1 py-2 text-sm font-semibold text-slate-700 border border-gray-200 rounded-xl hover:border-amber-400 hover:text-amber-600 transition-all duration-150"
+            className="flex-1 py-2 text-sm font-semibold text-slate-700 border border-gray-200 rounded-xl hover:border-emerald-500 hover:text-emerald-700 transition-all duration-150"
           >
             View Details
           </button>
@@ -262,7 +262,7 @@ function ProductCard({ product, onSelect }: { product: Product; onSelect: (p: Pr
               e.stopPropagation()
               window.open(whatsappOrderUrl(product), '_blank', 'noopener,noreferrer')
             }}
-            className="flex-1 py-2 text-sm font-semibold text-white bg-amber-500 hover:bg-amber-600 rounded-xl transition-all duration-150"
+            className="flex-1 py-2 text-sm font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-xl transition-all duration-150"
           >
             Order Now
           </button>
@@ -311,14 +311,14 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
               }`}>
                 {product.inStock ? 'In Stock' : 'Out of Stock'}
               </span>
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-700">
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-100 text-amber-700">
                 {product.brand}
               </span>
             </div>
           </div>
 
           <div className="md:w-3/5 p-6 md:p-8">
-            <p className="text-xs font-bold text-amber-600 uppercase tracking-widest mb-2">
+            <p className="text-xs font-bold text-emerald-700 uppercase tracking-widest mb-2">
               {product.category} · {product.brand}
             </p>
 
@@ -328,7 +328,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
 
             {product.price > 0 ? (
               <div className="mb-4">
-                <p className="text-3xl font-black text-amber-600">
+                <p className="text-3xl font-black text-emerald-700">
                   PKR {product.price.toLocaleString('en-PK')}
                 </p>
                 {perWatt && (
@@ -336,7 +336,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
                 )}
               </div>
             ) : (
-              <p className="text-lg font-bold text-amber-600 mb-4">
+              <p className="text-lg font-bold text-emerald-700 mb-4">
                 Contact us for pricing
               </p>
             )}
@@ -374,7 +374,7 @@ function ProductDetailModal({ product, onClose }: { product: Product; onClose: (
               </a>
               <a
                 href={`/order?product=${encodeURIComponent(product.name)}&price=${product.price}`}
-                className="w-full py-3.5 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl transition-colors text-center"
+                className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl transition-colors text-center"
                 onClick={onClose}
               >
                 Place Order Online

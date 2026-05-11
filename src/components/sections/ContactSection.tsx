@@ -26,15 +26,15 @@ export function ContactSection() {
           {contactCards.map(({ icon: Icon, title, primary, secondary, href }) => (
             <div
               key={title}
-              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-amber-300 hover:shadow-md transition-all duration-200"
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-md transition-all duration-200"
             >
-              <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                <Icon size={20} className="text-amber-600" strokeWidth={2.25} />
+              <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
+                <Icon size={20} className="text-emerald-700" strokeWidth={2.25} />
               </div>
               <h3 className="text-xl font-semibold text-slate-800 tracking-tight mb-1">{title}</h3>
               <p className="text-sm text-gray-500 mb-2">{secondary}</p>
               {href ? (
-                <a href={href} className="text-base font-medium text-slate-900 hover:text-amber-600 transition-colors break-all">
+                <a href={href} className="text-base font-medium text-slate-900 hover:text-emerald-700 transition-colors break-all">
                   {primary}
                 </a>
               ) : (
@@ -47,8 +47,8 @@ export function ContactSection() {
         {/* Business hours */}
         <div className="mt-6 bg-slate-50 border border-gray-100 rounded-2xl p-6 md:p-8">
           <div className="flex items-center gap-3 mb-5">
-            <div className="bg-amber-100 w-10 h-10 rounded-lg flex items-center justify-center">
-              <Clock size={20} className="text-amber-600" strokeWidth={2.25} />
+            <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center">
+              <Clock size={20} className="text-emerald-700" strokeWidth={2.25} />
             </div>
             <h3 className="text-xl font-semibold text-slate-800 tracking-tight">Business Hours</h3>
           </div>

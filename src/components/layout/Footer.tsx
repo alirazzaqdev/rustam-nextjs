@@ -28,7 +28,7 @@ export function Footer() {
           {/* Logo + tagline */}
           <div>
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-amber-500 rounded-lg flex items-center justify-center">
+              <div className="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center">
                 <Zap size={18} className="text-white" fill="white" strokeWidth={2} />
               </div>
               <div className="leading-none">
@@ -75,19 +75,19 @@ export function Footer() {
             <h3 className="text-white font-semibold text-sm tracking-tight mb-4">Contact</h3>
             <ul className="space-y-3 text-sm">
               <li className="flex items-start gap-2.5">
-                <Phone size={15} className="mt-0.5 text-amber-500 shrink-0" strokeWidth={2} />
+                <Phone size={15} className="mt-0.5 text-emerald-600 shrink-0" strokeWidth={2} />
                 <a href="tel:+923213770402" className="hover:text-white transition-colors">
                   +92 321 3770402
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
-                <Mail size={15} className="mt-0.5 text-amber-500 shrink-0" strokeWidth={2} />
+                <Mail size={15} className="mt-0.5 text-emerald-600 shrink-0" strokeWidth={2} />
                 <a href="mailto:ia6969537@gmail.com" className="hover:text-white transition-colors break-all">
                   ia6969537@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2.5">
-                <MapPin size={15} className="mt-0.5 text-amber-500 shrink-0" strokeWidth={2} />
+                <MapPin size={15} className="mt-0.5 text-emerald-600 shrink-0" strokeWidth={2} />
                 <span>Kahna Nau, Lahore<br />Punjab, Pakistan</span>
               </li>
             </ul>
@@ -103,7 +103,7 @@ export function Footer() {
               href="https://github.com/alirazzaqdev"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+              className="text-emerald-500 hover:text-emerald-400 font-semibold transition-colors"
             >
               Ali Razzaq
             </a>

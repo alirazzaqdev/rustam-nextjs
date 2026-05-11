@@ -7,7 +7,7 @@ interface TestimonialsSectionProps {
 }
 
 const avatarColors = [
-  'from-amber-500 to-orange-600',
+  'from-emerald-600 to-orange-600',
   'from-sky-500 to-blue-600',
   'from-emerald-500 to-teal-600',
 ]
@@ -72,7 +72,7 @@ export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) 
                   <Star
                     key={s}
                     size={18}
-                    className={s < t.rating ? 'fill-amber-500 text-amber-500' : 'text-gray-200'}
+                    className={s < t.rating ? 'fill-emerald-600 text-emerald-600' : 'text-gray-200'}
                     strokeWidth={1.5}
                   />
                 ))}

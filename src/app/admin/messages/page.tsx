@@ -51,7 +51,7 @@ export default function AdminMessagesPage() {
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
           <button onClick={load} className="p-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-            <RefreshCw size={16} className={loading ? 'animate-spin text-amber-500' : 'text-gray-500'} />
+            <RefreshCw size={16} className={loading ? 'animate-spin text-emerald-600' : 'text-gray-500'} />
           </button>
         </div>
 
@@ -59,22 +59,22 @@ export default function AdminMessagesPage() {
         <div className="flex gap-2 mb-6 border-b border-gray-200">
           <button
             onClick={() => setTab('messages')}
-            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === 'messages' ? 'border-amber-500 text-amber-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === 'messages' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
           >
             <MessageSquare size={16} />
             Contact Messages
             {messages.length > 0 && (
-              <span className="bg-amber-100 text-amber-700 text-xs px-2 py-0.5 rounded-full">{messages.length}</span>
+              <span className="bg-emerald-100 text-amber-700 text-xs px-2 py-0.5 rounded-full">{messages.length}</span>
             )}
           </button>
           <button
             onClick={() => setTab('quotes')}
-            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === 'quotes' ? 'border-amber-500 text-amber-600' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
+            className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium border-b-2 transition-colors ${tab === 'quotes' ? 'border-emerald-600 text-emerald-700' : 'border-transparent text-gray-500 hover:text-gray-700'}`}
           >
             <FileText size={16} />
             Quote Requests
             {quotes.length > 0 && (
-              <span className="bg-amber-100 text-amber-700 text-xs px-2 py-0.5 rounded-full">{quotes.length}</span>
+              <span className="bg-emerald-100 text-amber-700 text-xs px-2 py-0.5 rounded-full">{quotes.length}</span>
             )}
           </button>
         </div>
@@ -86,12 +86,12 @@ export default function AdminMessagesPage() {
           <div className="space-y-4">
             {messages.length === 0 && <p className="text-gray-400 text-sm">No messages yet.</p>}
             {messages.map(msg => (
-              <div key={msg.id} className={`bg-white rounded-2xl border p-5 shadow-sm ${!msg.read ? 'border-amber-200' : 'border-gray-100'}`}>
+              <div key={msg.id} className={`bg-white rounded-2xl border p-5 shadow-sm ${!msg.read ? 'border-emerald-300' : 'border-gray-100'}`}>
                 <div className="flex items-start justify-between gap-4 mb-2">
                   <div>
                     <span className="font-semibold text-gray-900">{msg.name}</span>
                     <span className="text-gray-500 text-sm ml-2">— {msg.email}</span>
-                    {!msg.read && <span className="ml-2 text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">New</span>}
+                    {!msg.read && <span className="ml-2 text-xs bg-emerald-100 text-amber-700 px-2 py-0.5 rounded-full">New</span>}
                   </div>
                   <span className="text-xs text-gray-400 shrink-0">
                     {new Date(msg.createdAt).toLocaleDateString('en-PK', { day: '2-digit', month: 'short' })}

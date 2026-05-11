@@ -90,7 +90,7 @@ export function QuoteForm() {
         <input
           {...register('name')}
           type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="Your name"
           disabled={loading}
         />
@@ -107,7 +107,7 @@ export function QuoteForm() {
         <input
           {...register('email')}
           type="email"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="your@email.com"
           disabled={loading}
         />
@@ -124,7 +124,7 @@ export function QuoteForm() {
         <input
           {...register('phone')}
           type="tel"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="+92 300 1234567"
           disabled={loading}
         />
@@ -140,7 +140,7 @@ export function QuoteForm() {
         </label>
         <select
           {...register('projectType')}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           disabled={loading}
         >
           <option value="">Select project type</option>
@@ -161,7 +161,7 @@ export function QuoteForm() {
         <input
           {...register('estimatedBudget')}
           type="number"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="e.g., 500000"
           disabled={loading}
         />
@@ -178,7 +178,7 @@ export function QuoteForm() {
         <textarea
           {...register('description')}
           rows={4}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500"
+          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
           placeholder="Tell us about your project..."
           disabled={loading}
         />
@@ -191,7 +191,7 @@ export function QuoteForm() {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 font-semibold rounded-lg"
+        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-semibold rounded-lg"
       >
         {loading ? 'Submitting...' : 'Get Free Quote'}
       </Button>
