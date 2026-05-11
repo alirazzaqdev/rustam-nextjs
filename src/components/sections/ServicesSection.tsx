@@ -41,23 +41,19 @@ export function ServicesSection({ services }: ServicesSectionProps) {
         <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.slice(0, 6).map((service, idx) => {
             const Icon = iconMap[service.slug] || Wrench
-            const isPopular = idx === 0
+            const isFirst = idx === 0
             return (
               <div
                 key={service.id}
-                className="group relative bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-400 hover:shadow-md transition-all duration-200"
+                className={`group relative bg-white border border-gray-100 rounded-2xl p-6 hover:border-emerald-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-200 ${
+                  isFirst ? 'ring-2 ring-emerald-500 ring-offset-2' : ''
+                }`}
               >
-                {isPopular && (
-                  <span className="absolute -top-2.5 right-6 bg-emerald-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-                    Most Popular
-                  </span>
-                )}
-
-                <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center mb-4">
-                  <Icon size={20} className="text-emerald-700" strokeWidth={2.25} />
+                <div className="bg-emerald-50 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
+                  <Icon size={22} className="text-emerald-700" strokeWidth={2.25} />
                 </div>
 
-                <h3 className="text-xl font-semibold text-slate-800 mb-2 tracking-tight">
+                <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-tight">
                   {service.name}
                 </h3>
                 <p className="text-base text-gray-600 leading-relaxed line-clamp-2 mb-5">

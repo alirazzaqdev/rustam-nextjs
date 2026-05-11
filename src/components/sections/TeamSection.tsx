@@ -7,10 +7,11 @@ const teamMembers = [
     role: 'Founder & Owner',
     since: 'Est. 2006',
     experience: '19 Years',
+    badge: 'Founder',
     image: '/team/rustam.png',
     initials: 'MR',
     description:
-      'Founded Rustam Battery & Solar Energy House in 2006 with a mission to bring affordable, reliable solar energy to Lahore. With 19 years of hands-on expertise, he personally oversees every project to guarantee quality.',
+      'Founded Rustam Battery & Solar Energy House in 2006. With 19 years of hands-on expertise, he personally oversees every project to guarantee quality and customer satisfaction.',
     tags: ['Leadership', 'Quality Assurance', 'Client Relations'],
     isFounder: true,
   },
@@ -20,10 +21,11 @@ const teamMembers = [
     role: 'Solar & Inverter Specialist',
     since: '',
     experience: 'Solar Expert',
+    badge: 'Solar Expert',
     image: '/team/shahbaz.png',
     initials: 'MS',
     description:
-      'Handles all solar panel and Knox inverter sales, installation guidance, and technical support. Expert in system sizing and configuration for residential and commercial clients.',
+      'Expert in solar panel and Knox inverter sales, installation, and technical support. Go-to person for system sizing and configuration.',
     tags: ['Solar Panels', 'Knox Inverters', 'Knox Batteries'],
     isFounder: false,
   },
@@ -33,10 +35,11 @@ const teamMembers = [
     role: 'Battery Solutions Expert',
     since: '',
     experience: 'Battery Expert',
+    badge: 'Battery Expert',
     image: '/team/nawaz.png',
     initials: 'MN',
     description:
-      'Specialist in lead-acid and tubular batteries. Handles Osaka, Phoenix, AGS and Alaska brand sales, warranty support, and after-sales service for customers across Lahore.',
+      'Specialist in lead-acid and tubular batteries. Handles Osaka, Phoenix, AGS and Alaska brand sales and after-sales service.',
     tags: ['Osaka', 'Phoenix', 'AGS', 'Alaska'],
     isFounder: false,
   },
@@ -46,10 +49,11 @@ const teamMembers = [
     role: 'Battery Solutions Expert',
     since: '',
     experience: 'Battery Expert',
+    badge: 'Battery Expert',
     image: null,
     initials: 'MI',
     description:
-      'Dedicated to helping customers find the right battery solution. Manages sales, after-sales support and maintenance coordination for all battery brands.',
+      'Helps customers find the right battery solution. Manages sales, support, and maintenance coordination for all battery brands.',
     tags: ['Osaka', 'Phoenix', 'AGS', 'Alaska'],
     isFounder: false,
   },
@@ -112,9 +116,14 @@ export function TeamSection() {
                     {member.role}
                   </span>
                 </div>
-                <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">
-                  {member.since} · {member.experience}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-1 rounded-lg">
+                    {member.badge}
+                  </span>
+                  <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">
+                    {member.since} · {member.experience}
+                  </span>
+                </div>
               </div>
 
               <h3 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-4">
@@ -165,10 +174,15 @@ export function TeamSection() {
 
               {/* Content */}
               <div className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="h-3.5 w-0.5 bg-emerald-500 rounded-full" />
-                  <span className="text-emerald-600 text-xs font-bold tracking-wide uppercase">
-                    {member.role}
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-2">
+                    <div className="h-3.5 w-0.5 bg-emerald-500 rounded-full" />
+                    <span className="text-emerald-600 text-xs font-bold tracking-wide uppercase">
+                      {member.role}
+                    </span>
+                  </div>
+                  <span className="text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100 px-2 py-0.5 rounded-md">
+                    {member.badge}
                   </span>
                 </div>
 
