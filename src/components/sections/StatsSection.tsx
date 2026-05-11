@@ -41,35 +41,63 @@ export function StatsSection() {
   }, [fired])
 
   return (
-    <section ref={sectionRef} className="bg-white border-b border-gray-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 divide-y-2 lg:divide-y-0 lg:divide-x divide-gray-100">
+    <section ref={sectionRef} className="relative bg-slate-950 overflow-hidden">
+
+      {/* Ambient amber glow — centered */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse 90% 70% at 50% 50%, rgba(217,119,6,0.09) 0%, transparent 70%)' }}
+        aria-hidden
+      />
+
+      {/* Top + bottom 1px border accents */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-600/40 to-transparent" aria-hidden />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-20">
+
+        {/* Section eyebrow */}
+        <div className="flex items-center justify-center mb-12">
+          <div className="h-px flex-1 max-w-[80px] bg-gradient-to-r from-transparent to-amber-600/50" />
+          <p className="mx-4 text-[10px] font-black tracking-[0.28em] text-amber-500 uppercase">
+            By The Numbers
+          </p>
+          <div className="h-px flex-1 max-w-[80px] bg-gradient-to-l from-transparent to-amber-600/50" />
+        </div>
+
+        {/* Stats grid — 1px gap acts as divider */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden"
+             style={{ background: 'rgba(255,255,255,0.06)' }}>
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center text-center px-8 py-14"
+              className="group flex flex-col items-center text-center px-6 py-12 lg:py-14 bg-slate-950 hover:bg-[#0f172b] transition-colors duration-300"
             >
-              {/* Amber micro-label — replaces icon */}
-              <p className="text-[10px] font-black tracking-[0.22em] text-amber-600 uppercase mb-5">
+              {/* Amber micro-label */}
+              <p className="text-[9px] font-black tracking-[0.28em] text-amber-500/80 uppercase mb-5">
                 {stat.micro}
               </p>
 
-              {/* Giant number */}
+              {/* Animated number */}
               <p
                 suppressHydrationWarning
-                className="text-6xl md:text-7xl font-black text-slate-900 tracking-tight tabular-nums leading-none"
+                className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tight tabular-nums leading-none"
               >
-                {counts[i]}{stat.suffix}
+                {counts[i]}
+                <span className="text-amber-400">{stat.suffix}</span>
               </p>
 
-              {/* Thin amber accent line */}
-              <div className="w-8 h-0.5 bg-amber-400 rounded-full my-4" />
+              {/* Expanding amber accent line */}
+              <div className="w-6 h-0.5 bg-amber-500/60 rounded-full mt-5 mb-4 group-hover:w-10 group-hover:bg-amber-400 transition-all duration-500" />
 
-              {/* Description */}
-              <p className="text-sm text-gray-500 font-medium">{stat.label}</p>
+              {/* Label */}
+              <p className="text-xs text-slate-400 font-semibold tracking-wide uppercase">
+                {stat.label}
+              </p>
             </div>
           ))}
         </div>
+
       </div>
     </section>
   )
