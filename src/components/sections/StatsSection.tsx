@@ -50,7 +50,9 @@ export function StatsSection() {
               className="group flex flex-col items-center text-center px-8 py-14"
               style={{
                 borderRight: i < 3 ? '1px solid #e5e7eb' : undefined,
-                boxShadow: i < 3 ? 'inset -6px 0 10px -6px rgba(0,0,0,0.06)' : undefined,
+                boxShadow: i < 3
+                  ? 'inset -10px 0 18px -8px rgba(0,0,0,0.10), 10px 0 18px -8px rgba(0,0,0,0.07)'
+                  : undefined,
               }}
             >
               <p className="text-[10px] font-black tracking-[0.22em] text-amber-600 uppercase mb-5">
