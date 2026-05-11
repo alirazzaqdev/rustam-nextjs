@@ -1,101 +1,202 @@
-import { Award, Wrench, HeadphonesIcon, TrendingUp } from 'lucide-react'
-import type { ElementType } from 'react'
-import { SectionHeader } from '@/components/ui/SectionHeader'
+'use client'
 
-interface Member {
-  name: string
-  initials: string
-  title: string
-  bio: string
-  icon: ElementType
-  experience?: string
-}
-
-const owner: Member = {
-  name: 'Muhammad Rustam',
-  initials: 'MR',
-  title: 'Founder & Owner',
-  experience: '19 Years Experience',
-  bio: 'Muhammad Rustam founded Rustam Battery & Solar Energy House with a vision to bring reliable, affordable solar solutions to Lahore. With 19 years of hands-on expertise, he personally oversees every project to ensure the highest quality standards.',
-  icon: Award,
-}
-
-const staff: Member[] = [
+const teamMembers = [
   {
-    name: 'Ahmad Khan',
-    initials: 'AK',
-    title: 'Senior Installation Engineer',
-    bio: 'Specialist in residential and commercial solar system installation with over 8 years of field experience across Lahore.',
-    icon: Wrench,
+    id: 1,
+    name: 'Muhammad Rustam',
+    role: 'Founder & Owner',
+    since: 'Est. 2006',
+    experience: '19 Years',
+    image: '/team/rustam.png',
+    initials: 'MR',
+    description:
+      'Founded Rustam Battery & Solar Energy House in 2006 with a mission to bring affordable, reliable solar energy to Lahore. With 19 years of hands-on expertise, he personally oversees every project to guarantee quality.',
+    tags: ['Leadership', 'Quality Assurance', 'Client Relations'],
+    isFounder: true,
   },
   {
-    name: 'Sohail Malik',
-    initials: 'SM',
-    title: 'Technical Advisor',
-    bio: 'Expert in system design, inverter configuration, and battery management. Ensures every installation is optimized for maximum efficiency.',
-    icon: TrendingUp,
+    id: 2,
+    name: 'Muhammad Shahbaz Ahmad',
+    role: 'Solar & Inverter Specialist',
+    since: '',
+    experience: 'Solar Expert',
+    image: '/team/shahbaz.png',
+    initials: 'MS',
+    description:
+      'Handles all solar panel and Knox inverter sales, installation guidance, and technical support. Expert in system sizing and configuration for residential and commercial clients.',
+    tags: ['Solar Panels', 'Knox Inverters', 'Knox Batteries'],
+    isFounder: false,
   },
   {
-    name: 'Usman Farooq',
-    initials: 'UF',
-    title: 'Customer Support Manager',
-    bio: 'Dedicated to after-sales service, warranty support, and maintenance. Available 6 days a week to resolve any customer issue.',
-    icon: HeadphonesIcon,
+    id: 3,
+    name: 'Muhammad Nawaz',
+    role: 'Battery Solutions Expert',
+    since: '',
+    experience: 'Battery Expert',
+    image: '/team/nawaz.png',
+    initials: 'MN',
+    description:
+      'Specialist in lead-acid and tubular batteries. Handles Osaka, Phoenix, AGS and Alaska brand sales, warranty support, and after-sales service for customers across Lahore.',
+    tags: ['Osaka', 'Phoenix', 'AGS', 'Alaska'],
+    isFounder: false,
+  },
+  {
+    id: 4,
+    name: 'Muhammad Ijaz',
+    role: 'Battery Solutions Expert',
+    since: '',
+    experience: 'Battery Expert',
+    image: null,
+    initials: 'MI',
+    description:
+      'Dedicated to helping customers find the right battery solution. Manages sales, after-sales support and maintenance coordination for all battery brands.',
+    tags: ['Osaka', 'Phoenix', 'AGS', 'Alaska'],
+    isFounder: false,
   },
 ]
 
 export function TeamSection() {
+  const founder = teamMembers.filter((m) => m.isFounder)
+  const staff   = teamMembers.filter((m) => !m.isFounder)
+
   return (
-    <section id="team" className="bg-slate-50 py-20 md:py-24">
+    <section id="team" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          label="Our Team"
-          title="The people behind Rustam Battery"
-          description="A dedicated team of solar energy professionals committed to powering Lahore with clean, reliable energy."
-        />
 
-        {/* Owner — featured */}
-        <div className="mt-12 bg-white border border-gray-100 rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-center md:items-start gap-8">
-          <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-600 to-orange-600 flex items-center justify-center shrink-0">
-            <span className="text-white font-bold text-2xl select-none">{owner.initials}</span>
+        {/* Section header */}
+        <div className="mb-16">
+          <p className="text-xs font-bold tracking-[5px] text-emerald-600 uppercase mb-4">
+            OUR TEAM
+          </p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
+              The people powering<br />
+              <span className="text-emerald-600">Lahore&apos;s solar future</span>
+            </h2>
+            <p className="text-gray-500 max-w-sm leading-relaxed text-sm md:text-right">
+              A dedicated team with decades of combined experience in solar energy, batteries and inverter solutions.
+            </p>
           </div>
-
-          <div className="flex-1 text-center md:text-left">
-            <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-              <span className="bg-emerald-100 text-emerald-700 text-xs font-semibold px-2.5 py-1 rounded-full">
-                {owner.experience}
-              </span>
-            </div>
-            <h3 className="text-2xl font-bold text-slate-900 tracking-tight">{owner.name}</h3>
-            <p className="text-emerald-700 font-semibold text-sm mb-4">{owner.title}</p>
-            <p className="text-base text-gray-600 leading-relaxed max-w-2xl">{owner.bio}</p>
-          </div>
+          <div className="mt-8 h-px bg-gray-100 w-full" />
         </div>
+
+        {/* Founder card */}
+        {founder.map((member) => (
+          <div
+            key={member.id}
+            className="mb-10 grid grid-cols-1 lg:grid-cols-12 rounded-2xl overflow-hidden border border-gray-100 hover:border-emerald-200 transition-all duration-300 hover:shadow-xl"
+          >
+            {/* Photo */}
+            <div className="lg:col-span-3 bg-slate-50 flex items-center justify-center p-10 min-h-[280px]">
+              <div className="w-40 h-40 rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white">
+                {member.image ? (
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-cover object-top"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-emerald-600 flex items-center justify-center text-white font-black text-5xl tracking-tight">
+                    {member.initials}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Info */}
+            <div className="lg:col-span-9 bg-white p-8 lg:p-12 flex flex-col justify-center border-t border-gray-100 lg:border-t-0 lg:border-l">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-5 w-1 bg-emerald-500 rounded-full" />
+                  <span className="text-emerald-600 text-sm font-bold tracking-wide uppercase">
+                    {member.role}
+                  </span>
+                </div>
+                <span className="text-xs font-bold text-slate-400 tracking-widest uppercase">
+                  {member.since} · {member.experience}
+                </span>
+              </div>
+
+              <h3 className="text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-4">
+                {member.name}
+              </h3>
+
+              <p className="text-gray-500 leading-relaxed text-base mb-7 max-w-2xl">
+                {member.description}
+              </p>
+
+              <div className="flex flex-wrap gap-2">
+                {member.tags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="text-xs font-semibold text-slate-500 px-3 py-1.5 bg-slate-50 rounded-lg border border-slate-100"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
 
         {/* Staff grid */}
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {staff.map((member) => {
-            const Icon = member.icon
-            return (
-              <div
-                key={member.name}
-                className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-emerald-600 to-orange-600 flex items-center justify-center shrink-0">
-                    <span className="text-white font-bold text-2xl select-none">{member.initials}</span>
-                  </div>
-                  <div className="bg-emerald-100 w-10 h-10 rounded-lg flex items-center justify-center shrink-0">
-                    <Icon size={18} className="text-emerald-700" strokeWidth={2.25} />
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {staff.map((member) => (
+            <div
+              key={member.id}
+              className="rounded-2xl border border-gray-100 overflow-hidden hover:border-emerald-200 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 bg-white group"
+            >
+              {/* Photo area */}
+              <div className="bg-slate-50 py-8 flex justify-center border-b border-gray-100">
+                <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg ring-4 ring-white group-hover:scale-105 transition-transform duration-300">
+                  {member.image ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-top"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white font-black text-2xl tracking-tight">
+                      {member.initials}
+                    </div>
+                  )}
                 </div>
-                <h3 className="text-xl font-semibold text-slate-800 tracking-tight">{member.name}</h3>
-                <p className="text-emerald-700 font-semibold text-sm mb-3">{member.title}</p>
-                <p className="text-base text-gray-600 leading-relaxed">{member.bio}</p>
               </div>
-            )
-          })}
+
+              {/* Content */}
+              <div className="p-6">
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="h-3.5 w-0.5 bg-emerald-500 rounded-full" />
+                  <span className="text-emerald-600 text-xs font-bold tracking-wide uppercase">
+                    {member.role}
+                  </span>
+                </div>
+
+                <h3 className="text-lg font-black text-slate-900 mb-2 leading-tight tracking-tight">
+                  {member.name}
+                </h3>
+
+                <p className="text-gray-500 text-sm leading-relaxed mb-5">
+                  {member.description}
+                </p>
+
+                <div className="h-px bg-gray-100 mb-4" />
+
+                <div className="flex flex-wrap gap-1.5">
+                  {member.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="text-xs text-slate-500 font-medium bg-slate-50 px-2.5 py-1 rounded-md border border-slate-100"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
+
       </div>
     </section>
   )
