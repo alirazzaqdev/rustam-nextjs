@@ -1,13 +1,12 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { Users, TrendingDown, Calendar, Zap } from 'lucide-react'
 
 const STATS = [
-  { target: 19, suffix: '+', label: 'Years of expertise',  icon: Calendar, bg: 'bg-emerald-50', color: 'text-emerald-600', border: 'border-emerald-100' },
-  { target: 500, suffix: '+', label: 'Happy customers',    icon: Users,    bg: 'bg-emerald-50', color: 'text-emerald-600', border: 'border-emerald-100' },
-  { target: 70, suffix: '%',  label: 'Avg. bill reduction',icon: TrendingDown, bg: 'bg-sky-50', color: 'text-sky-600',     border: 'border-sky-100'     },
-  { target: 5,  suffix: 'kW', label: 'Avg. system size',   icon: Zap,      bg: 'bg-amber-50',  color: 'text-amber-600',   border: 'border-amber-100'   },
+  { target: 19,  suffix: '+',  micro: 'SINCE 2006',  label: 'Years of expertise'   },
+  { target: 500, suffix: '+',  micro: 'CLIENTS',      label: 'Happy customers'       },
+  { target: 70,  suffix: '%',  micro: 'SAVINGS',      label: 'Avg. bill reduction'   },
+  { target: 5,   suffix: 'kW', micro: 'CAPACITY',     label: 'Avg. system size'      },
 ]
 
 export function StatsSection() {
@@ -18,62 +17,58 @@ export function StatsSection() {
   useEffect(() => {
     const el = sectionRef.current
     if (!el) return
-
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting || fired) return
         setFired(true)
         obs.disconnect()
-
         const targets = STATS.map(s => s.target)
-        const duration = 1400
+        const duration = 1500
         const startTime = performance.now()
-
         const tick = (now: number) => {
-          const progress = Math.min((now - startTime) / duration, 1)
-          const eased = 1 - Math.pow(1 - progress, 3)
+          const p = Math.min((now - startTime) / duration, 1)
+          const eased = 1 - Math.pow(1 - p, 3)
           setCounts(targets.map(t => Math.round(eased * t)))
-          if (progress < 1) requestAnimationFrame(tick)
+          if (p < 1) requestAnimationFrame(tick)
         }
-
         setCounts(STATS.map(() => 0))
         requestAnimationFrame(tick)
       },
       { threshold: 0.35 },
     )
-
     obs.observe(el)
     return () => obs.disconnect()
   }, [fired])
 
   return (
-    <section ref={sectionRef} className="bg-white py-14 border-b border-gray-100">
+    <section ref={sectionRef} className="bg-white border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
-          {STATS.map((stat, i) => {
-            const Icon = stat.icon
-            return (
-              <div
-                key={stat.label}
-                className="flex flex-col items-center text-center group"
+        <div className="grid grid-cols-2 lg:grid-cols-4 divide-y-2 lg:divide-y-0 lg:divide-x divide-gray-100">
+          {STATS.map((stat, i) => (
+            <div
+              key={stat.label}
+              className="flex flex-col items-center text-center px-8 py-14"
+            >
+              {/* Amber micro-label — replaces icon */}
+              <p className="text-[10px] font-black tracking-[0.22em] text-amber-600 uppercase mb-5">
+                {stat.micro}
+              </p>
+
+              {/* Giant number */}
+              <p
+                suppressHydrationWarning
+                className="text-6xl md:text-7xl font-black text-slate-900 tracking-tight tabular-nums leading-none"
               >
-                <div className={`w-12 h-12 rounded-xl ${stat.bg} border ${stat.border} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-200`}>
-                  <Icon size={20} className={stat.color} strokeWidth={2.25} />
-                </div>
+                {counts[i]}{stat.suffix}
+              </p>
 
-                <p
-                  suppressHydrationWarning
-                  className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight tabular-nums leading-none"
-                >
-                  {counts[i]}{stat.suffix}
-                </p>
+              {/* Thin amber accent line */}
+              <div className="w-8 h-0.5 bg-amber-400 rounded-full my-4" />
 
-                <p className="text-sm text-gray-500 mt-2.5 font-medium">{stat.label}</p>
-
-                <div className={`mt-3 h-0.5 w-8 ${stat.bg} rounded-full`} />
-              </div>
-            )
-          })}
+              {/* Description */}
+              <p className="text-sm text-gray-500 font-medium">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

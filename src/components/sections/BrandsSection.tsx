@@ -1,38 +1,72 @@
+/* Infinite scrolling brand strip — full list repeated twice for seamless loop */
+
 const BRANDS = [
-  { name: 'Osaka',          category: 'Batteries'    },
-  { name: 'Phoenix',        category: 'Batteries'    },
-  { name: 'AGS',            category: 'Batteries'    },
-  { name: 'Alaska',         category: 'Batteries'    },
-  { name: 'Knox',           category: 'Inverters'    },
-  { name: 'Canadian Solar', category: 'Solar Panels' },
-  { name: 'JinkoSolar',     category: 'Solar Panels' },
-  { name: 'JA Solar',       category: 'Solar Panels' },
-  { name: 'LONGi',          category: 'Solar Panels' },
-  { name: 'Risen',          category: 'Solar Panels' },
+  { name: 'Osaka',            category: 'BATTERY'      },
+  { name: 'Phoenix',          category: 'BATTERY'      },
+  { name: 'AGS',              category: 'BATTERY'      },
+  { name: 'Alaska',           category: 'BATTERY'      },
+  { name: 'Knox Inverters',   category: 'INVERTER'     },
+  { name: 'Canadian Solar',   category: 'SOLAR'        },
+  { name: 'JinkoSolar',       category: 'SOLAR'        },
+  { name: 'JA Solar',         category: 'SOLAR'        },
+  { name: 'LONGi',            category: 'SOLAR'        },
+  { name: 'Risen Energy',     category: 'SOLAR'        },
+  { name: 'Trina Solar',      category: 'SOLAR'        },
+  { name: 'AIKO',             category: 'SOLAR'        },
+  { name: 'Astro Energy',     category: 'SOLAR'        },
+  { name: 'Inverex',          category: 'INVERTER'     },
+  { name: 'Coretech',         category: 'SOLAR'        },
 ]
 
-export function BrandsSection() {
+/* Separator between each brand */
+function Dot() {
   return (
-    <section className="bg-slate-50 py-10 border-b border-gray-100 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-xs font-bold tracking-[0.18em] uppercase text-gray-400 mb-7">
-          Authorised dealer &amp; installer
-        </p>
+    <span
+      className="w-1 h-1 rounded-full bg-amber-400 mx-6 shrink-0 self-center"
+      aria-hidden
+    />
+  )
+}
 
-        <div className="flex flex-wrap justify-center items-center gap-2 md:gap-3">
-          {BRANDS.map((b) => (
-            <div
-              key={b.name}
-              className="group flex items-center gap-2 bg-white border border-gray-200 hover:border-emerald-300 hover:shadow-sm rounded-full px-4 py-2 transition-all duration-200"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 group-hover:bg-emerald-600 transition-colors" />
-              <span className="text-sm font-semibold text-slate-700 group-hover:text-slate-900 transition-colors whitespace-nowrap">
-                {b.name}
-              </span>
-              <span className="text-[10px] font-medium text-gray-400 uppercase tracking-wide hidden sm:inline">
-                {b.category}
-              </span>
-            </div>
+function BrandItem({ name, category }: { name: string; category: string }) {
+  return (
+    <span className="inline-flex items-baseline gap-2 shrink-0">
+      <span className="text-sm font-bold text-slate-500 tracking-wide whitespace-nowrap">
+        {name}
+      </span>
+      <span className="text-[9px] font-black tracking-[0.18em] text-amber-500 uppercase hidden sm:inline">
+        {category}
+      </span>
+    </span>
+  )
+}
+
+export function BrandsSection() {
+  const doubled = [...BRANDS, ...BRANDS]
+
+  return (
+    <section className="bg-white border-b border-gray-100 py-8 overflow-hidden">
+      {/* Header */}
+      <p className="text-center text-[10px] font-black tracking-[0.25em] uppercase text-gray-400 mb-7">
+        Authorised Dealer &amp; Installer
+      </p>
+
+      {/* Marquee track — edge-fades via CSS mask */}
+      <div
+        className="relative overflow-hidden"
+        style={{
+          maskImage:
+            'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+          WebkitMaskImage:
+            'linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%)',
+        }}
+      >
+        <div className="flex w-max animate-marquee">
+          {doubled.map((brand, i) => (
+            <span key={i} className="inline-flex items-center">
+              <BrandItem name={brand.name} category={brand.category} />
+              <Dot />
+            </span>
           ))}
         </div>
       </div>
