@@ -65,19 +65,16 @@ export function StatsSection() {
           <div className="h-px flex-1 max-w-[80px] bg-gradient-to-l from-transparent to-amber-600/50" />
         </div>
 
-        {/* Stats grid — amber-tinted gap lines with outer glow shadow */}
+        {/* Stats grid — 1px gap dividers with soft shadow depth near lines */}
         <div
           className="grid grid-cols-2 lg:grid-cols-4 gap-px rounded-2xl overflow-hidden"
-          style={{
-            background: 'rgba(217,119,6,0.12)',
-            boxShadow: '0 0 0 1px rgba(217,119,6,0.14), 0 8px 48px rgba(0,0,0,0.55), 0 2px 12px rgba(217,119,6,0.08)',
-          }}
+          style={{ background: 'rgba(255,255,255,0.06)' }}
         >
           {STATS.map((stat, i) => (
             <div
               key={stat.label}
               className="group flex flex-col items-center text-center px-6 py-12 lg:py-14 bg-slate-950 hover:bg-[#0f172b] transition-colors duration-300"
-              style={{ boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.04)' }}
+              style={{ boxShadow: 'inset -8px 0 16px -8px rgba(0,0,0,0.6), inset 8px 0 16px -8px rgba(0,0,0,0.6)' }}
             >
               {/* Amber micro-label */}
               <p className="text-[9px] font-black tracking-[0.28em] text-amber-500/80 uppercase mb-5">
