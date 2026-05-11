@@ -6,9 +6,9 @@ import { ArrowRight, TrendingDown, Clock, Leaf } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
 
 const heroStats = [
-  { value: '70%', label: 'Avg. bill reduction', icon: TrendingDown, color: 'text-emerald-600', bg: 'bg-emerald-50' },
-  { value: '4 yrs', label: 'System payback',    icon: Clock,        color: 'text-emerald-700', bg: 'bg-emerald-50' },
-  { value: '2.4 t', label: 'CO₂ saved / year',  icon: Leaf,         color: 'text-sky-600',    bg: 'bg-sky-50'    },
+  { value: '70%',   label: 'Avg. bill reduction', icon: TrendingDown, color: 'text-amber-600', bg: 'bg-amber-50'  },
+  { value: '4 yrs', label: 'System payback',       icon: Clock,        color: 'text-amber-700', bg: 'bg-amber-50'  },
+  { value: '2.4 t', label: 'CO₂ saved / year',     icon: Leaf,         color: 'text-sky-600',   bg: 'bg-sky-50'   },
 ]
 
 export function HeroSection() {
@@ -16,30 +16,54 @@ export function HeroSection() {
 
   return (
     <section id="hero" className="relative bg-white border-b border-gray-100 overflow-hidden">
-      {/* Subtle background depth */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/50 via-white to-white pointer-events-none" aria-hidden />
-      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-emerald-100/25 rounded-full blur-3xl pointer-events-none" aria-hidden />
-      <div className="absolute -bottom-24 -left-24 w-[300px] h-[300px] bg-sky-100/20 rounded-full blur-3xl pointer-events-none" aria-hidden />
+
+      {/* Thin premium amber accent at very top */}
+      <div className="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-amber-500 to-transparent pointer-events-none" aria-hidden />
+
+      {/* Dot-grid texture — subtle, elegant */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #e2e8f0 1px, transparent 1px)',
+          backgroundSize: '30px 30px',
+          opacity: 0.55,
+        }}
+        aria-hidden
+      />
+
+      {/* Warm amber orb — top right (sun glow) */}
+      <div
+        className="absolute -top-20 -right-20 w-[520px] h-[520px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.13) 0%, transparent 70%)' }}
+        aria-hidden
+      />
+
+      {/* Cool blue orb — bottom left (contrast balance) */}
+      <div
+        className="absolute -bottom-16 -left-16 w-[340px] h-[340px] rounded-full pointer-events-none"
+        style={{ background: 'radial-gradient(circle, rgba(186,230,253,0.22) 0%, transparent 70%)' }}
+        aria-hidden
+      />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* LEFT — Headline + CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, ease: 'easeOut' }}
+            transition={{ duration: 0.6, ease: 'easeOut' }}
           >
-            {/* Label */}
-            <div className="inline-flex items-center gap-2.5 bg-emerald-50 border border-emerald-100 text-emerald-700 px-3.5 py-1.5 rounded-full mb-6">
-              <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+            {/* Label pill */}
+            <div className="inline-flex items-center gap-2.5 bg-amber-50 border border-amber-200/70 text-amber-700 px-3.5 py-1.5 rounded-full mb-6">
+              <span className="w-1.5 h-1.5 bg-amber-500 rounded-full animate-pulse" />
               <span className="text-xs font-bold tracking-[0.14em] uppercase">Solar Energy Specialists · Lahore</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.04] mb-6">
               Lahore&apos;s most<br />
               trusted{' '}
-              <span className="text-emerald-600">solar energy</span><br />
+              <span className="text-amber-600">solar energy</span><br />
               company
             </h1>
 
@@ -52,14 +76,14 @@ export function HeroSection() {
             <div className="flex flex-col sm:flex-row gap-3 mb-10">
               <button
                 onClick={() => setQuoteModalOpen(true)}
-                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-emerald-200 hover:shadow-lg hover:shadow-emerald-200 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold px-7 py-3.5 rounded-xl transition-all duration-200 shadow-md shadow-amber-200 hover:shadow-lg hover:shadow-amber-300 hover:-translate-y-0.5"
               >
                 Get Free Quote
                 <ArrowRight size={17} />
               </button>
               <Link
                 href="/#products"
-                className="inline-flex items-center justify-center border border-gray-200 text-slate-700 hover:border-emerald-300 hover:text-emerald-700 hover:bg-emerald-50/50 font-semibold px-7 py-3.5 rounded-xl transition-all duration-200"
+                className="inline-flex items-center justify-center border border-gray-200 text-slate-700 hover:border-amber-300 hover:text-amber-700 hover:bg-amber-50/60 font-semibold px-7 py-3.5 rounded-xl transition-all duration-200"
               >
                 Explore Products
               </Link>
@@ -74,7 +98,7 @@ export function HeroSection() {
                 'Free Site Visit',
               ].map((badge) => (
                 <div key={badge} className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full" />
+                  <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
                   <span className="text-xs text-gray-500 font-semibold">{badge}</span>
                 </div>
               ))}
@@ -83,17 +107,24 @@ export function HeroSection() {
 
           {/* RIGHT — Stats card */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.12, ease: 'easeOut' }}
+            transition={{ duration: 0.6, delay: 0.14, ease: 'easeOut' }}
             className="relative"
           >
-            <div className="bg-white rounded-2xl border border-gray-200/80 shadow-[0_8px_40px_rgba(0,0,0,0.08)] overflow-hidden">
-              {/* Premium top accent */}
-              <div className="h-0.5 w-full bg-gradient-to-r from-emerald-500 via-emerald-400 to-sky-400" />
+            {/* Subtle warm glow behind card */}
+            <div
+              className="absolute -inset-4 rounded-3xl pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse at 60% 40%, rgba(251,191,36,0.10) 0%, transparent 70%)' }}
+              aria-hidden
+            />
+
+            <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_12px_48px_rgba(0,0,0,0.10)] overflow-hidden">
+              {/* Amber → sky gradient top accent */}
+              <div className="h-[3px] w-full bg-gradient-to-r from-amber-600 via-amber-400 to-sky-400" />
 
               <div className="p-8">
-                <p className="text-emerald-600 text-xs font-bold tracking-[0.18em] uppercase mb-2">
+                <p className="text-amber-600 text-xs font-bold tracking-[0.18em] uppercase mb-2">
                   What you save
                 </p>
                 <h3 className="text-xl font-bold text-slate-900 mb-6 tracking-tight">
@@ -104,7 +135,7 @@ export function HeroSection() {
                   {heroStats.map(({ value, label, icon: Icon, color, bg }) => (
                     <div
                       key={label}
-                      className="flex items-center gap-4 p-4 rounded-xl bg-gray-50/70 hover:bg-gray-50 border border-gray-100 hover:border-gray-200 transition-all duration-200"
+                      className="flex items-center gap-4 p-4 rounded-xl bg-gray-50/80 hover:bg-gray-50 border border-gray-100 hover:border-gray-200 transition-all duration-200"
                     >
                       <div className={`w-11 h-11 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
                         <Icon size={19} className={color} strokeWidth={2.25} />
@@ -126,6 +157,7 @@ export function HeroSection() {
               </div>
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

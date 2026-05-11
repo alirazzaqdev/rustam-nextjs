@@ -267,7 +267,7 @@ function ProductCard({ product, glowing, glowType, onSelect, onOrder }: ProductC
     >
       <div className="card-corner-bl" />
       <div className="card-corner-br" />
-      <div className="overflow-hidden rounded-t-2xl">
+      <div className="card-image-wrap overflow-hidden rounded-t-2xl">
         <ProductImage
           src={product.image}
           name={product.name}
