@@ -4,7 +4,7 @@ export const siteConfig = {
   name: 'Rustam Battery & Solar Energy House',
   description: '19 years of expertise in solar panels, batteries, and energy solutions for Lahore, Pakistan',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://rustambattery.com',
-  ogImage: '/og-image.jpg',
+  ogImage: '/logo.png',
   links: {
     twitter: 'https://twitter.com/rustambattery',
     linkedin: 'https://linkedin.com/company/rustam-battery',
@@ -35,8 +35,8 @@ export function generateMetadata(
       images: [
         {
           url: siteConfig.ogImage,
-          width: 1200,
-          height: 630,
+          width: 1040,
+          height: 1040,
           alt: siteConfig.name,
         },
       ],

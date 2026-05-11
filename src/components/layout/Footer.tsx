@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Zap } from 'lucide-react'
+import { Mail, Phone, MapPin } from 'lucide-react'
 
 const quickLinks = [
   { href: '/#hero',     label: 'Home' },
@@ -27,14 +27,13 @@ export function Footer() {
 
           {/* Logo + tagline */}
           <div>
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 bg-emerald-600 rounded-lg flex items-center justify-center">
-                <Zap size={18} className="text-white" fill="white" strokeWidth={2} />
-              </div>
-              <div className="leading-none">
-                <p className="font-bold text-white text-base tracking-tight">Rustam Battery</p>
-                <p className="text-xs text-gray-500 mt-0.5">& Solar Energy House</p>
-              </div>
+            <Link href="/" className="inline-block mb-4">
+              <img
+                src="/logo.png"
+                alt="Rustam Battery & Solar Energy House"
+                className="h-16 w-auto object-contain"
+                style={{ maxWidth: '160px', filter: 'brightness(0) invert(1)' }}
+              />
             </Link>
             <p className="text-sm leading-relaxed">
               19 years of trusted solar expertise in Lahore. Powering homes and

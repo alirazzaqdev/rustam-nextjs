@@ -39,36 +39,13 @@ export function Header() {
         <div className="flex items-center justify-between h-[68px]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0 group">
-            <svg width="38" height="38" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" className="transition-transform duration-300 group-hover:scale-105">
-              <defs>
-                <linearGradient id="navgi" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ffffff"/>
-                  <stop offset="100%" stopColor="#A7F3D0"/>
-                </linearGradient>
-              </defs>
-              <circle cx="160" cy="160" r="155" fill="#059669"/>
-              <circle cx="160" cy="160" r="148" fill="#047857"/>
-              <circle cx="160" cy="160" r="140" fill="none" stroke="#6EE7B7" strokeWidth="3"/>
-              <polygon points="160,100 200,122 200,166 160,188 120,166 120,122" fill="none" stroke="#6EE7B7" strokeWidth="3.5"/>
-              <path d="M168,108 L148,152 L162,152 L152,192 L180,145 L165,145 Z" fill="url(#navgi)"/>
-              <path d="M118,130 Q100,144 100,160 Q100,176 118,190" fill="none" stroke="#A7F3D0" strokeWidth="3.5" strokeLinecap="round"/>
-              <path d="M202,130 Q220,144 220,160 Q220,176 202,190" fill="none" stroke="#A7F3D0" strokeWidth="3.5" strokeLinecap="round"/>
-              <circle cx="160" cy="97" r="4" fill="#6EE7B7"/>
-              <circle cx="203" cy="120" r="4" fill="#6EE7B7"/>
-              <circle cx="203" cy="200" r="4" fill="#6EE7B7"/>
-              <circle cx="160" cy="223" r="4" fill="#6EE7B7"/>
-              <circle cx="117" cy="200" r="4" fill="#6EE7B7"/>
-              <circle cx="117" cy="120" r="4" fill="#6EE7B7"/>
-            </svg>
-            <div className="hidden sm:flex flex-col leading-none">
-              <span className="text-[15px] font-black text-slate-900 tracking-tight">
-                Rustam Battery
-              </span>
-              <span className="text-[10px] font-bold text-emerald-600 tracking-[0.15em] uppercase mt-0.5">
-                & Solar Energy House
-              </span>
-            </div>
+          <Link href="/" className="flex items-center shrink-0">
+            <img
+              src="/logo.png"
+              alt="Rustam Battery & Solar Energy House"
+              className="h-14 w-auto object-contain"
+              style={{ maxWidth: '160px' }}
+            />
           </Link>
 
           {/* Desktop Nav */}
