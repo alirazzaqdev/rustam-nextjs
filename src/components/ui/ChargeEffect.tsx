@@ -19,7 +19,7 @@ interface ZBolt {
   color: string
 }
 
-const COLORS = ['#34D399', '#6EE7B7', '#ffffff', '#A7F3D0', '#059669'] as const
+const COLORS = ['#F59E0B', '#FBBF24', '#ffffff', '#FDE68A', '#D97706'] as const
 
 function drawZBolt(
   ctx: CanvasRenderingContext2D,
@@ -107,7 +107,7 @@ export default function ChargeEffect({ trigger, x, y, onComplete }: ChargeEffect
       if (firstLife > 0.6) {
         const flash = (firstLife - 0.6) / 0.4
         drawZBolt(ctx, x, y, 48, 0, flash,          '#ffffff')
-        drawZBolt(ctx, x, y, 36, 0, flash * 0.7,    '#34D399')
+        drawZBolt(ctx, x, y, 36, 0, flash * 0.7,    '#F59E0B')
       }
 
       if (alive) {
