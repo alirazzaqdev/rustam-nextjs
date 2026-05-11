@@ -1,11 +1,5 @@
 'use server'
 
-import { prisma } from '@/lib/prisma'
-import { Resend } from 'resend'
-
-const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@rustambattery.com'
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'ia6969537@gmail.com'
-
 export type OrderData = {
   name: string
   email: string
@@ -22,19 +16,9 @@ function generateOrderId(): string {
   return `RB-${Date.now().toString(36).toUpperCase()}`
 }
 
-function getResend(): Resend | null {
-  const key = process.env.RESEND_API_KEY
-  if (!key) return null
-  try {
-    return new Resend(key)
-  } catch {
-    return null
-  }
-}
-
-// Best-effort DB save — never blocks success
 async function saveToDb(data: OrderData, orderId: string): Promise<void> {
   try {
+    const { prisma } = await import('@/lib/prisma')
     const description = [
       `ORDER ID: ${orderId}`,
       `PAYMENT METHOD: ${data.paymentMethod}`,
@@ -55,62 +39,46 @@ async function saveToDb(data: OrderData, orderId: string): Promise<void> {
       },
     })
   } catch (err) {
-    console.warn('[order] DB save failed (non-fatal):', err)
+    console.warn('[order] DB save skipped:', (err as Error).message)
   }
 }
 
-// Best-effort emails — never blocks success
 async function sendEmails(data: OrderData, orderId: string): Promise<void> {
-  const resend = getResend()
-  if (!resend) return
-
   try {
+    const key = process.env.RESEND_API_KEY
+    if (!key) return
+    const { Resend } = await import('resend')
+    const resend = new Resend(key)
+    const EMAIL_FROM = process.env.EMAIL_FROM || 'noreply@rustambattery.com'
+    const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'ia6969537@gmail.com'
+
     await resend.emails.send({
       from: EMAIL_FROM,
       to: ADMIN_EMAIL,
-      subject: `New Order Request ${orderId} — ${data.name}`,
-      html: `
-        <h2 style="color:#059669">New Order Request</h2>
-        <p><strong>Order ID:</strong> ${orderId}</p>
-        <p><strong>Name:</strong> ${data.name}</p>
-        <p><strong>Email:</strong> ${data.email}</p>
-        <p><strong>Phone:</strong> ${data.phone}</p>
-        <p><strong>Address:</strong> ${data.address}</p>
-        <p><strong>Project Type:</strong> ${data.projectType}</p>
-        <p><strong>Payment Method:</strong> ${data.paymentMethod}</p>
-        <p><strong>Products/Packages:</strong></p>
-        <pre style="background:#f8fafc;padding:12px;border-radius:8px">${data.products}</pre>
-        ${data.totalAmount ? `<p><strong>Estimated Total:</strong> PKR ${data.totalAmount}</p>` : ''}
-        ${data.notes ? `<p><strong>Notes:</strong> ${data.notes}</p>` : ''}
-      `,
+      subject: `New Order ${orderId} — ${data.name}`,
+      html: `<h2 style="color:#059669">New Order</h2><p><b>ID:</b> ${orderId}</p><p><b>Name:</b> ${data.name}</p><p><b>Phone:</b> ${data.phone}</p><p><b>Address:</b> ${data.address}</p><p><b>Payment:</b> ${data.paymentMethod}</p><pre>${data.products}</pre>${data.totalAmount ? `<p><b>Total:</b> PKR ${data.totalAmount}</p>` : ''}`,
     })
 
     await resend.emails.send({
       from: EMAIL_FROM,
       to: data.email,
-      subject: `Order Confirmed — Ref ${orderId}`,
-      html: `
-        <h2 style="color:#059669">Your order has been received!</h2>
-        <p>Hi ${data.name},</p>
-        <p>Thank you for your order. Reference: <strong>${orderId}</strong></p>
-        <p>Our team will contact you at <strong>${data.phone}</strong> within 24 hours.</p>
-        <p>Best regards,<br><strong>Rustam Battery & Solar Energy House</strong><br>Kahna Nau, Lahore | +92 321 3770402</p>
-      `,
+      subject: `Order Received — Ref ${orderId}`,
+      html: `<h2 style="color:#059669">Order Received!</h2><p>Hi ${data.name},</p><p>Reference: <b>${orderId}</b>. Our team will call you at <b>${data.phone}</b> within 2 hours.</p><p>Rustam Battery & Solar Energy House — Kahna Nau, Lahore | +92 321 3770402</p>`,
     })
   } catch (err) {
-    console.warn('[order] Email send failed (non-fatal):', err)
+    console.warn('[order] Email skipped:', (err as Error).message)
   }
 }
 
 export async function submitOrder(data: OrderData) {
   const orderId = generateOrderId()
 
-  // Run side effects in background — never block the user
+  // Best-effort side effects — never block the user
   await Promise.allSettled([
     saveToDb(data, orderId),
     sendEmails(data, orderId),
   ])
 
-  // Always success — WhatsApp redirect on the client guarantees the order reaches us
+  // Always succeeds — WhatsApp redirect guarantees the order reaches us
   return { success: true, orderId }
 }
