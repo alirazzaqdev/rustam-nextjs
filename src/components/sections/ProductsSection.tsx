@@ -260,7 +260,7 @@ function ProductCard({ product, glowing, glowType, onSelect, onOrder }: ProductC
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(e as unknown as React.MouseEvent) }
       }}
-      className={`bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer ${
+      className={`bg-white rounded-2xl overflow-hidden cursor-pointer border border-gray-100 border-t-2 border-t-emerald-500 hover:border-emerald-300 hover:shadow-lg hover:shadow-emerald-50 hover:-translate-y-1 transition-all duration-200 ${
         glowing && glowType === 'spark'   ? 'card-spark-glow' :
         glowing && glowType === 'battery' ? 'card-battery-glow' : ''
       }`}

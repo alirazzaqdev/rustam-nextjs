@@ -13,16 +13,17 @@ interface ProductImageProps {
 }
 
 const brandGradients: Record<string, string> = {
-  Osaka:   'from-blue-600 to-blue-800',
-  Phoenix: 'from-red-600 to-red-800',
-  AGS:     'from-emerald-600 to-emerald-800',
-  Alaska:  'from-violet-600 to-violet-800',
-  default: 'from-emerald-600 to-orange-600',
+  Osaka:   'from-slate-100 to-slate-200',
+  Phoenix: 'from-slate-100 to-slate-200',
+  AGS:     'from-slate-100 to-slate-200',
+  Alaska:  'from-slate-100 to-slate-200',
+  Knox:    'from-slate-100 to-slate-200',
+  default: 'from-slate-100 to-slate-200',
 }
 
 function CategoryIcon({ category, size }: { category: string; size: 'card' | 'modal' }) {
-  const cls = size === 'modal' ? 'w-16 h-16' : 'w-10 h-10'
-  const className = `${cls} text-white opacity-15 absolute bottom-3 right-3`
+  const cls = size === 'modal' ? 'w-14 h-14' : 'w-8 h-8'
+  const className = `${cls} text-emerald-300 opacity-40 absolute bottom-3 right-3`
   if (category === 'Battery') return <Battery className={className} aria-hidden />
   if (category === 'Solar Panel') return <Sun className={className} aria-hidden />
   if (category === 'Inverter') return <Zap className={className} aria-hidden />
@@ -45,7 +46,7 @@ export default function ProductImage({ src, name, brand, category, size = 'card'
 
   if (src && !imgError) {
     return (
-      <div className={`relative w-full ${isModal ? 'h-64' : 'h-48'} overflow-hidden bg-gray-50`}>
+      <div className={`relative w-full ${isModal ? 'h-64' : 'h-40'} overflow-hidden bg-gray-50`}>
         <Image
           src={src}
           alt={name}
@@ -59,20 +60,16 @@ export default function ProductImage({ src, name, brand, category, size = 'card'
 
   return (
     <div
-      className={`relative w-full ${isModal ? 'h-64' : 'h-48'} bg-gradient-to-br ${gradient} flex flex-col items-center justify-center overflow-hidden`}
+      className={`relative w-full ${isModal ? 'h-64' : 'h-40'} bg-gradient-to-br ${gradient} flex flex-col items-center justify-center overflow-hidden`}
       aria-label={`${brand} ${name}`}
     >
-      {/* Decorative circles */}
-      <div className="absolute -top-8 -left-8 w-32 h-32 rounded-full bg-white/10" aria-hidden />
-      <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-white/10" aria-hidden />
-
       {/* Initials */}
-      <span className={`text-white font-black tracking-tight select-none z-10 ${isModal ? 'text-7xl' : 'text-5xl'}`}>
+      <span className={`font-black tracking-tight select-none z-10 ${isModal ? 'text-6xl' : 'text-4xl'} text-emerald-600`}>
         {initials}
       </span>
 
       {/* Brand label */}
-      <span className="text-white/60 font-semibold text-xs tracking-widest uppercase mt-2 z-10">
+      <span className="text-emerald-500 font-bold text-xs tracking-widest uppercase mt-1 z-10">
         {brand !== 'Various' ? brand : category}
       </span>
 
