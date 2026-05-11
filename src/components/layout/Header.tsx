@@ -39,7 +39,7 @@ export function Header() {
         <div className="flex items-center justify-between h-[68px]">
 
           {/* Logo */}
-          <Link href="/" className="flex items-center shrink-0">
+          <Link href="/#hero" className="flex items-center shrink-0">
             <div className="bg-slate-900 rounded-xl px-3 py-1.5 hover:bg-slate-800 transition-colors duration-200">
               <img
                 src="/logo.png"
