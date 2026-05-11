@@ -5,6 +5,7 @@ import { X } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import ProductImage from '@/components/ui/ProductImage'
 import SparkEffect from '@/components/ui/SparkEffect'
+import ChargeEffect from '@/components/ui/ChargeEffect'
 import type { Product } from '@/types'
 
 interface ProductsSectionProps {
@@ -61,10 +62,12 @@ export function ProductsSection({ products }: ProductsSectionProps) {
   const [activeBrand, setActiveBrand]       = useState<string>('All Brands')
   const [selected, setSelected]             = useState<Product | null>(null)
 
-  // Spark state
-  const [sparkActive, setSparkActive]   = useState(false)
-  const [sparkPos, setSparkPos]         = useState({ x: 0, y: 0 })
-  const [glowCardId, setGlowCardId]     = useState<string | null>(null)
+  // Animation state
+  const [sparkActive, setSparkActive]     = useState(false)
+  const [chargeActive, setChargeActive]   = useState(false)
+  const [effectPos, setEffectPos]         = useState({ x: 0, y: 0 })
+  const [glowCardId, setGlowCardId]       = useState<string | null>(null)
+  const [glowType, setGlowType]           = useState<'spark' | 'battery'>('spark')
 
   useEffect(() => {
     if (!selected) return
@@ -90,15 +93,19 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     product: Product,
     action: () => void,
   ) => {
-    setSparkPos({ x: e.clientX, y: e.clientY })
-    setSparkActive(true)
-    setGlowCardId(product.id)
-    setTimeout(() => setGlowCardId(null), 800)
-    setTimeout(() => action(), 200)
-  }, [])
+    setEffectPos({ x: e.clientX, y: e.clientY })
 
-  const handleSparkComplete = useCallback(() => {
-    setSparkActive(false)
+    if (product.category === 'Inverter') {
+      setSparkActive(true)
+      setGlowType('spark')
+    } else if (product.category === 'Battery') {
+      setChargeActive(true)
+      setGlowType('battery')
+    }
+
+    setGlowCardId(product.id)
+    setTimeout(() => setGlowCardId(null), 1000)
+    setTimeout(() => action(), 200)
   }, [])
 
   const filtered = products.filter((p) => {
@@ -132,9 +139,15 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     <section id="products" className="bg-slate-50 py-20 md:py-24">
       <SparkEffect
         trigger={sparkActive}
-        x={sparkPos.x}
-        y={sparkPos.y}
-        onComplete={handleSparkComplete}
+        x={effectPos.x}
+        y={effectPos.y}
+        onComplete={() => setSparkActive(false)}
+      />
+      <ChargeEffect
+        trigger={chargeActive}
+        x={effectPos.x}
+        y={effectPos.y}
+        onComplete={() => setChargeActive(false)}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -203,6 +216,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
                 key={product.id}
                 product={product}
                 glowing={glowCardId === product.id}
+                glowType={glowType}
                 onSelect={(e) => handleCardClick(e, product, () => setSelected(product))}
                 onOrder={(e) => {
                   e.stopPropagation()
@@ -230,11 +244,12 @@ export function ProductsSection({ products }: ProductsSectionProps) {
 interface ProductCardProps {
   product: Product
   glowing: boolean
+  glowType: 'spark' | 'battery'
   onSelect: (e: React.MouseEvent) => void
   onOrder:  (e: React.MouseEvent) => void
 }
 
-function ProductCard({ product, glowing, onSelect, onOrder }: ProductCardProps) {
+function ProductCard({ product, glowing, glowType, onSelect, onOrder }: ProductCardProps) {
   const perWatt = product.category === 'Solar Panel' ? product.specs['Per Watt'] : null
 
   return (
@@ -246,7 +261,8 @@ function ProductCard({ product, glowing, onSelect, onOrder }: ProductCardProps) 
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(e as unknown as React.MouseEvent) }
       }}
       className={`bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer ${
-        glowing ? 'card-spark-glow' : ''
+        glowing && glowType === 'spark'   ? 'card-spark-glow' :
+        glowing && glowType === 'battery' ? 'card-battery-glow' : ''
       }`}
     >
       <ProductImage
