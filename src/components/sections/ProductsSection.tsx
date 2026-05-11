@@ -32,20 +32,27 @@ const KNOX_HYBRID_IDS = new Set([
   'knox-12002', 'knox-13002', 'knox-15002',
 ])
 
-const WHATSAPP_NUMBER = '923213770402'
+const WA_BATTERY        = '923213770402'
+const WA_SOLAR_INVERTER = '923214130828'
+
+function getWaNumber(product: Product): string {
+  return (product.category === 'Solar Panel' || product.category === 'Inverter')
+    ? WA_SOLAR_INVERTER
+    : WA_BATTERY
+}
 
 function whatsappOrderUrl(product: Product): string {
   const msg = product.price > 0
     ? `Assalam o Alaikum! I want to order: ${product.name} - PKR ${product.price.toLocaleString('en-PK')}`
     : `Assalam o Alaikum! I want to inquire about: ${product.name}`
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
+  return `https://wa.me/${getWaNumber(product)}?text=${encodeURIComponent(msg)}`
 }
 
 function whatsappOrderUrlLong(product: Product): string {
   const msg = product.price > 0
     ? `Assalam o Alaikum! I want to order:\n*${product.name}*\nPrice: PKR ${product.price.toLocaleString('en-PK')}\nPlease confirm availability.`
     : `Assalam o Alaikum! I want to inquire about:\n*${product.name}*\nPlease share pricing and availability.`
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`
+  return `https://wa.me/${getWaNumber(product)}?text=${encodeURIComponent(msg)}`
 }
 
 export function ProductsSection({ products }: ProductsSectionProps) {
