@@ -14,7 +14,6 @@ interface Order {
   orderNumber: string
   customerName: string
   phone: string
-  whatsapp?: string
   email: string
   city: string
   items: unknown
@@ -39,27 +38,35 @@ function formatPKR(n: number) {
   return `PKR ${n.toLocaleString()}`
 }
 
-// Simple SVG bar chart
+// Bar chart — uses ORDER COUNT for bar height so chart is never flat
+// Revenue shown in tooltip. When revenue > 0, amber tint on bars.
 function BarChart({ data }: { data: { label: string; revenue: number; orders: number }[] }) {
-  const maxRev = Math.max(...data.map(d => d.revenue), 1)
+  const maxOrders  = Math.max(...data.map(d => d.orders), 1)
+  const hasRevenue = data.some(d => d.revenue > 0)
   return (
     <div className="flex items-end gap-1 h-40 w-full">
       {data.map((d, i) => {
-        const h = Math.round((d.revenue / maxRev) * 100)
+        const h      = Math.round((d.orders / maxOrders) * 100)
         const isLast = i === data.length - 1
+        const active = d.orders > 0
         return (
           <div key={d.label} className="flex-1 flex flex-col items-center gap-1 group relative">
-            {/* Tooltip */}
             <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 bg-slate-900 text-white text-[10px] rounded-lg px-2 py-1.5 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-10 shadow-lg">
               <p className="font-bold">{d.label}</p>
-              <p>{d.orders} orders</p>
-              <p>{formatPKR(d.revenue)}</p>
+              <p>{d.orders} order{d.orders !== 1 ? 's' : ''}</p>
+              {hasRevenue && <p>{formatPKR(d.revenue)}</p>}
             </div>
             <div
-              className={`w-full rounded-t-sm transition-all duration-300 ${isLast ? 'bg-amber-500' : 'bg-slate-200 group-hover:bg-amber-300'}`}
-              style={{ height: `${Math.max(h, 2)}%` }}
+              className={`w-full rounded-t-sm transition-all duration-500 ${
+                isLast && active ? 'bg-amber-500' :
+                active           ? 'bg-amber-400 group-hover:bg-amber-500' :
+                                   'bg-slate-100'
+              }`}
+              style={{ height: `${Math.max(h, active ? 8 : 2)}%` }}
             />
-            <span className="text-[9px] text-gray-400 rotate-45 origin-left translate-x-1 whitespace-nowrap">{d.label.slice(0, 3)}</span>
+            <span className="text-[9px] text-gray-400 rotate-45 origin-left translate-x-1 whitespace-nowrap">
+              {d.label.slice(0, 3)}
+            </span>
           </div>
         )
       })}
@@ -87,10 +94,17 @@ export default function AdminDashboard() {
   const [stats, setStats]         = useState<Stats | null>(null)
   const [loading, setLoading]     = useState(true)
   const [apiError, setApiError]   = useState<string | null>(null)
-  const [rejectModal, setRejectModal] = useState<Order | null>(null)
-  const [rejectReason, setRejectReason] = useState('')
-  const [acting, setActing]       = useState<string | null>(null)
-  const [toast, setToast]         = useState<string | null>(null)
+
+  // Approve modal — admin sets the final price before confirming
+  const [approveModal, setApproveModal]   = useState<Order | null>(null)
+  const [approvePrice, setApprovePrice]   = useState('')
+
+  // Reject modal
+  const [rejectModal, setRejectModal]     = useState<Order | null>(null)
+  const [rejectReason, setRejectReason]   = useState('')
+
+  const [acting, setActing]   = useState<string | null>(null)
+  const [toast, setToast]     = useState<string | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -113,18 +127,30 @@ export default function AdminDashboard() {
 
   function showToast(msg: string) {
     setToast(msg)
-    setTimeout(() => setToast(null), 3500)
+    setTimeout(() => setToast(null), 4000)
   }
 
-  async function approve(order: Order) {
-    setActing(order.id)
-    await fetch(`/api/orders/${order.id}`, {
-      method: 'PATCH',
+  function openApprove(order: Order) {
+    setApprovePrice(order.total > 0 ? String(order.total) : '')
+    setApproveModal(order)
+  }
+
+  async function confirmApprove() {
+    if (!approveModal) return
+    setActing(approveModal.id)
+    const price = Number(approvePrice) || 0
+    await fetch(`/api/orders/${approveModal.id}`, {
+      method:  'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderStatus: 'confirmed' }),
+      body:    JSON.stringify({
+        orderStatus: 'confirmed',
+        ...(price > 0 && { total: price, subtotal: price }),
+      }),
     })
+    setApproveModal(null)
+    setApprovePrice('')
     setActing(null)
-    showToast(`WhatsApp sent to ${order.customerName} ✓`)
+    showToast(`Order confirmed — WhatsApp sent to ${approveModal.customerName} ✓`)
     load()
   }
 
@@ -132,9 +158,9 @@ export default function AdminDashboard() {
     if (!rejectReason.trim()) return
     setActing(order.id)
     await fetch(`/api/orders/${order.id}`, {
-      method: 'PATCH',
+      method:  'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderStatus: 'cancelled', rejectionReason: rejectReason }),
+      body:    JSON.stringify({ orderStatus: 'cancelled', rejectionReason: rejectReason }),
     })
     setRejectModal(null)
     setRejectReason('')
@@ -184,30 +210,30 @@ export default function AdminDashboard() {
             {
               label: 'Total Orders',
               value: s?.counts.total ?? '—',
-              sub: `${s?.counts.thisMonth ?? 0} this month`,
-              icon: ShoppingBag,
+              sub:   `${s?.counts.thisMonth ?? 0} this month`,
+              icon:  ShoppingBag,
               color: 'bg-slate-100 text-slate-600',
             },
             {
-              label: 'Pending',
-              value: s?.counts.pending ?? '—',
-              sub: 'Waiting for approval',
-              icon: Clock,
-              color: 'bg-amber-100 text-amber-600',
+              label:     'Pending',
+              value:     s?.counts.pending ?? '—',
+              sub:       'Waiting for approval',
+              icon:      Clock,
+              color:     'bg-amber-100 text-amber-600',
               highlight: (s?.counts.pending ?? 0) > 0,
             },
             {
               label: 'Confirmed',
               value: s?.counts.confirmed ?? '—',
-              sub: `${s?.counts.cancelled ?? 0} cancelled`,
-              icon: CheckCircle2,
+              sub:   `${s?.counts.cancelled ?? 0} cancelled`,
+              icon:  CheckCircle2,
               color: 'bg-green-100 text-green-600',
             },
             {
               label: 'Revenue',
               value: s ? formatPKR(s.revenue.confirmed) : '—',
-              sub: `${s ? formatPKR(s.revenue.thisMonth) : '—'} this month`,
-              icon: TrendingUp,
+              sub:   `${s ? formatPKR(s.revenue.thisMonth) : '—'} this month`,
+              icon:  TrendingUp,
               color: 'bg-amber-100 text-amber-600',
             },
           ].map(({ label, value, sub, icon: Icon, color, highlight }) => (
@@ -225,39 +251,41 @@ export default function AdminDashboard() {
           ))}
         </div>
 
-        {/* Chart + pending split */}
+        {/* Chart + breakdown */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
 
-          {/* Monthly Chart */}
+          {/* Monthly Chart — bars = order count */}
           <div className="lg:col-span-3 bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="font-bold text-slate-900">Monthly Revenue</h2>
-                <p className="text-xs text-gray-400 mt-0.5">Last 12 months</p>
+                <h2 className="font-bold text-slate-900">Monthly Orders</h2>
+                <p className="text-xs text-gray-400 mt-0.5">Last 12 months · hover for revenue</p>
               </div>
               {s && (
                 <div className="text-right">
                   <p className="text-sm font-bold text-amber-600">{formatPKR(s.revenue.total)}</p>
-                  <p className="text-xs text-gray-400">All time</p>
+                  <p className="text-xs text-gray-400">All-time revenue</p>
                 </div>
               )}
             </div>
             {loading ? (
               <div className="h-40 flex items-center justify-center text-gray-300 text-sm">Loading chart…</div>
-            ) : s?.monthly.length ? (
+            ) : s?.monthly.some(m => m.orders > 0) ? (
               <BarChart data={s.monthly} />
             ) : (
-              <div className="h-40 flex items-center justify-center text-gray-300 text-sm">No data yet — orders will appear here</div>
+              <div className="h-40 flex items-center justify-center text-gray-300 text-sm">
+                No orders yet — chart will fill as orders come in
+              </div>
             )}
           </div>
 
-          {/* Quick Stats */}
+          {/* Order Breakdown */}
           <div className="lg:col-span-2 bg-white rounded-2xl border border-gray-100 shadow-sm p-6 flex flex-col gap-4">
             <h2 className="font-bold text-slate-900">Order Breakdown</h2>
             {s && [
-              { label: 'Pending',    val: s.counts.pending,   bar: s.counts.total, color: 'bg-amber-400' },
-              { label: 'Confirmed',  val: s.counts.confirmed, bar: s.counts.total, color: 'bg-green-400' },
-              { label: 'Cancelled',  val: s.counts.cancelled, bar: s.counts.total, color: 'bg-red-300' },
+              { label: 'Pending',   val: s.counts.pending,   bar: s.counts.total, color: 'bg-amber-400' },
+              { label: 'Confirmed', val: s.counts.confirmed, bar: s.counts.total, color: 'bg-green-400' },
+              { label: 'Cancelled', val: s.counts.cancelled, bar: s.counts.total, color: 'bg-red-300' },
             ].map(({ label, val, bar, color }) => (
               <div key={label}>
                 <div className="flex justify-between text-sm mb-1">
@@ -276,7 +304,7 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Pending orders — needs action */}
+        {/* Pending orders */}
         <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <div className="flex items-center gap-2">
@@ -301,9 +329,8 @@ export default function AdminDashboard() {
             <div className="divide-y divide-gray-50">
               {s.recentPending.map(order => {
                 const itemList = Array.isArray(order.items)
-                  ? (order.items as { name?: string; price?: number }[]).map(i => i.name || '').filter(Boolean).join(', ')
+                  ? (order.items as { name?: string }[]).map(i => i.name || '').filter(Boolean).join(', ')
                   : ''
-
                 return (
                   <div key={order.id} className="px-6 py-4 hover:bg-slate-50 transition-colors">
                     <div className="flex items-start justify-between gap-4">
@@ -321,29 +348,27 @@ export default function AdminDashboard() {
                           <span>📍 {order.city}</span>
                           {order.paymentMethod && <span>💳 {order.paymentMethod}</span>}
                         </div>
-                        {itemList && (
-                          <p className="text-xs text-gray-400 mt-1 truncate">🛒 {itemList}</p>
-                        )}
+                        {itemList && <p className="text-xs text-gray-400 mt-1 truncate">🛒 {itemList}</p>}
                         {order.notes && (
                           <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
                             <MessageSquare size={10} /> {order.notes}
                           </p>
                         )}
                       </div>
-
                       <div className="flex flex-col items-end gap-2 shrink-0">
-                        <p className="font-bold text-slate-900 text-sm">PKR {order.total.toLocaleString()}</p>
+                        <p className={`font-bold text-sm ${order.total > 0 ? 'text-slate-900' : 'text-amber-500'}`}>
+                          {order.total > 0 ? `PKR ${order.total.toLocaleString()}` : 'Price not set'}
+                        </p>
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => { setRejectModal(order); setRejectReason('') }}
                             disabled={acting === order.id}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold border border-red-200 text-red-600 hover:bg-red-50 transition-colors disabled:opacity-40"
                           >
-                            <XCircle size={13} />
-                            Reject
+                            <XCircle size={13} /> Reject
                           </button>
                           <button
-                            onClick={() => approve(order)}
+                            onClick={() => openApprove(order)}
                             disabled={acting === order.id}
                             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-green-500 hover:bg-green-600 text-white transition-colors disabled:opacity-40"
                           >
@@ -363,7 +388,68 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      {/* Reject modal */}
+      {/* ── Approve Modal ── */}
+      {approveModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-slate-900">Order Approve karna</h3>
+              <button onClick={() => setApproveModal(null)} className="p-1 hover:bg-gray-100 rounded-lg">
+                <X size={16} />
+              </button>
+            </div>
+            <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4 text-sm">
+              <p className="font-semibold text-slate-900">{approveModal.orderNumber} — {approveModal.customerName}</p>
+              <p className="text-gray-500 text-xs mt-0.5">📱 {approveModal.phone} · 📍 {approveModal.city}</p>
+              {Array.isArray(approveModal.items) && (
+                <p className="text-gray-500 text-xs mt-0.5">
+                  🛒 {(approveModal.items as { name?: string }[]).map(i => i.name || '').filter(Boolean).join(', ')}
+                </p>
+              )}
+            </div>
+
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              Final Price (PKR) — customer ko WhatsApp mein yahi amount jaayega
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">PKR</span>
+              <input
+                type="number"
+                min={0}
+                autoFocus
+                value={approvePrice}
+                onChange={e => setApprovePrice(e.target.value)}
+                placeholder="e.g. 25000"
+                className="w-full pl-12 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-green-200 focus:border-green-400"
+              />
+            </div>
+            {!approvePrice && (
+              <p className="text-xs text-amber-600 mt-1.5">⚠ Price nahi doge tu revenue PKR 0 rahega</p>
+            )}
+
+            <div className="flex items-center gap-3 mt-4">
+              <button
+                onClick={() => setApproveModal(null)}
+                className="flex-1 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={confirmApprove}
+                disabled={acting === approveModal.id}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-50"
+              >
+                {acting === approveModal.id
+                  ? <RefreshCw size={14} className="animate-spin" />
+                  : <Send size={14} />}
+                Approve & WhatsApp Send
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Reject Modal ── */}
       {rejectModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
@@ -375,7 +461,7 @@ export default function AdminDashboard() {
             </div>
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-3 mb-4 text-sm">
               <p className="font-semibold text-slate-900">{rejectModal.orderNumber} — {rejectModal.customerName}</p>
-              <p className="text-gray-500">PKR {rejectModal.total.toLocaleString()} · {rejectModal.phone}</p>
+              <p className="text-gray-500">{rejectModal.phone}</p>
             </div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">
               Rejection ki wajah (customer ko WhatsApp pe jaayegi):
@@ -390,14 +476,14 @@ export default function AdminDashboard() {
             <div className="flex items-center gap-3 mt-4">
               <button
                 onClick={() => setRejectModal(null)}
-                className="flex-1 py-2 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50"
+                className="flex-1 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50"
               >
                 Cancel
               </button>
               <button
                 onClick={() => reject(rejectModal)}
                 disabled={!rejectReason.trim() || acting === rejectModal.id}
-                className="flex-1 flex items-center justify-center gap-2 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-50"
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-50"
               >
                 <Send size={14} />
                 Reject & WhatsApp Send
@@ -406,9 +492,10 @@ export default function AdminDashboard() {
           </div>
         </div>
       )}
-      {/* Toast notification */}
+
+      {/* Toast */}
       {toast && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-3 rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4">
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-3 rounded-2xl shadow-xl">
           <Smartphone size={15} className="text-green-400 shrink-0" />
           {toast}
         </div>

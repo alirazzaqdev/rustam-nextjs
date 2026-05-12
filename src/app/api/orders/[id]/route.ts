@@ -13,6 +13,8 @@ export async function PATCH(
       paymentStatus?:   string
       paymentRef?:      string
       rejectionReason?: string
+      total?:           number
+      subtotal?:        number
     }
 
     const { rejectionReason, ...dbFields } = body

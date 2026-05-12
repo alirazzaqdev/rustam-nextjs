@@ -55,6 +55,8 @@ export default function AdminOrdersPage() {
   const [filter, setFilter]   = useState('')
   const [search, setSearch]   = useState('')
   const [acting, setActing]   = useState<string | null>(null)
+  const [approveModal, setApproveModal] = useState<Order | null>(null)
+  const [approvePrice, setApprovePrice] = useState('')
   const [rejectModal, setRejectModal] = useState<Order | null>(null)
   const [rejectReason, setRejectReason] = useState('')
   const [expanded, setExpanded] = useState<string | null>(null)
@@ -91,16 +93,32 @@ export default function AdminOrdersPage() {
     setTimeout(() => setToast(null), 3500)
   }
 
-  async function approve(order: Order) {
-    setActing(order.id)
-    await fetch(`/api/orders/${order.id}`, {
+  function openApprove(order: Order) {
+    setApprovePrice(order.total > 0 ? String(order.total) : '')
+    setApproveModal(order)
+  }
+
+  async function confirmApprove() {
+    if (!approveModal) return
+    setActing(approveModal.id)
+    const price = Number(approvePrice) || 0
+    await fetch(`/api/orders/${approveModal.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderStatus: 'confirmed' }),
+      body: JSON.stringify({
+        orderStatus: 'confirmed',
+        ...(price > 0 && { total: price, subtotal: price }),
+      }),
     })
+    setOrders(prev => prev.map(o =>
+      o.id === approveModal.id
+        ? { ...o, orderStatus: 'confirmed', total: price > 0 ? price : o.total }
+        : o
+    ))
+    setApproveModal(null)
+    setApprovePrice('')
     setActing(null)
-    showToast(`WhatsApp sent to ${order.customerName} ✓`)
-    setOrders(prev => prev.map(o => o.id === order.id ? { ...o, orderStatus: 'confirmed' } : o))
+    showToast(`Order confirmed — WhatsApp sent to ${approveModal.customerName} ✓`)
   }
 
   async function reject(order: Order) {
@@ -217,7 +235,7 @@ export default function AdminOrdersPage() {
                           <XCircle size={13} /> Reject
                         </button>
                         <button
-                          onClick={e => { e.stopPropagation(); approve(order) }}
+                          onClick={e => { e.stopPropagation(); openApprove(order) }}
                           disabled={acting === order.id}
                           className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-semibold bg-green-500 hover:bg-green-600 text-white transition-colors disabled:opacity-40"
                         >
@@ -281,6 +299,53 @@ export default function AdminOrdersPage() {
           })}
         </div>
       </div>
+
+      {/* Approve Modal */}
+      {approveModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-slate-900">Order Approve karna</h3>
+              <button onClick={() => setApproveModal(null)} className="p-1.5 hover:bg-gray-100 rounded-lg"><X size={16} /></button>
+            </div>
+            <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
+              <p className="font-semibold text-slate-900 text-sm">{approveModal.orderNumber} — {approveModal.customerName}</p>
+              <p className="text-gray-500 text-xs mt-0.5">📱 {approveModal.phone} · 📍 {approveModal.city}</p>
+            </div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1.5">
+              Final Price (PKR) — WhatsApp mein yahi jaayega
+            </label>
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">PKR</span>
+              <input
+                type="number"
+                min={0}
+                autoFocus
+                value={approvePrice}
+                onChange={e => setApprovePrice(e.target.value)}
+                placeholder="e.g. 25000"
+                className="w-full pl-12 pr-3 py-2.5 border border-gray-200 rounded-xl text-sm outline-none focus:ring-2 focus:ring-green-200 focus:border-green-400"
+              />
+            </div>
+            {!approvePrice && (
+              <p className="text-xs text-amber-600 mt-1.5">⚠ Price nahi doge tu revenue PKR 0 rahega</p>
+            )}
+            <div className="flex gap-3 mt-4">
+              <button onClick={() => setApproveModal(null)} className="flex-1 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50">
+                Cancel
+              </button>
+              <button
+                onClick={confirmApprove}
+                disabled={acting === approveModal.id}
+                className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-green-500 hover:bg-green-600 text-white text-sm font-semibold rounded-xl transition-colors disabled:opacity-50"
+              >
+                {acting === approveModal.id ? <RefreshCw size={14} className="animate-spin" /> : <Send size={14} />}
+                Approve & WhatsApp Send
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Toast notification */}
       {toast && (
