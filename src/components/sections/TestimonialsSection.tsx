@@ -100,7 +100,7 @@ export function TestimonialsSection({ testimonials: _ }: TestimonialsSectionProp
             What Lahore Customers Say About Our Solar Systems
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-base">
-            Real experiences from homeowners, businesses, and factories across Lahore — since 2006.
+            Real experiences from homeowners, businesses, and factories across Lahore — since 2016.
           </p>
 
           {/* Rating summary */}

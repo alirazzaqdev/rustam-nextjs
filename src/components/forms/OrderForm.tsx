@@ -394,8 +394,8 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
             </p>
             <div className="grid grid-cols-3 gap-4">
               {[
-                { number: '500+', label: 'Orders Completed', sub: 'Since 2006' },
-                { number: '19yr', label: 'Experience',       sub: 'Established 2006' },
+                { number: '500+', label: 'Orders Completed', sub: 'Since 2016' },
+                { number: '10yr', label: 'Experience',       sub: 'Established 2016' },
                 { number: '24hr', label: 'Support',          sub: 'WhatsApp always' },
               ].map((item, i) => (
                 <div key={i} className="text-center">
@@ -407,7 +407,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
             </div>
             <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-2">
               <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-              <p className="text-xs text-gray-500">Verified business · Kahna Nau, Lahore since 2006</p>
+              <p className="text-xs text-gray-500">Verified business · Kahna Nau, Lahore since 2016</p>
             </div>
           </div>
         </div>

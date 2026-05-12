@@ -68,7 +68,7 @@ export function HeroSection() {
             </h1>
 
             <p className="text-lg text-gray-500 leading-relaxed mb-8 max-w-lg">
-              19 years serving Lahore homes and businesses.
+              10 years serving Lahore homes and businesses.
               Solar panels, batteries, and inverters from world&apos;s top brands.
               Free site visit and consultation.
             </p>
@@ -92,7 +92,7 @@ export function HeroSection() {
             {/* Trust badges */}
             <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 pt-7 border-t border-gray-100">
               {[
-                'Est. 2006',
+                'Est. 2016',
                 '500+ Installations',
                 'Kahna Nau, Lahore',
                 'Free Site Visit',

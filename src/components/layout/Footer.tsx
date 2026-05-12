@@ -40,7 +40,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-sm leading-relaxed">
-              19 years of trusted solar expertise in Lahore. Powering homes and
+              10 years of trusted solar expertise in Lahore. Powering homes and
               businesses with clean, reliable energy.
             </p>
 
@@ -145,7 +145,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-6 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-gray-500">
           <p>&copy; {currentYear} Rustam Battery & Solar Energy House. All rights reserved.</p>
-          <p className="text-gray-600">Serving Lahore since 2006 · Kahna Nau, Punjab, Pakistan</p>
+          <p className="text-gray-600">Serving Lahore since 2016 · Kahna Nau, Punjab, Pakistan</p>
           <p>
             Built by{' '}
             <a

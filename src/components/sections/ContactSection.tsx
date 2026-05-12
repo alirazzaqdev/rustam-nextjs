@@ -38,7 +38,7 @@ export function ContactSection() {
             <div className="p-8">
               <h3 className="text-xl font-bold text-white mb-1">Contact Information</h3>
               <p className="text-slate-400 text-sm leading-relaxed mb-7">
-                19 years serving Lahore. Call, email, or WhatsApp us anytime.
+                10 years serving Lahore. Call, email, or WhatsApp us anytime.
               </p>
 
               {/* Contact items — all consistent style */}
@@ -137,7 +137,7 @@ export function ContactSection() {
 
               {/* Trust chips */}
               <div className="flex flex-wrap gap-2">
-                {['19+ Years', '500+ Installs', 'Free Site Visit', '24/7 Support'].map(t => (
+                {['10+ Years', '500+ Installs', 'Free Site Visit', '24/7 Support'].map(t => (
                   <span key={t} className="flex items-center gap-1.5 text-xs text-slate-300 bg-slate-800 px-2.5 py-1.5 rounded-lg font-medium border border-slate-700">
                     <CheckCircle size={10} className="text-emerald-400" />
                     {t}

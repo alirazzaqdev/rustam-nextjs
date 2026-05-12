@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: '%s | Rustam Battery & Solar Energy House Lahore',
   },
 
-  description: "Pakistan's trusted solar energy company since 2006. Buy solar panels, batteries (Osaka, AGS, Phoenix, Alaska), Knox inverters in Lahore. Free site visit. 500+ installations. Call +92 321 3770402",
+  description: "Pakistan's trusted solar energy company since 2016. Buy solar panels, batteries (Osaka, AGS, Phoenix, Alaska), Knox inverters in Lahore. Free site visit. 500+ installations. Call +92 321 3770402",
 
   keywords: [
     'solar panels Lahore', 'solar panels Pakistan', 'battery shop Lahore',
@@ -66,14 +66,14 @@ export const metadata: Metadata = {
     url: 'https://rustam-nextjs.vercel.app',
     siteName: 'Rustam Battery & Solar Energy House',
     title: 'Solar Panels, Batteries & Inverters in Lahore | Rustam Battery',
-    description: "Pakistan's trusted solar energy company since 2006. 500+ installations. Solar panels, batteries, Knox inverters. Free site visit in Lahore.",
+    description: "Pakistan's trusted solar energy company since 2016. 500+ installations. Solar panels, batteries, Knox inverters. Free site visit in Lahore.",
     images: [{ url: '/logo.png', width: 1040, height: 1040, alt: 'Rustam Battery & Solar Energy House — Solar Panels Lahore' }],
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'Solar Panels & Batteries in Lahore | Rustam Battery',
-    description: 'Trusted solar energy company since 2006. Solar panels, batteries, Knox inverters. Free site visit. 500+ installations across Lahore.',
+    description: 'Trusted solar energy company since 2016. Solar panels, batteries, Knox inverters. Free site visit. 500+ installations across Lahore.',
     images: ['/logo.png'],
   },
 

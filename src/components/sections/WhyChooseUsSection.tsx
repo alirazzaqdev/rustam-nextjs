@@ -1,7 +1,7 @@
 import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const reasons = [
-  { num: '01', title: '19 Years of Expertise',    desc: 'Since 2006, we have powered hundreds of homes and businesses across Lahore.' },
+  { num: '01', title: '10 Years of Expertise',    desc: 'Since 2016, we have powered hundreds of homes and businesses across Lahore.' },
   { num: '02', title: 'Original Products Only',   desc: 'Genuine, certified solar panels, batteries, and inverters from trusted brands.' },
   { num: '03', title: 'Full Warranty Support',    desc: 'Manufacturer warranty on every product. We handle all warranty claims for you.' },
   { num: '04', title: 'Free Expert Consultation', desc: 'Our engineers assess your site and design the perfect system — no obligation.' },

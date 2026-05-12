@@ -8,8 +8,8 @@ const teamMembers = [
     id: 1,
     name: 'Muhammad Rustam',
     role: 'Founder & Owner',
-    since: 'Est. 2006',
-    experience: '19+ Years',
+    since: 'Est. 2016',
+    experience: '10+ Years',
     badge: 'Founder',
     badgeColor: 'bg-amber-500 text-white',
     image: '/team/rustam.jpg',
@@ -18,7 +18,7 @@ const teamMembers = [
     gradientFrom: 'from-emerald-700',
     gradientTo: 'to-slate-800',
     description:
-      'Founded Rustam Battery & Solar Energy House in 2006. With 19 years of hands-on expertise, he personally oversees every project to guarantee quality and customer satisfaction.',
+      'Founded Rustam Battery & Solar Energy House in 2016. With 10 years of hands-on expertise, he personally oversees every project to guarantee quality and customer satisfaction.',
     tags: ['Leadership', 'Quality Assurance', 'Client Relations'],
     isFounder: true,
   },
@@ -157,7 +157,7 @@ export function TeamSection() {
             {/* Stats row */}
             <div className="grid grid-cols-3 gap-4 mb-8 p-5 bg-slate-50 rounded-2xl">
               <div className="text-center">
-                <div className="text-2xl font-black text-emerald-600">19+</div>
+                <div className="text-2xl font-black text-emerald-600">10+</div>
                 <div className="text-xs text-gray-500 font-medium mt-0.5">Years Experience</div>
               </div>
               <div className="text-center border-x border-gray-200">
@@ -165,7 +165,7 @@ export function TeamSection() {
                 <div className="text-xs text-gray-500 font-medium mt-0.5">Installations</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-black text-emerald-600">2006</div>
+                <div className="text-2xl font-black text-emerald-600">2016</div>
                 <div className="text-xs text-gray-500 font-medium mt-0.5">Established</div>
               </div>
             </div>

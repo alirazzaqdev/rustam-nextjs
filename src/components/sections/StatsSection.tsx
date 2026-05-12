@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 
 const STATS = [
-  { target: 19,  suffix: '+',  micro: 'SINCE 2006',  label: 'Years of expertise'   },
+  { target: 10,  suffix: '+',  micro: 'SINCE 2016',  label: 'Years of expertise'   },
   { target: 500, suffix: '+',  micro: 'CLIENTS',      label: 'Happy customers'       },
   { target: 80,  suffix: '+',  micro: 'PRODUCTS',     label: 'Models in stock'       },
   { target: 50,  suffix: 'kW', micro: 'CAPACITY',     label: 'Avg. system size'      },

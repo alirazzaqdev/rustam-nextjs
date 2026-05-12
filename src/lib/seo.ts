@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 
 export const siteConfig = {
   name: 'Rustam Battery & Solar Energy House',
-  description: '19 years of expertise in solar panels, batteries, and energy solutions for Lahore, Pakistan',
+  description: '10 years of expertise in solar panels, batteries, and energy solutions for Lahore, Pakistan',
   url: process.env.NEXT_PUBLIC_APP_URL || 'https://rustambattery.com',
   ogImage: '/logo.png',
   links: {
