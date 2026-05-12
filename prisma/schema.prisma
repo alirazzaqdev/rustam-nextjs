@@ -78,10 +78,11 @@ model Product {
   name        String
   slug        String   @unique
   description String
-  category    String   // solar-panels, batteries, inverters, accessories
+  category    String   // Battery, Solar Panel, Inverter, Accessory
+  brand       String   @default("")
   price       Float
-  image       String
-  specs       Json     // Flexible spec storage
+  image       String   @default("")
+  specs       Json     @default("{}")
   warranty    String?
   featured    Boolean  @default(false)
   inStock     Boolean  @default(true)

@@ -2,10 +2,6 @@ import type { Metadata } from "next"
 import { Inter, Plus_Jakarta_Sans } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
-import { Header } from "@/components/layout/Header"
-import { Footer } from "@/components/layout/Footer"
-import { QuoteModal } from "@/components/ui/QuoteModal"
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton"
 import { getStructuredData } from "@/lib/seo"
 import JsonLd from "@/components/seo/JsonLd"
 
@@ -160,11 +156,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen flex flex-col bg-white text-slate-900 antialiased">
         <JsonLd />
-        <Header />
-        <main id="main-content" className="flex-1">{children}</main>
-        <Footer />
-        <QuoteModal />
-        <WhatsAppButton />
+        {children}
       </body>
     </html>
   )

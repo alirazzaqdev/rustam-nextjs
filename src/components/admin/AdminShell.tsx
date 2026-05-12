@@ -4,20 +4,20 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
-  Zap, LayoutDashboard, ShoppingBag, Package,
-  MessageSquare, LogOut, Menu, X
+  LayoutDashboard, ShoppingBag, Package,
+  MessageSquare, LogOut, Menu, X, Zap, ExternalLink,
 } from 'lucide-react'
 
 const NAV = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/orders', label: 'Orders', icon: ShoppingBag },
-  { href: '/admin/products', label: 'Products', icon: Package },
-  { href: '/admin/messages', label: 'Messages', icon: MessageSquare },
+  { href: '/admin',          label: 'Dashboard', icon: LayoutDashboard },
+  { href: '/admin/orders',   label: 'Orders',    icon: ShoppingBag },
+  { href: '/admin/products', label: 'Products',  icon: Package },
+  { href: '/admin/messages', label: 'Messages',  icon: MessageSquare },
 ]
 
 export default function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
-  const router = useRouter()
+  const router   = useRouter()
   const [open, setOpen] = useState(false)
 
   async function handleLogout() {
@@ -26,17 +26,24 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-slate-50 flex font-sans">
+
       {/* Sidebar */}
-      <aside className={`fixed inset-y-0 left-0 z-40 w-56 bg-white border-r border-gray-100 flex flex-col transition-transform lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
-        <div className="p-4 border-b border-gray-100">
-          <Link href="/admin" className="flex items-center gap-2 font-bold text-gray-900">
-            <span className="bg-emerald-600 text-white rounded-lg p-1.5"><Zap size={16} /></span>
-            Rustam Admin
-          </Link>
+      <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-slate-900 flex flex-col transition-transform duration-200 lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
+
+        {/* Logo */}
+        <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-800">
+          <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <Zap size={18} className="text-white" strokeWidth={2.5} />
+          </div>
+          <div>
+            <p className="text-white font-bold text-sm leading-tight">Rustam Battery</p>
+            <p className="text-slate-400 text-xs">Admin Panel</p>
+          </div>
         </div>
 
-        <nav className="flex-1 p-3 space-y-1">
+        {/* Nav */}
+        <nav className="flex-1 px-3 py-4 space-y-0.5">
           {NAV.map(({ href, label, icon: Icon }) => {
             const active = pathname === href || (href !== '/admin' && pathname.startsWith(href))
             return (
@@ -44,25 +51,34 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
                 key={href}
                 href={href}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 ${
                   active
-                    ? 'bg-emerald-50 text-amber-700'
-                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                    ? 'bg-amber-500 text-white shadow-sm'
+                    : 'text-slate-400 hover:bg-slate-800 hover:text-white'
                 }`}
               >
-                <Icon size={16} />
+                <Icon size={16} strokeWidth={active ? 2.5 : 2} />
                 {label}
               </Link>
             )
           })}
         </nav>
 
-        <div className="p-3 border-t border-gray-100">
+        {/* Bottom */}
+        <div className="px-3 pb-4 space-y-0.5 border-t border-slate-800 pt-3">
+          <a
+            href="/"
+            target="_blank"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:bg-slate-800 hover:text-white transition-all"
+          >
+            <ExternalLink size={15} />
+            View Website
+          </a>
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-colors"
+            className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-900/30 hover:text-red-300 transition-all"
           >
-            <LogOut size={16} />
+            <LogOut size={15} />
             Sign Out
           </button>
         </div>
@@ -70,20 +86,30 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
       {/* Mobile overlay */}
       {open && (
-        <div className="fixed inset-0 z-30 bg-black/30 lg:hidden" onClick={() => setOpen(false)} />
+        <div className="fixed inset-0 z-30 bg-black/50 lg:hidden" onClick={() => setOpen(false)} />
       )}
 
-      {/* Main */}
-      <div className="flex-1 lg:ml-56 flex flex-col min-h-screen">
+      {/* Main content */}
+      <div className="flex-1 lg:ml-60 flex flex-col min-h-screen">
+
         {/* Top bar */}
-        <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center gap-3 lg:hidden">
-          <button onClick={() => setOpen(true)} className="text-gray-600">
-            <Menu size={20} />
+        <header className="bg-white border-b border-gray-100 px-4 h-14 flex items-center justify-between sticky top-0 z-20 shadow-sm">
+          <button onClick={() => setOpen(true)} className="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 text-gray-600">
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
-          <span className="font-semibold text-gray-900">Admin</span>
+          <div className="hidden lg:block">
+            <span className="text-sm text-gray-400">
+              {NAV.find(n => n.href === pathname || (n.href !== '/admin' && pathname.startsWith(n.href)))?.label || 'Admin'}
+            </span>
+          </div>
+          <div className="flex items-center gap-3 ml-auto">
+            <div className="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
+              <span className="text-white text-xs font-bold">A</span>
+            </div>
+          </div>
         </header>
 
-        <main className="flex-1 p-6">{children}</main>
+        <main className="flex-1 p-6 lg:p-8">{children}</main>
       </div>
     </div>
   )

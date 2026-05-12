@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, ShoppingCart } from 'lucide-react'
+import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react'
 import { useAppStore, useCartStore } from '@/lib/store'
 
 const navItems = [
@@ -65,6 +65,14 @@ export function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-2">
+            <Link
+              href="/admin"
+              aria-label="Admin Panel"
+              className="p-2 text-gray-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-all duration-200"
+              title="Admin Panel"
+            >
+              <LayoutDashboard size={17} />
+            </Link>
             <Link
               href="/cart"
               aria-label="Cart"
