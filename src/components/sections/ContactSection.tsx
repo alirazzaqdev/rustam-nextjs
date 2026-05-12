@@ -199,13 +199,13 @@ export function ContactSection() {
         <div className="mt-10">
 
           {/* Map header row */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
-                <MapPin size={16} className="text-emerald-600" />
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                <MapPin size={17} className="text-emerald-600" />
               </div>
               <div>
-                <p className="text-sm font-bold text-slate-800">Our Location</p>
+                <p className="text-base font-bold text-slate-800">Our Location</p>
                 <p className="text-xs text-gray-400">Kahna Nau, Lahore — Punjab, Pakistan</p>
               </div>
             </div>
@@ -213,20 +213,27 @@ export function ContactSection() {
               href="https://www.google.com/maps/dir/?api=1&destination=31.3739000,74.3675000"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors self-start sm:self-auto"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors self-start sm:self-auto shadow-md shadow-emerald-600/25"
             >
               <MapPin size={14} />
               Get Directions
             </a>
           </div>
 
-          {/* Map iframe */}
-          <div className="p-1 rounded-3xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-slate-700 shadow-xl shadow-emerald-900/10">
-            <div className="rounded-[22px] overflow-hidden">
+          {/* Map card — premium border treatment */}
+          <div className="rounded-3xl bg-gradient-to-br from-emerald-500 via-emerald-400 to-slate-800 p-[3px] shadow-2xl shadow-slate-900/20">
+            <div className="rounded-[22px] overflow-hidden relative">
+
+              {/* Top accent bar inside map */}
+              <div className="absolute top-0 left-0 right-0 z-10 h-10 bg-gradient-to-b from-slate-900/70 to-transparent flex items-center px-4 gap-2">
+                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-white text-xs font-semibold tracking-wide drop-shadow">Rustam Battery & Solar Energy House</span>
+              </div>
+
               <iframe
                 src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"
                 width="100%"
-                height="420"
+                height="440"
                 style={{ border: 0, display: 'block' }}
                 allowFullScreen
                 loading="lazy"
@@ -236,27 +243,33 @@ export function ContactSection() {
             </div>
           </div>
 
-          {/* Info chips below map */}
+          {/* Info cards below map */}
           <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
-              <MapPin size={15} className="text-emerald-600 shrink-0" />
+            <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-4 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                <MapPin size={15} className="text-emerald-600" />
+              </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium">Address</p>
-                <p className="text-sm text-slate-700 font-semibold">Kahna Nau, Lahore</p>
+                <p className="text-sm text-slate-800 font-semibold">Kahna Nau, Lahore</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
-              <Phone size={15} className="text-emerald-600 shrink-0" />
+            <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-4 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                <Phone size={15} className="text-emerald-600" />
+              </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium">Call Us</p>
-                <p className="text-sm text-slate-700 font-semibold">+92 321 3770402</p>
+                <p className="text-sm text-slate-800 font-semibold">+92 321 3770402</p>
               </div>
             </div>
-            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
-              <Clock size={15} className="text-emerald-600 shrink-0" />
+            <div className="flex items-center gap-3 bg-white border border-gray-200 rounded-2xl px-4 py-4 shadow-sm hover:shadow-md hover:border-emerald-200 transition-all group">
+              <div className="w-9 h-9 rounded-xl bg-emerald-50 flex items-center justify-center shrink-0 group-hover:bg-emerald-100 transition-colors">
+                <Clock size={15} className="text-emerald-600" />
+              </div>
               <div>
                 <p className="text-xs text-gray-400 font-medium">Open Today</p>
-                <p className="text-sm text-slate-700 font-semibold">9:00 AM – 6:00 PM</p>
+                <p className="text-sm text-slate-800 font-semibold">9:00 AM – 6:00 PM</p>
               </div>
             </div>
           </div>
