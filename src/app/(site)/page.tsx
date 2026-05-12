@@ -31,10 +31,10 @@ export default async function Home() {
       <BrandsSection />
       <ProductsSection products={products} />
       <ServicesSection services={services} />
+      <CalculatorSection />
       <WhyChooseUsSection />
       <TeamSection />
       <TestimonialsSection testimonials={testimonials} />
-      <CalculatorSection />
       <FAQSection faqs={faqs} />
       <ContactSection />
     </div>
