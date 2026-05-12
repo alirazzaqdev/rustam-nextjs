@@ -14,7 +14,7 @@ import { getServices } from '@/actions/services'
 import { getTestimonials } from '@/actions/testimonials'
 import { getFAQs } from '@/actions/faqs'
 
-export const revalidate = 3600
+export const revalidate = 60
 
 export default async function Home() {
   const [products, services, testimonials, faqs] = await Promise.all([
