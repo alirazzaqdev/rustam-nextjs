@@ -31,17 +31,17 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-slate-900 flex flex-col transition-transform duration-200 lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
 
-        {/* Logo — matches main site header */}
-        <div className="px-4 py-4 border-b border-slate-800">
-          <div className="bg-white rounded-xl px-3 py-2 inline-block">
+        {/* Logo */}
+        <div className="px-4 py-5 border-b border-slate-800">
+          <div className="bg-white rounded-2xl px-4 py-3 inline-flex items-center justify-center w-full">
             <img
               src="/logo.png"
               alt="Rustam Battery & Solar Energy House"
-              className="h-9 w-auto object-contain block"
-              style={{ maxWidth: '148px' }}
+              className="h-12 w-auto object-contain block"
+              style={{ maxWidth: '160px' }}
             />
           </div>
-          <p className="text-slate-500 text-[10px] mt-2 px-0.5 font-semibold uppercase tracking-widest">
+          <p className="text-slate-500 text-[10px] mt-2.5 text-center font-bold uppercase tracking-widest">
             Admin Panel
           </p>
         </div>

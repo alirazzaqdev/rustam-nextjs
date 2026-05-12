@@ -5,6 +5,7 @@ import AdminShell from '@/components/admin/AdminShell'
 import {
   ShoppingBag, Clock, CheckCircle2, XCircle,
   TrendingUp, RefreshCw, MessageSquare, X, Send, Smartphone,
+  Phone, MapPin, CreditCard, ShoppingCart, PackageCheck,
 } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -212,41 +213,44 @@ export default function AdminDashboard() {
               value: s?.counts.total ?? '—',
               sub:   `${s?.counts.thisMonth ?? 0} this month`,
               icon:  ShoppingBag,
-              color: 'bg-slate-100 text-slate-600',
+              iconBg: 'bg-emerald-600',
+              highlight: false,
             },
             {
               label:     'Pending',
               value:     s?.counts.pending ?? '—',
               sub:       'Waiting for approval',
               icon:      Clock,
-              color:     'bg-amber-100 text-amber-600',
+              iconBg:    'bg-amber-500',
               highlight: (s?.counts.pending ?? 0) > 0,
             },
             {
-              label: 'Confirmed',
-              value: s?.counts.confirmed ?? '—',
-              sub:   `${s?.counts.cancelled ?? 0} cancelled`,
-              icon:  CheckCircle2,
-              color: 'bg-green-100 text-green-600',
+              label:  'Confirmed',
+              value:  s?.counts.confirmed ?? '—',
+              sub:    `${s?.counts.cancelled ?? 0} cancelled`,
+              icon:   PackageCheck,
+              iconBg: 'bg-emerald-500',
+              highlight: false,
             },
             {
-              label: 'Revenue',
-              value: s ? formatPKR(s.revenue.confirmed) : '—',
-              sub:   `${s ? formatPKR(s.revenue.thisMonth) : '—'} this month`,
-              icon:  TrendingUp,
-              color: 'bg-amber-100 text-amber-600',
+              label:  'Revenue',
+              value:  s ? formatPKR(s.revenue.confirmed) : '—',
+              sub:    `${s ? formatPKR(s.revenue.thisMonth) : '—'} this month`,
+              icon:   TrendingUp,
+              iconBg: 'bg-amber-600',
+              highlight: false,
             },
-          ].map(({ label, value, sub, icon: Icon, color, highlight }) => (
+          ].map(({ label, value, sub, icon: Icon, iconBg, highlight }) => (
             <div
               key={label}
               className={`bg-white rounded-2xl p-5 border shadow-sm transition-all ${highlight ? 'border-amber-300 ring-1 ring-amber-200' : 'border-gray-100'}`}
             >
-              <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-3 ${color}`}>
-                <Icon size={20} strokeWidth={2} />
+              <div className={`w-11 h-11 rounded-xl flex items-center justify-center mb-4 ${iconBg}`}>
+                <Icon size={20} strokeWidth={2} className="text-white" />
               </div>
               <p className="text-2xl font-bold text-slate-900 tabular-nums">{loading ? '…' : value}</p>
-              <p className="text-sm text-gray-400 mt-0.5">{label}</p>
-              <p className="text-xs text-gray-300 mt-0.5">{sub}</p>
+              <p className="text-sm font-medium text-slate-600 mt-0.5">{label}</p>
+              <p className="text-xs text-gray-400 mt-0.5">{sub}</p>
             </div>
           ))}
         </div>
@@ -323,7 +327,7 @@ export default function AdminDashboard() {
           ) : !s?.recentPending.length ? (
             <div className="py-10 text-center">
               <CheckCircle2 size={32} className="mx-auto text-green-200 mb-2" />
-              <p className="text-gray-400 text-sm">Koi pending order nahi — sab clear hai!</p>
+              <p className="text-gray-400 text-sm">No pending orders — all clear!</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-50">
@@ -344,11 +348,11 @@ export default function AdminDashboard() {
                         </div>
                         <p className="text-sm text-slate-800 font-medium mt-1">{order.customerName}</p>
                         <div className="flex items-center gap-3 mt-0.5 flex-wrap text-xs text-gray-500">
-                          <span>📱 {order.phone}</span>
-                          <span>📍 {order.city}</span>
-                          {order.paymentMethod && <span>💳 {order.paymentMethod}</span>}
+                          <span className="flex items-center gap-1"><Phone size={10} className="text-gray-400" /> {order.phone}</span>
+                          <span className="flex items-center gap-1"><MapPin size={10} className="text-gray-400" /> {order.city}</span>
+                          {order.paymentMethod && <span className="flex items-center gap-1"><CreditCard size={10} className="text-gray-400" /> {order.paymentMethod}</span>}
                         </div>
-                        {itemList && <p className="text-xs text-gray-400 mt-1 truncate">🛒 {itemList}</p>}
+                        {itemList && <p className="text-xs text-gray-400 mt-1 truncate flex items-center gap-1"><ShoppingCart size={10} className="text-gray-400 shrink-0" /> {itemList}</p>}
                         {order.notes && (
                           <p className="text-xs text-gray-400 mt-0.5 flex items-center gap-1">
                             <MessageSquare size={10} /> {order.notes}
@@ -393,23 +397,23 @@ export default function AdminDashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-slate-900">Order Approve karna</h3>
+              <h3 className="font-bold text-slate-900">Approve Order</h3>
               <button onClick={() => setApproveModal(null)} className="p-1 hover:bg-gray-100 rounded-lg">
                 <X size={16} />
               </button>
             </div>
             <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4 text-sm">
               <p className="font-semibold text-slate-900">{approveModal.orderNumber} — {approveModal.customerName}</p>
-              <p className="text-gray-500 text-xs mt-0.5">📱 {approveModal.phone} · 📍 {approveModal.city}</p>
+              <p className="text-gray-500 text-xs mt-0.5">{approveModal.phone} · {approveModal.city}</p>
               {Array.isArray(approveModal.items) && (
                 <p className="text-gray-500 text-xs mt-0.5">
-                  🛒 {(approveModal.items as { name?: string }[]).map(i => i.name || '').filter(Boolean).join(', ')}
+                  {(approveModal.items as { name?: string }[]).map(i => i.name || '').filter(Boolean).join(', ')}
                 </p>
               )}
             </div>
 
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-              Final Price (PKR) — customer ko WhatsApp mein yahi amount jaayega
+              Final Price (PKR) — this amount will be sent to the customer via WhatsApp
             </label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">PKR</span>
@@ -424,7 +428,7 @@ export default function AdminDashboard() {
               />
             </div>
             {!approvePrice && (
-              <p className="text-xs text-amber-600 mt-1.5">⚠ Price nahi doge tu revenue PKR 0 rahega</p>
+              <p className="text-xs text-amber-600 mt-1.5">⚠ Without a price, revenue will be recorded as PKR 0</p>
             )}
 
             <div className="flex items-center gap-3 mt-4">
@@ -454,7 +458,7 @@ export default function AdminDashboard() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-slate-900">Order Reject karna?</h3>
+              <h3 className="font-bold text-slate-900">Reject Order?</h3>
               <button onClick={() => setRejectModal(null)} className="p-1 hover:bg-gray-100 rounded-lg">
                 <X size={16} />
               </button>
@@ -464,13 +468,13 @@ export default function AdminDashboard() {
               <p className="text-gray-500">{rejectModal.phone}</p>
             </div>
             <label className="block text-sm font-semibold text-slate-700 mb-2">
-              Rejection ki wajah (customer ko WhatsApp pe jaayegi):
+              Reason for rejection (will be sent to customer via WhatsApp):
             </label>
             <textarea
               rows={3}
               value={rejectReason}
               onChange={e => setRejectReason(e.target.value)}
-              placeholder="e.g. Stock available nahi hai, baad mein dobara try karein..."
+              placeholder="e.g. Item is currently out of stock. Please try again later..."
               className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-red-200 focus:border-red-300 resize-none"
             />
             <div className="flex items-center gap-3 mt-4">
