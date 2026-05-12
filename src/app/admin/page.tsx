@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react'
 import AdminShell from '@/components/admin/AdminShell'
 import {
   ShoppingBag, Clock, CheckCircle2, XCircle,
-  TrendingUp, RefreshCw, MessageSquare, X, Send,
+  TrendingUp, RefreshCw, MessageSquare, X, Send, Smartphone,
 } from 'lucide-react'
 
 export const dynamic = 'force-dynamic'
@@ -28,7 +28,7 @@ interface Order {
 
 interface Stats {
   counts: { total: number; pending: number; confirmed: number; cancelled: number; thisMonth: number }
-  revenue: { total: number; paid: number; thisMonth: number }
+  revenue: { total: number; confirmed: number; thisMonth: number }
   monthly: { key: string; label: string; orders: number; revenue: number }[]
   recentPending: Order[]
 }
@@ -37,23 +37,6 @@ function formatPKR(n: number) {
   if (n >= 1000000) return `PKR ${(n / 1000000).toFixed(1)}M`
   if (n >= 1000)    return `PKR ${(n / 1000).toFixed(0)}K`
   return `PKR ${n.toLocaleString()}`
-}
-
-function whatsappUrl(phone: string, message: string) {
-  let num = phone.replace(/\D/g, '')
-  if (num.startsWith('0')) num = '92' + num.slice(1)
-  return `https://wa.me/${num}?text=${encodeURIComponent(message)}`
-}
-
-function approveMsg(order: Order) {
-  const items = Array.isArray(order.items)
-    ? (order.items as { name?: string }[]).map(i => i.name || '').filter(Boolean).join(', ')
-    : ''
-  return `Assalam o Alaikum ${order.customerName}! 🎉\n\nAapka order *#${order.orderNumber}* confirm ho gaya hai.\n\n${items ? `Products: ${items}\n` : ''}Total: PKR ${order.total.toLocaleString()}\nPayment: ${order.paymentMethod}\n\nHamari team delivery ke liye jald aap sy rabta karegi. Shukriya!\n\n— *Rustam Battery & Solar Energy House*\n📞 +92 321 3770402`
-}
-
-function rejectMsg(order: Order, reason: string) {
-  return `Assalam o Alaikum ${order.customerName}!\n\nAfsos, aapka order *#${order.orderNumber}* is waqt process nahi ho saka.\n\nWajah: ${reason}\n\nKisi bhi sawal ke liye hamse rabta karein:\n📞 +92 321 3770402\n\n— *Rustam Battery & Solar Energy House*`
 }
 
 // Simple SVG bar chart
@@ -106,6 +89,7 @@ export default function AdminDashboard() {
   const [rejectModal, setRejectModal] = useState<Order | null>(null)
   const [rejectReason, setRejectReason] = useState('')
   const [acting, setActing]       = useState<string | null>(null)
+  const [toast, setToast]         = useState<string | null>(null)
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -116,6 +100,11 @@ export default function AdminDashboard() {
 
   useEffect(() => { load() }, [load])
 
+  function showToast(msg: string) {
+    setToast(msg)
+    setTimeout(() => setToast(null), 3500)
+  }
+
   async function approve(order: Order) {
     setActing(order.id)
     await fetch(`/api/orders/${order.id}`, {
@@ -123,8 +112,8 @@ export default function AdminDashboard() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ orderStatus: 'confirmed' }),
     })
-    window.open(whatsappUrl(order.phone, approveMsg(order)), '_blank')
     setActing(null)
+    showToast(`WhatsApp sent to ${order.customerName} ✓`)
     load()
   }
 
@@ -134,12 +123,12 @@ export default function AdminDashboard() {
     await fetch(`/api/orders/${order.id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ orderStatus: 'cancelled' }),
+      body: JSON.stringify({ orderStatus: 'cancelled', rejectionReason: rejectReason }),
     })
-    window.open(whatsappUrl(order.phone, rejectMsg(order, rejectReason)), '_blank')
     setRejectModal(null)
     setRejectReason('')
     setActing(null)
+    showToast(`Order rejected — WhatsApp sent to ${order.customerName} ✓`)
     load()
   }
 
@@ -192,8 +181,8 @@ export default function AdminDashboard() {
               color: 'bg-green-100 text-green-600',
             },
             {
-              label: 'Revenue (Paid)',
-              value: s ? formatPKR(s.revenue.paid) : '—',
+              label: 'Revenue',
+              value: s ? formatPKR(s.revenue.confirmed) : '—',
               sub: `${s ? formatPKR(s.revenue.thisMonth) : '—'} this month`,
               icon: TrendingUp,
               color: 'bg-amber-100 text-amber-600',
@@ -392,6 +381,13 @@ export default function AdminDashboard() {
               </button>
             </div>
           </div>
+        </div>
+      )}
+      {/* Toast notification */}
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-3 rounded-2xl shadow-xl animate-in fade-in slide-in-from-bottom-4">
+          <Smartphone size={15} className="text-green-400 shrink-0" />
+          {toast}
         </div>
       )}
     </AdminShell>
