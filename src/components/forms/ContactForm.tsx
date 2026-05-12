@@ -4,155 +4,100 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { AlertCircle, CheckCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { AlertCircle, CheckCircle, Send, Loader2 } from 'lucide-react'
 import { submitContactForm } from '@/actions/contact'
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  name:    z.string().min(2, 'Name must be at least 2 characters'),
+  email:   z.string().email('Please enter a valid email address'),
   subject: z.string().min(5, 'Subject must be at least 5 characters'),
   message: z.string().min(10, 'Message must be at least 10 characters'),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
 
+const inputCls = (hasError: boolean) =>
+  `w-full px-4 py-3 rounded-xl border text-sm text-slate-800 bg-slate-50 placeholder-gray-400 outline-none transition-all duration-150 ${
+    hasError
+      ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-2 focus:ring-red-100'
+      : 'border-slate-200 focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-100'
+  }`
+
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [error,     setError]     = useState<string | null>(null)
+  const [loading,   setLoading]   = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<ContactFormData>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   })
 
   const onSubmit = async (data: ContactFormData) => {
-    setLoading(true)
-    setError(null)
-
+    setLoading(true); setError(null)
     try {
       const result = await submitContactForm(data)
+      if (result.success) { setSubmitted(true); reset(); setTimeout(() => setSubmitted(false), 6000) }
+      else setError(result.error || 'Failed to submit — please try again')
+    } catch { setError('Something went wrong — please try again') }
+    finally { setLoading(false) }
+  }
 
-      if (result.success) {
-        setSubmitted(true)
-        reset()
-        setTimeout(() => setSubmitted(false), 5000)
-      } else {
-        setError(result.error || 'Failed to submit form')
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
+          <CheckCircle size={32} className="text-emerald-600" />
+        </div>
+        <div>
+          <p className="font-black text-xl text-slate-900 mb-1">Message Sent!</p>
+          <p className="text-gray-500 text-sm">We will respond within 24 hours. Thank you!</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-8 rounded-lg shadow-lg">
-      {/* Success Message */}
-      {submitted && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <CheckCircle size={20} className="text-green-600 flex-shrink-0" />
-          <div>
-            <p className="font-semibold text-green-900">Message sent successfully!</p>
-            <p className="text-sm text-green-700">We'll get back to you as soon as possible.</p>
-          </div>
-        </div>
-      )}
-
-      {/* Error Message */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
-          <p className="text-red-700">{error}</p>
+        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-2xl">
+          <AlertCircle size={18} className="text-red-500 flex-shrink-0" />
+          <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
-      {/* Name Field */}
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Full Name *
-        </label>
-        <input
-          {...register('name')}
-          type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="Your name"
-          disabled={loading}
-        />
-        {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-        )}
+      {/* Name + Email row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Full Name *</label>
+          <input {...register('name')} type="text" placeholder="Your full name" disabled={loading} className={inputCls(!!errors.name)} />
+          {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Email *</label>
+          <input {...register('email')} type="email" placeholder="email@example.com" disabled={loading} className={inputCls(!!errors.email)} />
+          {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
+        </div>
       </div>
 
-      {/* Email Field */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Email Address *
-        </label>
-        <input
-          {...register('email')}
-          type="email"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="your@email.com"
-          disabled={loading}
-        />
-        {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-        )}
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Subject *</label>
+        <input {...register('subject')} type="text" placeholder="What would you like to ask?" disabled={loading} className={inputCls(!!errors.subject)} />
+        {errors.subject && <p className="mt-1 text-xs text-red-500">{errors.subject.message}</p>}
       </div>
 
-      {/* Subject Field */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Subject *
-        </label>
-        <input
-          {...register('subject')}
-          type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="How can we help?"
-          disabled={loading}
-        />
-        {errors.subject && (
-          <p className="mt-1 text-sm text-red-600">{errors.subject.message}</p>
-        )}
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Message *</label>
+        <textarea {...register('message')} rows={5} placeholder="Write your message here..." disabled={loading} className={inputCls(!!errors.message)} />
+        {errors.message && <p className="mt-1 text-xs text-red-500">{errors.message.message}</p>}
       </div>
 
-      {/* Message Field */}
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Message *
-        </label>
-        <textarea
-          {...register('message')}
-          rows={5}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="Your message..."
-          disabled={loading}
-        />
-        {errors.message && (
-          <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>
-        )}
-      </div>
-
-      {/* Submit Button */}
-      <Button
+      <button
         type="submit"
         disabled={loading}
-        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-semibold rounded-lg"
+        className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-bold py-3.5 rounded-2xl transition-colors text-sm mt-2"
       >
-        {loading ? 'Sending...' : 'Send Message'}
-      </Button>
-
-      <p className="text-xs text-slate-500 text-center">
-        We typically respond within 24 hours
-      </p>
+        {loading ? <><Loader2 size={16} className="animate-spin" /> Sending...</> : <><Send size={16} /> Send Message</>}
+      </button>
     </form>
   )
 }

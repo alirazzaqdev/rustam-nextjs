@@ -4,201 +4,136 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { AlertCircle, CheckCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { AlertCircle, CheckCircle, FileText, Loader2 } from 'lucide-react'
 import { submitQuoteRequest } from '@/actions/contact'
 
 const quoteSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
-  phone: z.string().regex(/^\d{10,}/, 'Phone must be at least 10 digits'),
-  projectType: z.enum(['residential', 'commercial', 'industrial']),
+  name:            z.string().min(2, 'Name must be at least 2 characters'),
+  email:           z.string().email('Please enter a valid email address'),
+  phone:           z.string().regex(/^\d{10,}/, 'Phone must be at least 10 digits'),
+  projectType:     z.enum(['residential', 'commercial', 'industrial']),
   estimatedBudget: z.string().optional(),
-  description: z.string().optional(),
+  description:     z.string().optional(),
 })
 
 type QuoteFormData = z.infer<typeof quoteSchema>
 
+const inputCls = (hasError: boolean) =>
+  `w-full px-4 py-3 rounded-xl border text-sm text-slate-800 bg-slate-50 placeholder-gray-400 outline-none transition-all duration-150 ${
+    hasError
+      ? 'border-red-300 bg-red-50 focus:border-red-400 focus:ring-2 focus:ring-red-100'
+      : 'border-slate-200 focus:border-emerald-500 focus:bg-white focus:ring-2 focus:ring-emerald-100'
+  }`
+
+const PROJECT_TYPES = [
+  { value: 'residential', label: 'Residential', sub: 'Home / House' },
+  { value: 'commercial',  label: 'Commercial',  sub: 'Shop / Office / Plaza' },
+  { value: 'industrial',  label: 'Industrial',  sub: 'Factory / Warehouse' },
+]
+
 export function QuoteForm() {
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [error,     setError]     = useState<string | null>(null)
+  const [loading,   setLoading]   = useState(false)
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm<QuoteFormData>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<QuoteFormData>({
     resolver: zodResolver(quoteSchema),
   })
 
   const onSubmit = async (data: QuoteFormData) => {
-    setLoading(true)
-    setError(null)
-
+    setLoading(true); setError(null)
     try {
       const result = await submitQuoteRequest({
-        name: data.name,
-        email: data.email,
-        phone: data.phone,
-        projectType: data.projectType,
-        estimatedBudget: data.estimatedBudget,
-        description: data.description,
+        name: data.name, email: data.email, phone: data.phone,
+        projectType: data.projectType, estimatedBudget: data.estimatedBudget, description: data.description,
       })
+      if (result.success) { setSubmitted(true); reset(); setTimeout(() => setSubmitted(false), 6000) }
+      else setError(result.error || 'Failed to submit quote request')
+    } catch { setError('Something went wrong — please try again') }
+    finally { setLoading(false) }
+  }
 
-      if (result.success) {
-        setSubmitted(true)
-        reset()
-        setTimeout(() => setSubmitted(false), 5000)
-      } else {
-        setError(result.error || 'Failed to submit quote request')
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+  if (submitted) {
+    return (
+      <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
+        <div className="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center">
+          <CheckCircle size={32} className="text-emerald-600" />
+        </div>
+        <div>
+          <p className="font-black text-xl text-slate-900 mb-1">Quote Request Received!</p>
+          <p className="text-gray-500 text-sm">Our experts will send a detailed quote within 24 hours.</p>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 bg-white p-8 rounded-lg shadow-lg">
-      {/* Success Message */}
-      {submitted && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <CheckCircle size={20} className="text-green-600 flex-shrink-0" />
-          <div>
-            <p className="font-semibold text-green-900">Quote request received!</p>
-            <p className="text-sm text-green-700">Our team will contact you with a detailed quote within 24 hours.</p>
-          </div>
-        </div>
-      )}
-
-      {/* Error Message */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       {error && (
-        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <AlertCircle size={20} className="text-red-600 flex-shrink-0" />
-          <p className="text-red-700">{error}</p>
+        <div className="flex items-center gap-3 p-4 bg-red-50 border border-red-200 rounded-2xl">
+          <AlertCircle size={18} className="text-red-500 flex-shrink-0" />
+          <p className="text-red-700 text-sm">{error}</p>
         </div>
       )}
 
-      {/* Name Field */}
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Full Name *
-        </label>
-        <input
-          {...register('name')}
-          type="text"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="Your name"
-          disabled={loading}
-        />
-        {errors.name && (
-          <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>
-        )}
+      {/* Name + Phone row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Full Name *</label>
+          <input {...register('name')} type="text" placeholder="Your full name" disabled={loading} className={inputCls(!!errors.name)} />
+          {errors.name && <p className="mt-1 text-xs text-red-500">{errors.name.message}</p>}
+        </div>
+        <div>
+          <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Phone *</label>
+          <input {...register('phone')} type="tel" placeholder="03001234567" disabled={loading} className={inputCls(!!errors.phone)} />
+          {errors.phone && <p className="mt-1 text-xs text-red-500">{errors.phone.message}</p>}
+        </div>
       </div>
 
-      {/* Email Field */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Email Address *
-        </label>
-        <input
-          {...register('email')}
-          type="email"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="your@email.com"
-          disabled={loading}
-        />
-        {errors.email && (
-          <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>
-        )}
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">Email *</label>
+        <input {...register('email')} type="email" placeholder="email@example.com" disabled={loading} className={inputCls(!!errors.email)} />
+        {errors.email && <p className="mt-1 text-xs text-red-500">{errors.email.message}</p>}
       </div>
 
-      {/* Phone Field */}
+      {/* Project type — styled radio buttons */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Phone Number *
-        </label>
-        <input
-          {...register('phone')}
-          type="tel"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="+92 300 1234567"
-          disabled={loading}
-        />
-        {errors.phone && (
-          <p className="mt-1 text-sm text-red-600">{errors.phone.message}</p>
-        )}
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-2">Project Type *</label>
+        <div className="grid grid-cols-1 gap-2">
+          {PROJECT_TYPES.map((t) => (
+            <label key={t.value} className="flex items-center gap-3 p-3 rounded-xl border border-slate-200 cursor-pointer hover:border-emerald-300 hover:bg-emerald-50/40 transition-colors has-[:checked]:border-emerald-500 has-[:checked]:bg-emerald-50">
+              <input {...register('projectType')} type="radio" value={t.value} disabled={loading} className="accent-emerald-600" />
+              <div>
+                <span className="text-sm text-slate-800 font-semibold">{t.label}</span>
+                <span className="text-xs text-slate-400 ml-2">{t.sub}</span>
+              </div>
+            </label>
+          ))}
+        </div>
+        {errors.projectType && <p className="mt-1 text-xs text-red-500">Please select a project type</p>}
       </div>
 
-      {/* Project Type Field */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Project Type *
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">
+          Estimated Budget <span className="text-gray-400 normal-case font-normal">(optional)</span>
         </label>
-        <select
-          {...register('projectType')}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          disabled={loading}
-        >
-          <option value="">Select project type</option>
-          <option value="residential">Residential (Home)</option>
-          <option value="commercial">Commercial (Shop/Office)</option>
-          <option value="industrial">Industrial (Factory/Warehouse)</option>
-        </select>
-        {errors.projectType && (
-          <p className="mt-1 text-sm text-red-600">{errors.projectType.message}</p>
-        )}
+        <input {...register('estimatedBudget')} type="text" placeholder="e.g. PKR 500,000" disabled={loading} className={inputCls(false)} />
       </div>
 
-      {/* Budget Field */}
       <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Estimated Budget (PKR) - Optional
+        <label className="block text-xs font-bold text-slate-600 uppercase tracking-wide mb-1.5">
+          Project Details <span className="text-gray-400 normal-case font-normal">(optional)</span>
         </label>
-        <input
-          {...register('estimatedBudget')}
-          type="number"
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="e.g., 500000"
-          disabled={loading}
-        />
-        {errors.estimatedBudget && (
-          <p className="mt-1 text-sm text-red-600">{errors.estimatedBudget.message}</p>
-        )}
+        <textarea {...register('description')} rows={3} placeholder="Property size, current electricity bill, any specific requirements..." disabled={loading} className={inputCls(false)} />
       </div>
 
-      {/* Description Field */}
-      <div>
-        <label className="block text-sm font-medium text-slate-700 mb-2">
-          Project Description - Optional
-        </label>
-        <textarea
-          {...register('description')}
-          rows={4}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
-          placeholder="Tell us about your project..."
-          disabled={loading}
-        />
-        {errors.description && (
-          <p className="mt-1 text-sm text-red-600">{errors.description.message}</p>
-        )}
-      </div>
-
-      {/* Submit Button */}
-      <Button
+      <button
         type="submit"
         disabled={loading}
-        className="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 font-semibold rounded-lg"
+        className="w-full flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 disabled:bg-emerald-400 text-white font-bold py-3.5 rounded-2xl transition-colors text-sm mt-2"
       >
-        {loading ? 'Submitting...' : 'Get Free Quote'}
-      </Button>
-
-      <p className="text-xs text-slate-500 text-center">
-        We'll respond with a detailed quote within 24 hours
-      </p>
+        {loading ? <><Loader2 size={16} className="animate-spin" /> Submitting...</> : <><FileText size={16} /> Request Free Quote</>}
+      </button>
     </form>
   )
 }

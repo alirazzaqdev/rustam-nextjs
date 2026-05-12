@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Battery, Sun, Zap, Package } from 'lucide-react'
 
 interface ProductImageProps {
@@ -46,11 +47,15 @@ export default function ProductImage({ src, name, brand, category, size = 'card'
   if (src && !imgError) {
     return (
       <div className={`relative w-full ${isModal ? 'h-64' : 'h-40'} overflow-hidden bg-gray-50`}>
-        <img
+        <Image
           src={src}
           alt={name}
-          className="w-full h-full object-contain p-4"
+          fill
+          className="object-contain p-4"
           onError={() => setImgError(true)}
+          sizes={isModal
+            ? '(max-width: 768px) 100vw, 40vw'
+            : '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw'}
         />
       </div>
     )
@@ -61,16 +66,12 @@ export default function ProductImage({ src, name, brand, category, size = 'card'
       className={`relative w-full ${isModal ? 'h-64' : 'h-40'} bg-gradient-to-br ${gradient} flex flex-col items-center justify-center overflow-hidden`}
       aria-label={`${brand} ${name}`}
     >
-      {/* Initials */}
       <span className={`font-black tracking-tight select-none z-10 ${isModal ? 'text-6xl' : 'text-4xl'} text-emerald-600`}>
         {initials}
       </span>
-
-      {/* Brand label */}
       <span className="text-emerald-500 font-bold text-xs tracking-widest uppercase mt-1 z-10">
         {brand !== 'Various' ? brand : category}
       </span>
-
       <CategoryIcon category={category} size={size} />
     </div>
   )

@@ -183,7 +183,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         <SectionHeader
           label="Product Catalogue"
           title="Solar Panels, Batteries & Inverters in Lahore"
-          description={`${products.length} products — Osaka, AGS, Phoenix, Alaska batteries · Canadian Solar, JinkoSolar, LONGi panels · Knox hybrid inverters. Click any product for full specs.`}
+          description="Osaka, AGS, Phoenix, Alaska batteries · Canadian Solar, JinkoSolar, LONGi panels · Knox hybrid inverters. Click any product for full specs."
         />
 
         {/* Category tabs */}
@@ -230,45 +230,58 @@ export function ProductsSection({ products }: ProductsSectionProps) {
           </div>
         )}
 
-        {/* Search + Sort row */}
-        <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-2xl mx-auto">
-          {/* Search */}
-          <div className="relative flex-1">
-            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+        {/* Search + Sort — unified premium bar */}
+        <div className="mt-6 max-w-2xl mx-auto">
+          <div className={`flex items-center bg-white rounded-2xl shadow-lg border transition-all duration-200 overflow-hidden ${
+            search ? 'border-emerald-400 shadow-emerald-100' : 'border-gray-200 hover:border-gray-300'
+          }`}>
+            {/* Search icon */}
+            <div className="pl-4 pr-2 flex-shrink-0">
+              <Search size={16} className={`transition-colors ${search ? 'text-emerald-500' : 'text-gray-400'}`} />
+            </div>
+
+            {/* Input */}
             <input
               ref={searchRef}
               type="text"
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search by product name or brand…"
-              className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-slate-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 transition-all shadow-sm"
+              className="flex-1 py-3.5 text-sm text-slate-800 placeholder-gray-400 bg-transparent outline-none min-w-0"
             />
+
+            {/* Clear button */}
             {search && (
               <button
                 onClick={() => setSearch('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                className="flex-shrink-0 mr-2 w-6 h-6 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
               >
-                <X size={14} />
+                <X size={12} className="text-gray-500" />
               </button>
             )}
-          </div>
 
-          {/* Price sort */}
-          <button
-            onClick={cycleSortOrder}
-            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all shadow-sm whitespace-nowrap ${
-              sortOrder === 'none'
-                ? 'border-gray-200 bg-white text-gray-500 hover:border-emerald-400 hover:text-emerald-700'
-                : 'border-emerald-500 bg-emerald-600 text-white'
-            }`}
-          >
-            {sortOrder === 'asc'  ? <ArrowUp   size={14} /> :
-             sortOrder === 'desc' ? <ArrowDown  size={14} /> :
-                                    <ArrowUpDown size={14} />}
-            {sortOrder === 'asc'  ? 'Price: Low → High' :
-             sortOrder === 'desc' ? 'Price: High → Low' :
-                                    'Sort by Price'}
-          </button>
+            {/* Divider */}
+            <div className="w-px h-6 bg-gray-200 flex-shrink-0 mx-1" />
+
+            {/* Sort button */}
+            <button
+              onClick={cycleSortOrder}
+              className={`flex items-center gap-1.5 px-4 py-3.5 text-sm font-semibold whitespace-nowrap flex-shrink-0 transition-colors ${
+                sortOrder === 'none'
+                  ? 'text-gray-500 hover:text-emerald-700'
+                  : 'text-emerald-600'
+              }`}
+            >
+              {sortOrder === 'asc'  ? <ArrowUp   size={13} /> :
+               sortOrder === 'desc' ? <ArrowDown  size={13} /> :
+                                      <ArrowUpDown size={13} />}
+              <span className="hidden sm:inline">
+                {sortOrder === 'asc'  ? 'Low → High' :
+                 sortOrder === 'desc' ? 'High → Low' :
+                                        'Price'}
+              </span>
+            </button>
+          </div>
         </div>
 
         {/* Results count */}
@@ -292,9 +305,9 @@ export function ProductsSection({ products }: ProductsSectionProps) {
                 onSelect={(e) => handleCardClick(e, product, () => setSelected(product))}
                 onOrder={(e) => {
                   e.stopPropagation()
-                  handleCardClick(e, product, () =>
-                    window.open(whatsappOrderUrl(product), '_blank', 'noopener,noreferrer')
-                  )
+                  handleCardClick(e, product, () => {
+                    window.location.href = `/order?product=${encodeURIComponent(product.name)}&price=${product.price}`
+                  })
                 }}
               />
             ))}

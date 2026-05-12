@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import { Mail, Phone, MapPin } from 'lucide-react'
 
@@ -28,12 +29,15 @@ export function Footer() {
           {/* Logo + tagline */}
           <div>
             <Link href="/" className="inline-block mb-4">
-              <img
-                src="/logo.png"
-                alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
-                className="h-16 w-auto object-contain"
-                style={{ maxWidth: '160px' }}
-              />
+              <div className="bg-white rounded-2xl p-2.5 inline-block">
+                <Image
+                  src="/logo.png"
+                  alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
+                  width={140}
+                  height={56}
+                  className="h-14 w-auto object-contain block"
+                />
+              </div>
             </Link>
             <p className="text-sm leading-relaxed">
               19 years of trusted solar expertise in Lahore. Powering homes and
@@ -105,6 +109,12 @@ export function Footer() {
                 <Mail size={15} className="mt-0.5 text-emerald-600 shrink-0" strokeWidth={2} />
                 <a href="mailto:ia6969537@gmail.com" className="hover:text-white transition-colors break-all">
                   ia6969537@gmail.com
+                </a>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <Mail size={15} className="mt-0.5 text-emerald-600 shrink-0" strokeWidth={2} />
+                <a href="mailto:shahbazahmedkhan35201@gmail.com" className="hover:text-white transition-colors break-all">
+                  shahbazahmedkhan35201@gmail.com
                 </a>
               </li>
               <li className="flex items-start gap-2.5">

@@ -33,7 +33,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
 
         {/* Logo — matches main site header */}
         <div className="px-4 py-4 border-b border-slate-800">
-          <div className="bg-slate-800 rounded-xl px-3 py-2 inline-block">
+          <div className="bg-white rounded-xl px-3 py-2 inline-block">
             <img
               src="/logo.png"
               alt="Rustam Battery & Solar Energy House"

@@ -340,10 +340,11 @@ export default function CheckoutPage() {
                   <div className="space-y-4">
                     <div className="bg-gray-50 rounded-xl p-4 text-sm space-y-1">
                       <p className="font-semibold text-gray-800 mb-2">Bank Account Details</p>
-                      <p className="text-gray-600">Bank: <span className="font-medium text-gray-900">HBL (Habib Bank Limited)</span></p>
-                      <p className="text-gray-600">Account Name: <span className="font-medium text-gray-900">Rustam Battery & Solar</span></p>
-                      <p className="text-gray-600">Account #: <span className="font-medium text-gray-900">0123-4567890-01</span></p>
-                      <p className="text-gray-600">IBAN: <span className="font-medium text-gray-900">PK36HABB0000000123456901</span></p>
+                      <p className="text-gray-600">Bank: <span className="font-medium text-gray-900">Meezan Bank</span></p>
+                      <p className="text-gray-600">Account Title: <span className="font-medium text-gray-900">NEW FAST SOLAR ENERGY</span></p>
+                      <p className="text-gray-600">Account #: <span className="font-medium text-gray-900">02730114866808</span></p>
+                      <p className="text-gray-600">IBAN: <span className="font-medium text-gray-900">PK78MEZN0002730114866808</span></p>
+                      <p className="text-gray-600">Branch: <span className="font-medium text-gray-900">Kahna Nau Br, Lahore</span></p>
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">Upload Payment Screenshot (optional)</label>

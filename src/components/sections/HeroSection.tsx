@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Sun, Zap, BatteryCharging, Wrench } from 'lucide-react'
 import { useAppStore } from '@/lib/store'
 
 const heroStats = [
@@ -144,9 +144,25 @@ export function HeroSection() {
                 </div>
 
                 <div className="mt-6 pt-5 border-t border-gray-100">
-                  <p className="text-xs text-gray-400 leading-relaxed">
+                  <p className="text-xs text-gray-400 mb-4 leading-relaxed">
                     Based on a typical 50kW system in Lahore. Actual savings vary by system size and consumption.
                   </p>
+
+                  {/* Services we offer */}
+                  <p className="text-[10px] font-bold tracking-[0.18em] uppercase text-gray-400 mb-3">Our Services</p>
+                  <div className="grid grid-cols-2 gap-2">
+                    {[
+                      { icon: Sun,            label: 'Solar Panels',    color: 'text-amber-600 bg-amber-50 border-amber-100' },
+                      { icon: Zap,            label: 'Inverters',       color: 'text-blue-600 bg-blue-50 border-blue-100'   },
+                      { icon: BatteryCharging,label: 'Battery Backup',  color: 'text-emerald-600 bg-emerald-50 border-emerald-100' },
+                      { icon: Wrench,         label: 'Installation',    color: 'text-purple-600 bg-purple-50 border-purple-100' },
+                    ].map(({ icon: Icon, label, color }) => (
+                      <div key={label} className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold ${color}`}>
+                        <Icon size={13} />
+                        {label}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

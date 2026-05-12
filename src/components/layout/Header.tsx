@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { Menu, X, ShoppingCart, LayoutDashboard } from 'lucide-react'
 import { useAppStore, useCartStore } from '@/lib/store'
@@ -40,14 +41,14 @@ export function Header() {
 
           {/* Logo */}
           <Link href="/#hero" className="flex items-center shrink-0">
-            <div className="bg-slate-900 rounded-xl px-3 py-1.5 hover:bg-slate-800 transition-colors duration-200">
-              <img
-                src="/logo.png"
-                alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
-                className="h-11 w-auto object-contain block"
-                style={{ maxWidth: '140px' }}
-              />
-            </div>
+            <Image
+              src="/logo.png"
+              alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
+              width={160}
+              height={52}
+              className="h-13 w-auto object-contain block"
+              priority
+            />
           </Link>
 
           {/* Desktop Nav */}

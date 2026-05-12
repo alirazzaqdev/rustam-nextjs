@@ -307,9 +307,10 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
               <p className="text-sm font-bold text-blue-800 mb-2">Bank Transfer Details:</p>
               <div className="space-y-1 text-sm text-blue-700">
                 <p><span className="font-semibold">Bank:</span> Meezan Bank</p>
-                <p><span className="font-semibold">Account:</span> Rustam Battery &amp; Solar Energy House</p>
-                <p><span className="font-semibold">IBAN:</span> PK00MEZN0001234567890</p>
-                <p><span className="font-semibold">Branch:</span> Kahna Nau, Lahore</p>
+                <p><span className="font-semibold">Account Title:</span> NEW FAST SOLAR ENERGY</p>
+                <p><span className="font-semibold">Account #:</span> 02730114866808</p>
+                <p><span className="font-semibold">IBAN:</span> PK78MEZN0002730114866808</p>
+                <p><span className="font-semibold">Branch:</span> Kahna Nau Br, Lahore</p>
               </div>
               <p className="text-xs text-blue-500 mt-2">Send payment screenshot on WhatsApp after transfer.</p>
             </div>

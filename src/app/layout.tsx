@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Inter, Plus_Jakarta_Sans } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
@@ -83,9 +83,12 @@ export const metadata: Metadata = {
 
   category: 'Solar Energy',
 
-  verification: {
-    google: 'add-google-search-console-verification-here',
-  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#D97706',
 }
 
 export default function RootLayout({
@@ -99,9 +102,7 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${jakarta.variable}`}>
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#D97706" />
 
         {/* Preconnect for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
