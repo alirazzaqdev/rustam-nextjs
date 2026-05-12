@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard, ShoppingBag, Package,
-  MessageSquare, LogOut, Menu, X, Zap, ExternalLink,
+  MessageSquare, LogOut, Menu, X, ExternalLink,
 } from 'lucide-react'
 
 const NAV = [
@@ -31,15 +31,19 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
       {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-40 w-60 bg-slate-900 flex flex-col transition-transform duration-200 lg:translate-x-0 ${open ? 'translate-x-0' : '-translate-x-full'}`}>
 
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-4 border-b border-slate-800">
-          <div className="w-9 h-9 bg-amber-500 rounded-xl flex items-center justify-center flex-shrink-0">
-            <Zap size={18} className="text-white" strokeWidth={2.5} />
+        {/* Logo — matches main site header */}
+        <div className="px-4 py-4 border-b border-slate-800">
+          <div className="bg-slate-800 rounded-xl px-3 py-2 inline-block">
+            <img
+              src="/logo.png"
+              alt="Rustam Battery & Solar Energy House"
+              className="h-9 w-auto object-contain block"
+              style={{ maxWidth: '148px' }}
+            />
           </div>
-          <div>
-            <p className="text-white font-bold text-sm leading-tight">Rustam Battery</p>
-            <p className="text-slate-400 text-xs">Admin Panel</p>
-          </div>
+          <p className="text-slate-500 text-[10px] mt-2 px-0.5 font-semibold uppercase tracking-widest">
+            Admin Panel
+          </p>
         </div>
 
         {/* Nav */}

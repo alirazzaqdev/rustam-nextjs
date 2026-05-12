@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Zap, AlertCircle } from 'lucide-react'
+import { AlertCircle } from 'lucide-react'
 
 export default function AdminLoginPage() {
   const router = useRouter()
@@ -38,11 +38,15 @@ export default function AdminLoginPage() {
     <main className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-xl font-bold text-lg mb-3">
-            <Zap size={20} />
-            Rustam Battery
+          <div className="inline-block bg-slate-900 rounded-xl px-4 py-2.5 mb-3">
+            <img
+              src="/logo.png"
+              alt="Rustam Battery & Solar Energy House"
+              className="h-11 w-auto object-contain block"
+              style={{ maxWidth: '160px' }}
+            />
           </div>
-          <p className="text-gray-600 text-sm">Admin Dashboard</p>
+          <p className="text-gray-500 text-sm font-medium">Admin Dashboard</p>
         </div>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-4">
