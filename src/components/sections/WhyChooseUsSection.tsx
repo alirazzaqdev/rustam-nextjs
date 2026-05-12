@@ -27,7 +27,7 @@ export function WhyChooseUsSection() {
               key={num}
               className="flex items-start gap-4 p-5 rounded-2xl hover:bg-slate-50 transition-colors duration-200"
             >
-              <span className="text-3xl font-black text-amber-200 leading-none shrink-0 select-none">
+              <span className="text-3xl font-black text-amber-400 leading-none shrink-0 select-none">
                 {num}
               </span>
               <div>

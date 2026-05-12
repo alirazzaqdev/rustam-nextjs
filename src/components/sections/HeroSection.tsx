@@ -120,8 +120,8 @@ export function HeroSection() {
             />
 
             <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_12px_48px_rgba(0,0,0,0.10)] overflow-hidden">
-              {/* Amber → sky gradient top accent */}
-              <div className="h-[3px] w-full bg-gradient-to-r from-amber-600 via-amber-400 to-sky-400" />
+              {/* Amber → emerald gradient top accent */}
+              <div className="h-[3px] w-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-500" />
 
               <div className="p-8">
                 <p className="text-amber-600 text-xs font-bold tracking-[0.18em] uppercase mb-2">
@@ -153,9 +153,9 @@ export function HeroSection() {
                   <div className="grid grid-cols-2 gap-2">
                     {[
                       { icon: Sun,            label: 'Solar Panels',    color: 'text-amber-600 bg-amber-50 border-amber-100' },
-                      { icon: Zap,            label: 'Inverters',       color: 'text-blue-600 bg-blue-50 border-blue-100'   },
-                      { icon: BatteryCharging,label: 'Battery Backup',  color: 'text-emerald-600 bg-emerald-50 border-emerald-100' },
-                      { icon: Wrench,         label: 'Installation',    color: 'text-purple-600 bg-purple-50 border-purple-100' },
+                      { icon: Zap,            label: 'Inverters',       color: 'text-emerald-600 bg-emerald-50 border-emerald-100' },
+                      { icon: BatteryCharging,label: 'Battery Backup',  color: 'text-amber-700 bg-amber-50 border-amber-100' },
+                      { icon: Wrench,         label: 'Installation',    color: 'text-slate-600 bg-slate-50 border-slate-200' },
                     ].map(({ icon: Icon, label, color }) => (
                       <div key={label} className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-xs font-semibold ${color}`}>
                         <Icon size={13} />

@@ -31,9 +31,9 @@ const PAYMENT_METHODS = [
     id: 'Bank Transfer' as const,
     label: 'Bank Transfer',
     description: 'Transfer to our bank account',
-    color: 'border-blue-200 hover:border-blue-400 bg-blue-50',
-    selectedColor: 'border-blue-500 bg-blue-50 ring-2 ring-blue-400',
-    labelColor: 'text-blue-700',
+    color: 'border-slate-200 hover:border-emerald-400 bg-slate-50',
+    selectedColor: 'border-emerald-500 bg-emerald-50 ring-2 ring-emerald-400',
+    labelColor: 'text-emerald-700',
     icon: (
       <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
         <rect x="4" y="12" width="40" height="28" rx="4" fill="#1a365d" stroke="#2b4c8c" strokeWidth="1"/>
@@ -51,9 +51,9 @@ const PAYMENT_METHODS = [
     id: 'Cash on Delivery' as const,
     label: 'Cash on Delivery',
     description: 'Pay cash when we deliver',
-    color: 'border-green-200 hover:border-green-400 bg-green-50',
-    selectedColor: 'border-green-500 bg-green-50 ring-2 ring-green-400',
-    labelColor: 'text-green-700',
+    color: 'border-slate-200 hover:border-amber-400 bg-slate-50',
+    selectedColor: 'border-amber-500 bg-amber-50 ring-2 ring-amber-400',
+    labelColor: 'text-amber-700',
     icon: (
       <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
         <rect x="2" y="20" width="28" height="20" rx="3" fill="#2d5a27" stroke="#3a7a32" strokeWidth="1"/>
@@ -303,9 +303,9 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
           </div>
 
           {activeTab === 'Bank Transfer' && (
-            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
-              <p className="text-sm font-bold text-blue-800 mb-2">Bank Transfer Details:</p>
-              <div className="space-y-1 text-sm text-blue-700">
+            <div className="mt-4 p-4 bg-slate-50 border border-slate-200 rounded-xl">
+              <p className="text-sm font-bold text-slate-800 mb-2">Bank Transfer Details:</p>
+              <div className="space-y-1 text-sm text-slate-600">
                 <p><span className="font-semibold">Bank:</span> Meezan Bank</p>
                 <p><span className="font-semibold">Account Title:</span> NEW FAST SOLAR ENERGY</p>
                 <p><span className="font-semibold">Account #:</span> 02730114866808</p>
@@ -317,9 +317,9 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
           )}
 
           {activeTab === 'Cash on Delivery' && (
-            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl">
-              <p className="text-sm font-bold text-green-800 mb-1">Cash on Delivery</p>
-              <p className="text-sm text-green-700">
+            <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-xl">
+              <p className="text-sm font-bold text-amber-800 mb-1">Cash on Delivery</p>
+              <p className="text-sm text-amber-700">
                 Available in Lahore. Pay in cash when our team delivers your order. We will call to confirm delivery time.
               </p>
             </div>

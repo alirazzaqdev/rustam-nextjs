@@ -287,7 +287,7 @@ export default function CheckoutPage() {
                       onClick={() => setPaymentMethod(tab.id)}
                       className={`flex flex-col items-center gap-1.5 p-3 rounded-xl border-2 text-sm font-medium transition-all ${
                         paymentMethod === tab.id
-                          ? 'border-emerald-600 bg-emerald-50 text-amber-700'
+                          ? 'border-emerald-600 bg-emerald-50 text-emerald-700'
                           : 'border-gray-200 text-gray-600 hover:border-gray-300'
                       }`}
                     >
@@ -338,8 +338,8 @@ export default function CheckoutPage() {
                 {/* Bank Transfer */}
                 {paymentMethod === 'bank_transfer' && (
                   <div className="space-y-4">
-                    <div className="bg-gray-50 rounded-xl p-4 text-sm space-y-1">
-                      <p className="font-semibold text-gray-800 mb-2">Bank Account Details</p>
+                    <div className="bg-slate-50 border border-slate-100 rounded-xl p-4 text-sm space-y-1">
+                      <p className="font-semibold text-slate-800 mb-2">Bank Account Details</p>
                       <p className="text-gray-600">Bank: <span className="font-medium text-gray-900">Meezan Bank</span></p>
                       <p className="text-gray-600">Account Title: <span className="font-medium text-gray-900">NEW FAST SOLAR ENERGY</span></p>
                       <p className="text-gray-600">Account #: <span className="font-medium text-gray-900">02730114866808</span></p>
@@ -382,7 +382,7 @@ export default function CheckoutPage() {
 
                 {/* COD */}
                 {paymentMethod === 'cod' && (
-                  <div className="flex items-start gap-3 bg-emerald-50 text-amber-800 rounded-xl p-4 text-sm">
+                  <div className="flex items-start gap-3 bg-emerald-50 text-emerald-800 rounded-xl p-4 text-sm">
                     <Truck size={16} className="mt-0.5 shrink-0" />
                     <p>Pay in cash when your order is delivered. Our team will contact you to confirm delivery time.</p>
                   </div>

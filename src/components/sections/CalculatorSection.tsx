@@ -163,10 +163,10 @@ export function CalculatorSection() {
           {/* 4 feature chips — what this calculator tells you */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {([
-              { Icon: Zap,           color: 'text-amber-500',   bg: 'bg-amber-50',   title: 'System Size',    desc: 'Recommended kW for your usage' },
+              { Icon: Zap,           color: 'text-amber-600',   bg: 'bg-amber-50',   title: 'System Size',    desc: 'Recommended kW for your usage' },
               { Icon: Banknote,      color: 'text-emerald-600', bg: 'bg-emerald-50', title: 'Total Cost',     desc: 'Full cost including installation' },
-              { Icon: TrendingDown,  color: 'text-blue-500',    bg: 'bg-blue-50',    title: 'Bill Reduction', desc: 'Your new monthly electricity bill' },
-              { Icon: CalendarClock, color: 'text-purple-500',  bg: 'bg-purple-50',  title: 'Payback Period', desc: 'Years to recover your investment' },
+              { Icon: TrendingDown,  color: 'text-emerald-700', bg: 'bg-emerald-50', title: 'Bill Reduction', desc: 'Your new monthly electricity bill' },
+              { Icon: CalendarClock, color: 'text-amber-700',   bg: 'bg-amber-50',   title: 'Payback Period', desc: 'Years to recover your investment' },
             ] as const).map((f) => (
               <div key={f.title} className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
                 <div className={`w-10 h-10 ${f.bg} rounded-xl flex items-center justify-center mx-auto mb-3`}>
