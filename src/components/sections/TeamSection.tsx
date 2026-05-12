@@ -64,7 +64,7 @@ export function TeamSection() {
   const staff   = teamMembers.filter((m) => !m.isFounder)
 
   return (
-    <section id="team" className="py-24 bg-white">
+    <section id="team" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section header */}
@@ -92,12 +92,13 @@ export function TeamSection() {
           >
             {/* Photo */}
             <div className="lg:col-span-3 bg-slate-50 flex items-center justify-center p-10 min-h-[280px]">
-              <div className="w-40 h-40 rounded-2xl overflow-hidden shadow-2xl ring-4 ring-white">
+              <div className="w-44 h-44 rounded-2xl overflow-hidden ring-4 ring-white shadow-xl flex-shrink-0">
                 {member.image ? (
                   <img
                     src={member.image}
                     alt={`${member.name} — ${member.role} at Rustam Battery Solar Lahore`}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: 'center 10%' }}
                   />
                 ) : (
                   <div className="w-full h-full bg-emerald-600 flex items-center justify-center text-white font-black text-5xl tracking-tight">
@@ -149,7 +150,7 @@ export function TeamSection() {
         ))}
 
         {/* Staff grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
           {staff.map((member) => (
             <div
               key={member.id}
@@ -157,12 +158,13 @@ export function TeamSection() {
             >
               {/* Photo area */}
               <div className="bg-slate-50 py-8 flex justify-center border-b border-gray-100">
-                <div className="w-24 h-24 rounded-xl overflow-hidden shadow-lg ring-4 ring-white group-hover:scale-105 transition-transform duration-300">
+                <div className="w-32 h-32 rounded-xl overflow-hidden mx-auto ring-4 ring-white shadow-lg">
                   {member.image ? (
                     <img
                       src={member.image}
                       alt={`${member.name} — ${member.role} at Rustam Battery Solar Lahore`}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover"
+                      style={{ objectPosition: 'center 5%' }}
                     />
                   ) : (
                     <div className="w-full h-full bg-slate-800 flex items-center justify-center text-white font-black text-2xl tracking-tight">

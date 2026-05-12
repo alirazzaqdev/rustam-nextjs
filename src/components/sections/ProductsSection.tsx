@@ -260,13 +260,11 @@ function ProductCard({ product, glowing, glowType, onSelect, onOrder }: ProductC
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onSelect(e as unknown as React.MouseEvent) }
       }}
-      className={`product-card bg-white rounded-2xl overflow-visible cursor-pointer border border-gray-100 border-t-2 border-t-emerald-500 ${
+      className={`product-card bg-white rounded-2xl overflow-hidden cursor-pointer border border-gray-100 group ${
         glowing && glowType === 'spark'   ? 'card-spark-glow' :
         glowing && glowType === 'battery' ? 'card-battery-glow' : ''
       }`}
     >
-      <div className="card-corner-bl" />
-      <div className="card-corner-br" />
       <div className="card-image-wrap overflow-hidden rounded-t-2xl">
         <ProductImage
           src={product.image}

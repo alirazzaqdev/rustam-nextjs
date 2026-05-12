@@ -5,10 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import {
-  AlertCircle, Loader2, Smartphone, CreditCard,
-  Building2, Truck, Check, Phone, Shield, Wrench
-} from 'lucide-react'
+import { AlertCircle, Loader2 } from 'lucide-react'
 import { submitOrder } from '@/actions/order'
 import type { Product } from '@/types'
 
@@ -19,8 +16,7 @@ const orderSchema = z.object({
   address: z.string().min(5, 'Please enter your full address'),
   city: z.string().min(2, 'Please select your city'),
   projectType: z.enum(['residential', 'commercial', 'industrial']),
-  paymentMethod: z.enum(['Bank Transfer', 'EasyPaisa', 'JazzCash', 'Cash on Delivery']),
-  paymentMobile: z.string().optional(),
+  paymentMethod: z.enum(['Bank Transfer', 'Cash on Delivery']),
   selectedProducts: z.string().min(1, 'Please describe what you want to order'),
   totalAmount: z.string().optional(),
   notes: z.string().optional(),
@@ -30,11 +26,49 @@ type OrderFormData = z.infer<typeof orderSchema>
 
 const CITIES = ['Kahna Nau', 'DHA', 'Gulberg', 'Johar Town', 'Model Town', 'Bahria Town', 'Other']
 
-const PAYMENT_TABS = [
-  { id: 'JazzCash' as const, label: 'JazzCash', icon: Smartphone, gradient: 'from-orange-500 to-red-500', text: 'text-orange-600' },
-  { id: 'EasyPaisa' as const, label: 'EasyPaisa', icon: CreditCard, gradient: 'from-emerald-500 to-green-600', text: 'text-emerald-600' },
-  { id: 'Bank Transfer' as const, label: 'Bank Transfer', icon: Building2, gradient: 'from-slate-700 to-slate-900', text: 'text-slate-700' },
-  { id: 'Cash on Delivery' as const, label: 'Cash on Delivery', icon: Truck, gradient: 'from-emerald-500 to-emerald-700', text: 'text-emerald-700' },
+const PAYMENT_METHODS = [
+  {
+    id: 'Bank Transfer' as const,
+    label: 'Bank Transfer',
+    description: 'Transfer to our bank account',
+    color: 'border-blue-200 hover:border-blue-400 bg-blue-50',
+    selectedColor: 'border-blue-500 bg-blue-50 ring-2 ring-blue-400',
+    labelColor: 'text-blue-700',
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+        <rect x="4" y="12" width="40" height="28" rx="4" fill="#1a365d" stroke="#2b4c8c" strokeWidth="1"/>
+        <rect x="4" y="18" width="40" height="8" fill="#2b4c8c"/>
+        <circle cx="18" cy="32" r="6" fill="#EB001B" opacity="0.9"/>
+        <circle cx="26" cy="32" r="6" fill="#F79E1B" opacity="0.9"/>
+        <circle cx="22" cy="32" r="6" fill="#FF5F00" opacity="0.7"/>
+        <rect x="8" y="22" width="8" height="6" rx="1" fill="#FFD700" opacity="0.8"/>
+        <rect x="8" y="36" width="14" height="1.5" rx="0.5" fill="#ffffff" opacity="0.4"/>
+        <rect x="8" y="39" width="10" height="1.5" rx="0.5" fill="#ffffff" opacity="0.4"/>
+      </svg>
+    ),
+  },
+  {
+    id: 'Cash on Delivery' as const,
+    label: 'Cash on Delivery',
+    description: 'Pay cash when we deliver',
+    color: 'border-green-200 hover:border-green-400 bg-green-50',
+    selectedColor: 'border-green-500 bg-green-50 ring-2 ring-green-400',
+    labelColor: 'text-green-700',
+    icon: (
+      <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+        <rect x="2" y="20" width="28" height="20" rx="3" fill="#2d5a27" stroke="#3a7a32" strokeWidth="1"/>
+        <path d="M30 26 L30 36 L46 36 L46 30 L40 20 L30 20 Z" fill="#3a7a32" stroke="#4a9a42" strokeWidth="1"/>
+        <rect x="32" y="22" width="10" height="10" rx="1" fill="#87CEEB" opacity="0.7"/>
+        <circle cx="10" cy="40" r="5" fill="#1a1a1a" stroke="#444" strokeWidth="1"/>
+        <circle cx="10" cy="40" r="2" fill="#666"/>
+        <circle cx="36" cy="40" r="5" fill="#1a1a1a" stroke="#444" strokeWidth="1"/>
+        <circle cx="36" cy="40" r="2" fill="#666"/>
+        <rect x="8" y="24" width="18" height="10" rx="2" fill="#85bb65" stroke="#6da050" strokeWidth="0.5"/>
+        <rect x="10" y="26" width="14" height="6" rx="1" fill="#71a354" opacity="0.8"/>
+        <circle cx="17" cy="29" r="2.5" fill="#5c8a42" opacity="0.9"/>
+      </svg>
+    ),
+  },
 ]
 
 interface OrderFormProps {
@@ -46,7 +80,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
-  const [activeTab, setActiveTab] = useState<typeof PAYMENT_TABS[number]['id']>('Cash on Delivery')
+  const [activeTab, setActiveTab] = useState<'Bank Transfer' | 'Cash on Delivery'>('Cash on Delivery')
 
   const {
     register,
@@ -71,7 +105,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
     return 0
   }, [watchedAmount])
 
-  function pickTab(id: typeof PAYMENT_TABS[number]['id']) {
+  function pickTab(id: 'Bank Transfer' | 'Cash on Delivery') {
     setActiveTab(id)
     setValue('paymentMethod', id, { shouldValidate: true })
   }
@@ -90,7 +124,6 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
       data.selectedProducts,
       ``,
       `*Payment:* ${data.paymentMethod}`,
-      data.paymentMobile ? `*Wallet #:* ${data.paymentMobile}` : '',
       data.totalAmount ? `*Estimated:* PKR ${data.totalAmount}` : '',
       data.notes ? `*Notes:* ${data.notes}` : '',
     ].filter(Boolean).join('\n')
@@ -243,107 +276,50 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
         <Section title="3. Payment Method">
           <input type="hidden" {...register('paymentMethod')} />
 
-          {/* Tabs */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-            {PAYMENT_TABS.map(t => {
-              const Icon = t.icon
-              const active = activeTab === t.id
-              return (
-                <button
-                  key={t.id}
-                  type="button"
-                  onClick={() => pickTab(t.id)}
-                  disabled={loading}
-                  className={`relative p-3 rounded-xl border-2 text-center transition-all ${
-                    active
-                      ? `border-emerald-600 bg-emerald-50 shadow-md`
-                      : 'border-slate-200 bg-white hover:border-emerald-400'
-                  }`}
-                >
-                  <div className={`w-10 h-10 mx-auto rounded-xl bg-gradient-to-br ${t.gradient} flex items-center justify-center mb-2`}>
-                    <Icon size={18} className="text-white" />
+          <div className="grid grid-cols-2 gap-4">
+            {PAYMENT_METHODS.map(method => (
+              <button
+                key={method.id}
+                type="button"
+                onClick={() => pickTab(method.id)}
+                disabled={loading}
+                className={`relative p-5 rounded-2xl border-2 transition-all duration-200 text-center flex flex-col items-center gap-3 ${
+                  activeTab === method.id ? method.selectedColor : method.color
+                }`}
+              >
+                {activeTab === method.id && (
+                  <div className="absolute top-2 right-2 w-5 h-5 bg-emerald-500 rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7"/>
+                    </svg>
                   </div>
-                  <p className={`text-xs font-semibold ${active ? 'text-amber-700' : 'text-slate-700'}`}>{t.label}</p>
-                  {active && (
-                    <span className="absolute -top-2 -right-2 bg-emerald-600 text-white rounded-full p-1">
-                      <Check size={10} strokeWidth={3} />
-                    </span>
-                  )}
-                </button>
-              )
-            })}
+                )}
+                {method.icon}
+                <span className={`text-sm font-bold ${method.labelColor}`}>{method.label}</span>
+                <span className="text-xs text-gray-400">{method.description}</span>
+              </button>
+            ))}
           </div>
 
-          {/* Tab content */}
-          {activeTab === 'JazzCash' && (
-            <div className="bg-gradient-to-br from-emerald-50 to-red-50 border border-orange-200 rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="px-3 py-1.5 bg-orange-600 text-white rounded-lg font-bold text-sm">JazzCash</div>
-                <p className="text-sm text-orange-800">Mobile Wallet</p>
-              </div>
-              <Field label="Your JazzCash Mobile Number">
-                <input
-                  {...register('paymentMobile')}
-                  placeholder="03001234567"
-                  className={inp(false)}
-                  disabled={loading}
-                />
-              </Field>
-              <p className="text-xs text-orange-700 mt-3 flex items-start gap-1.5">
-                <AlertCircle size={12} className="mt-0.5 shrink-0" />
-                JazzCash gateway integration is being activated. Our team will call you within 2 hours to complete payment.
-              </p>
-            </div>
-          )}
-
-          {activeTab === 'EasyPaisa' && (
-            <div className="bg-gradient-to-br from-emerald-50 to-green-50 border border-emerald-200 rounded-xl p-5">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-bold text-sm">easypaisa</div>
-                <p className="text-sm text-emerald-800">Mobile Account</p>
-              </div>
-              <Field label="Your EasyPaisa Mobile Number">
-                <input
-                  {...register('paymentMobile')}
-                  placeholder="03001234567"
-                  className={inp(false)}
-                  disabled={loading}
-                />
-              </Field>
-              <p className="text-xs text-emerald-700 mt-3 flex items-start gap-1.5">
-                <AlertCircle size={12} className="mt-0.5 shrink-0" />
-                EasyPaisa gateway integration is being activated. Our team will call you within 2 hours to complete payment.
-              </p>
-            </div>
-          )}
-
           {activeTab === 'Bank Transfer' && (
-            <div className="bg-gradient-to-br from-slate-50 to-gray-50 border border-slate-200 rounded-xl p-5">
-              <p className="font-semibold text-slate-800 mb-3 flex items-center gap-2">
-                <Building2 size={16} /> Bank Account Details
-              </p>
-              <table className="w-full text-sm">
-                <tbody className="divide-y divide-slate-200">
-                  <tr><td className="py-2 text-slate-500 pr-4">Bank</td><td className="py-2 font-semibold text-slate-900">Meezan Bank</td></tr>
-                  <tr><td className="py-2 text-slate-500 pr-4">Account Title</td><td className="py-2 font-semibold text-slate-900">Rustam Battery & Solar Energy House</td></tr>
-                  <tr><td className="py-2 text-slate-500 pr-4">Account #</td><td className="py-2 font-mono font-semibold text-slate-900">0123456789</td></tr>
-                  <tr><td className="py-2 text-slate-500 pr-4">IBAN</td><td className="py-2 font-mono font-semibold text-slate-900">PK00MEZN0001234567890</td></tr>
-                  <tr><td className="py-2 text-slate-500 pr-4">Branch</td><td className="py-2 font-semibold text-slate-900">Kahna Nau, Lahore</td></tr>
-                </tbody>
-              </table>
-              <p className="text-xs text-slate-600 mt-3">
-                Send the screenshot via WhatsApp after transfer (button below). Order is reserved for 24 hours.
-              </p>
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-xl">
+              <p className="text-sm font-bold text-blue-800 mb-2">Bank Transfer Details:</p>
+              <div className="space-y-1 text-sm text-blue-700">
+                <p><span className="font-semibold">Bank:</span> Meezan Bank</p>
+                <p><span className="font-semibold">Account:</span> Rustam Battery &amp; Solar Energy House</p>
+                <p><span className="font-semibold">IBAN:</span> PK00MEZN0001234567890</p>
+                <p><span className="font-semibold">Branch:</span> Kahna Nau, Lahore</p>
+              </div>
+              <p className="text-xs text-blue-500 mt-2">Send payment screenshot on WhatsApp after transfer.</p>
             </div>
           )}
 
           {activeTab === 'Cash on Delivery' && (
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-50 border border-emerald-300 rounded-xl p-5 flex items-start gap-3">
-              <Truck size={20} className="text-emerald-700 mt-0.5 shrink-0" />
-              <div>
-                <p className="font-semibold text-amber-900 mb-1">Cash on Delivery</p>
-                <p className="text-sm text-amber-800">Available in Lahore. Pay in cash when our team delivers your order. We will call to confirm delivery time.</p>
-              </div>
+            <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-xl">
+              <p className="text-sm font-bold text-green-800 mb-1">Cash on Delivery</p>
+              <p className="text-sm text-green-700">
+                Available in Lahore. Pay in cash when our team delivers your order. We will call to confirm delivery time.
+              </p>
             </div>
           )}
         </Section>
@@ -409,13 +385,27 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
             </div>
           </div>
 
-          {/* Trust badges */}
-          <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
-            <p className="text-xs font-semibold text-slate-700 mb-3 uppercase tracking-wide">Why customers trust us</p>
-            <div className="grid grid-cols-3 gap-3 text-center">
-              <Trust icon={<Shield size={16} className="text-emerald-500" />} label="Secure Order" />
-              <Trust icon={<Phone size={16} className="text-emerald-600" />} label="24h Support" />
-              <Trust icon={<Wrench size={16} className="text-blue-500" />} label="19yr Experience" />
+          {/* Trust section */}
+          <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <p className="text-xs font-bold tracking-[3px] text-gray-400 uppercase mb-5 text-center">
+              WHY CUSTOMERS TRUST US
+            </p>
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { number: '500+', label: 'Orders Completed', sub: 'Since 2006' },
+                { number: '19yr', label: 'Experience',       sub: 'Established 2006' },
+                { number: '24hr', label: 'Support',          sub: 'WhatsApp always' },
+              ].map((item, i) => (
+                <div key={i} className="text-center">
+                  <div className="text-2xl font-black text-emerald-600 leading-tight">{item.number}</div>
+                  <div className="text-xs font-bold text-slate-700 mt-0.5">{item.label}</div>
+                  <div className="text-[10px] text-gray-400 mt-0.5">{item.sub}</div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-2">
+              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+              <p className="text-xs text-gray-500">Verified business · Kahna Nau, Lahore since 2006</p>
             </div>
           </div>
         </div>
@@ -461,11 +451,3 @@ function Field({
   )
 }
 
-function Trust({ icon, label }: { icon: React.ReactNode; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-1">
-      <div className="w-9 h-9 rounded-lg bg-slate-50 flex items-center justify-center">{icon}</div>
-      <span className="text-xs font-medium text-slate-600 leading-tight">{label}</span>
-    </div>
-  )
-}
