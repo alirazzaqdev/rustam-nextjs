@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
-import { X } from 'lucide-react'
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { X, Search, ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react'
 import { SectionHeader } from '@/components/ui/SectionHeader'
 import ProductImage from '@/components/ui/ProductImage'
 import SparkEffect from '@/components/ui/SparkEffect'
@@ -57,10 +57,15 @@ function whatsappOrderUrlLong(product: Product): string {
   return `https://wa.me/${getWaNumber(product)}?text=${encodeURIComponent(msg)}`
 }
 
+type SortOrder = 'none' | 'asc' | 'desc'
+
 export function ProductsSection({ products }: ProductsSectionProps) {
   const [activeCategory, setActiveCategory] = useState<TabLabel>('All')
   const [activeBrand, setActiveBrand]       = useState<string>('All Brands')
   const [selected, setSelected]             = useState<Product | null>(null)
+  const [search, setSearch]                 = useState('')
+  const [sortOrder, setSortOrder]           = useState<SortOrder>('none')
+  const searchRef                           = useRef<HTMLInputElement>(null)
 
   // Animation state
   const [sparkActive, setSparkActive]     = useState(false)
@@ -86,6 +91,13 @@ export function ProductsSection({ products }: ProductsSectionProps) {
   function changeCategory(tab: TabLabel) {
     setActiveCategory(tab)
     setActiveBrand('All Brands')
+    setSearch('')
+  }
+
+  function cycleSortOrder() {
+    setSortOrder(prev =>
+      prev === 'none' ? 'asc' : prev === 'asc' ? 'desc' : 'none'
+    )
   }
 
   const handleCardClick = useCallback((
@@ -108,22 +120,39 @@ export function ProductsSection({ products }: ProductsSectionProps) {
     setTimeout(() => action(), 200)
   }, [])
 
-  const filtered = products.filter((p) => {
-    const cat = CATEGORY_MAP[activeCategory]
-    if (cat !== null && p.category !== cat) return false
+  const q = search.trim().toLowerCase()
 
-    if (activeCategory === 'Batteries' && activeBrand !== 'All Brands') {
-      return p.brand === activeBrand
-    }
-    if (activeCategory === 'Solar Panels' && activeBrand !== 'All Brands') {
-      return p.brand === activeBrand
-    }
-    if (activeCategory === 'Inverters' && activeBrand !== 'All Brands') {
-      if (activeBrand === 'Knox Hybrid')  return KNOX_HYBRID_IDS.has(p.id)
-      if (activeBrand === 'Knox On-Grid') return !KNOX_HYBRID_IDS.has(p.id) && p.brand === 'Knox'
-    }
-    return true
-  })
+  const filtered = products
+    .filter((p) => {
+      const cat = CATEGORY_MAP[activeCategory]
+      if (cat !== null && p.category !== cat) return false
+
+      if (activeCategory === 'Batteries' && activeBrand !== 'All Brands') {
+        if (p.brand !== activeBrand) return false
+      }
+      if (activeCategory === 'Solar Panels' && activeBrand !== 'All Brands') {
+        if (p.brand !== activeBrand) return false
+      }
+      if (activeCategory === 'Inverters' && activeBrand !== 'All Brands') {
+        if (activeBrand === 'Knox Hybrid')  return KNOX_HYBRID_IDS.has(p.id)
+        if (activeBrand === 'Knox On-Grid') return !KNOX_HYBRID_IDS.has(p.id) && p.brand === 'Knox'
+      }
+
+      if (q) {
+        const haystack = `${p.name} ${p.brand} ${p.category}`.toLowerCase()
+        if (!haystack.includes(q)) return false
+      }
+
+      return true
+    })
+    .sort((a, b) => {
+      if (sortOrder === 'none') return 0
+      // Items with price=0 ("contact for price") always go to the end
+      if (a.price === 0 && b.price === 0) return 0
+      if (a.price === 0) return 1
+      if (b.price === 0) return -1
+      return sortOrder === 'asc' ? a.price - b.price : b.price - a.price
+    })
 
   const showBrandFilter =
     activeCategory === 'Batteries' ||
@@ -154,7 +183,7 @@ export function ProductsSection({ products }: ProductsSectionProps) {
         <SectionHeader
           label="Product Catalogue"
           title="Solar Panels, Batteries & Inverters in Lahore"
-          description="93 products — Osaka, AGS, Phoenix, Alaska batteries · Canadian Solar, JinkoSolar, LONGi panels · Knox hybrid inverters. Click any product for full specs."
+          description={`${products.length} products — Osaka, AGS, Phoenix, Alaska batteries · Canadian Solar, JinkoSolar, LONGi panels · Knox hybrid inverters. Click any product for full specs.`}
         />
 
         {/* Category tabs */}
@@ -201,11 +230,54 @@ export function ProductsSection({ products }: ProductsSectionProps) {
           </div>
         )}
 
+        {/* Search + Sort row */}
+        <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 max-w-2xl mx-auto">
+          {/* Search */}
+          <div className="relative flex-1">
+            <Search size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+            <input
+              ref={searchRef}
+              type="text"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Search by product name or brand…"
+              className="w-full pl-10 pr-9 py-2.5 rounded-xl border border-gray-200 bg-white text-sm text-slate-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-emerald-300 focus:border-emerald-400 transition-all shadow-sm"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X size={14} />
+              </button>
+            )}
+          </div>
+
+          {/* Price sort */}
+          <button
+            onClick={cycleSortOrder}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all shadow-sm whitespace-nowrap ${
+              sortOrder === 'none'
+                ? 'border-gray-200 bg-white text-gray-500 hover:border-emerald-400 hover:text-emerald-700'
+                : 'border-emerald-500 bg-emerald-600 text-white'
+            }`}
+          >
+            {sortOrder === 'asc'  ? <ArrowUp   size={14} /> :
+             sortOrder === 'desc' ? <ArrowDown  size={14} /> :
+                                    <ArrowUpDown size={14} />}
+            {sortOrder === 'asc'  ? 'Price: Low → High' :
+             sortOrder === 'desc' ? 'Price: High → Low' :
+                                    'Sort by Price'}
+          </button>
+        </div>
+
         {/* Results count */}
-        <p className="text-sm text-gray-500 text-center mt-6">
+        <p className="text-sm text-gray-500 text-center mt-4">
           Showing {filtered.length} of {products.length} products
           {activeCategory !== 'All' && ` · ${activeCategory}`}
           {activeBrand !== 'All Brands' && ` · ${activeBrand}`}
+          {search && ` · "${search}"`}
+          {sortOrder !== 'none' && ` · Price ${sortOrder === 'asc' ? '↑' : '↓'}`}
         </p>
 
         {/* Grid */}
@@ -229,7 +301,13 @@ export function ProductsSection({ products }: ProductsSectionProps) {
           </div>
         ) : (
           <div className="mt-10 text-center bg-white border border-gray-100 rounded-2xl p-12">
-            <p className="text-gray-500">No products in this category yet.</p>
+            <Search size={32} className="mx-auto text-gray-200 mb-3" />
+            <p className="text-gray-500 font-medium">No products found</p>
+            {search && (
+              <button onClick={() => setSearch('')} className="mt-2 text-sm text-emerald-600 hover:underline">
+                Clear search
+              </button>
+            )}
           </div>
         )}
       </div>
