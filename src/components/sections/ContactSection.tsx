@@ -30,10 +30,10 @@ export function ContactSection() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
 
           {/* ── LEFT: Dark info panel ── */}
-          <div className="lg:col-span-2 bg-slate-900 rounded-3xl overflow-hidden">
+          <div className="lg:col-span-2 bg-slate-900 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/30 ring-1 ring-white/5">
 
-            {/* Emerald top accent bar */}
-            <div className="h-1.5 w-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600" />
+            {/* Accent bar */}
+            <div className="h-2 w-full bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600" />
 
             <div className="p-8">
               <h3 className="text-xl font-bold text-white mb-1">Contact Information</h3>
@@ -46,7 +46,7 @@ export function ContactSection() {
 
                 {/* Phone — General */}
                 <a href="tel:+923213770402" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
                     <Phone size={16} className="text-emerald-400 group-hover:text-white transition-colors" />
                   </div>
                   <div>
@@ -57,7 +57,7 @@ export function ContactSection() {
 
                 {/* Phone — Solar & Inverter */}
                 <a href="tel:+923214130828" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
                     <Phone size={16} className="text-emerald-400 group-hover:text-white transition-colors" />
                   </div>
                   <div>
@@ -68,7 +68,7 @@ export function ContactSection() {
 
                 {/* Email 1 */}
                 <a href="mailto:ia6969537@gmail.com" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
                     <Mail size={16} className="text-emerald-400 group-hover:text-white transition-colors" />
                   </div>
                   <div className="min-w-0">
@@ -79,7 +79,7 @@ export function ContactSection() {
 
                 {/* Email 2 — Shahbaz */}
                 <a href="mailto:shahbazahmedkhan35201@gmail.com" className="flex items-center gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-600 group-hover:border-emerald-600 transition-all">
                     <Mail size={16} className="text-emerald-400 group-hover:text-white transition-colors" />
                   </div>
                   <div className="min-w-0">
@@ -90,7 +90,7 @@ export function ContactSection() {
 
                 {/* Location */}
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-emerald-500/15 border border-emerald-500/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center flex-shrink-0">
                     <MapPin size={16} className="text-emerald-400" />
                   </div>
                   <div>
@@ -148,7 +148,8 @@ export function ContactSection() {
           </div>
 
           {/* ── RIGHT: Form panel ── */}
-          <div className="lg:col-span-3 bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+          <div className="lg:col-span-3 p-[2px] rounded-3xl bg-gradient-to-br from-emerald-400/40 via-emerald-300/20 to-slate-200/30 shadow-2xl shadow-slate-900/10">
+          <div className="bg-white rounded-[22px] overflow-hidden">
 
             {/* Tab switcher */}
             <div className="flex border-b border-gray-100">
@@ -192,6 +193,7 @@ export function ContactSection() {
                 </div>
               ))}
             </div>
+          </div>
           </div>
         </div>
 
