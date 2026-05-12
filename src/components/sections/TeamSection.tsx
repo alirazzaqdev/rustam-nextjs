@@ -33,7 +33,7 @@ const teamMembers = [
     image: '/team/shahbaz.jpg',
     objectPos: 'center 15%',
     initials: 'MS',
-    gradientFrom: 'from-sky-700',
+    gradientFrom: 'from-slate-700',
     gradientTo: 'to-slate-800',
     description:
       'Expert in solar panel and Knox inverter sales, installation, and technical support. Go-to person for system sizing and configuration.',

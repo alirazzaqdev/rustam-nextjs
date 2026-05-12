@@ -284,10 +284,10 @@ export default function AdminOrdersPage() {
                     )}
                     <div className="flex gap-3 mt-4">
                       <a
-                        href={whatsappUrl(order.phone, `Assalam o Alaikum ${order.customerName}! Aapke order #${order.orderNumber} ke baare mein kuch poochna tha.`)}
+                        href={whatsappUrl(order.phone, `Hello ${order.customerName}! Regarding your order #${order.orderNumber} — we wanted to follow up with you.`)}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-[#25D366] hover:bg-[#1fba5a] text-white rounded-lg text-xs font-semibold transition-colors"
                       >
                         <MessageSquare size={13} /> WhatsApp
                       </a>
@@ -305,15 +305,15 @@ export default function AdminOrdersPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-slate-900">Order Approve karna</h3>
+              <h3 className="font-bold text-slate-900">Approve Order</h3>
               <button onClick={() => setApproveModal(null)} className="p-1.5 hover:bg-gray-100 rounded-lg"><X size={16} /></button>
             </div>
             <div className="bg-green-50 border border-green-200 rounded-xl p-3 mb-4">
               <p className="font-semibold text-slate-900 text-sm">{approveModal.orderNumber} — {approveModal.customerName}</p>
-              <p className="text-gray-500 text-xs mt-0.5">📱 {approveModal.phone} · 📍 {approveModal.city}</p>
+              <p className="text-gray-500 text-xs mt-0.5">{approveModal.phone} · {approveModal.city}</p>
             </div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-              Final Price (PKR) — WhatsApp mein yahi jaayega
+              Final Price (PKR) — this amount will be sent to the customer via WhatsApp
             </label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm font-medium">PKR</span>
@@ -328,7 +328,7 @@ export default function AdminOrdersPage() {
               />
             </div>
             {!approvePrice && (
-              <p className="text-xs text-amber-600 mt-1.5">⚠ Price nahi doge tu revenue PKR 0 rahega</p>
+              <p className="text-xs text-amber-600 mt-1.5">Without a price, revenue will be recorded as PKR 0</p>
             )}
             <div className="flex gap-3 mt-4">
               <button onClick={() => setApproveModal(null)} className="flex-1 py-2.5 text-sm text-gray-600 border border-gray-200 rounded-xl hover:bg-gray-50">
@@ -360,7 +360,7 @@ export default function AdminOrdersPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
           <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-bold text-slate-900">Order Reject karna?</h3>
+              <h3 className="font-bold text-slate-900">Reject Order?</h3>
               <button onClick={() => setRejectModal(null)} className="p-1.5 hover:bg-gray-100 rounded-lg">
                 <X size={16} />
               </button>
@@ -370,14 +370,14 @@ export default function AdminOrdersPage() {
               <p className="text-gray-500 text-xs mt-0.5">PKR {rejectModal.total.toLocaleString()} · {rejectModal.phone}</p>
             </div>
             <label className="block text-sm font-semibold text-slate-700 mb-1.5">
-              Rejection ki wajah (customer ko WhatsApp pe jaayegi):
+              Reason for rejection (will be sent to customer via WhatsApp):
             </label>
             <textarea
               rows={3}
               autoFocus
               value={rejectReason}
               onChange={e => setRejectReason(e.target.value)}
-              placeholder="e.g. Is waqt stock available nahi hai, baad mein dobara try karein..."
+              placeholder="e.g. Item is currently out of stock. Please try again later..."
               className="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-red-200 focus:border-red-300 resize-none"
             />
             <div className="flex gap-3 mt-4">

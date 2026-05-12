@@ -38,10 +38,10 @@ export function HeroSection() {
         aria-hidden
       />
 
-      {/* Cool blue orb — bottom left (contrast balance) */}
+      {/* Soft slate orb — bottom left (contrast balance) */}
       <div
         className="absolute -bottom-16 -left-16 w-[340px] h-[340px] rounded-full pointer-events-none"
-        style={{ background: 'radial-gradient(circle, rgba(186,230,253,0.22) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, rgba(148,163,184,0.12) 0%, transparent 70%)' }}
         aria-hidden
       />
 
@@ -120,8 +120,8 @@ export function HeroSection() {
             />
 
             <div className="relative bg-white rounded-2xl border border-gray-200/80 shadow-[0_12px_48px_rgba(0,0,0,0.10)] overflow-hidden">
-              {/* Amber → emerald gradient top accent */}
-              <div className="h-[3px] w-full bg-gradient-to-r from-amber-500 via-amber-400 to-emerald-500" />
+              {/* Amber gradient top accent */}
+              <div className="h-[3px] w-full bg-gradient-to-r from-amber-300 via-amber-500 to-amber-700" />
 
               <div className="p-8">
                 <p className="text-amber-600 text-xs font-bold tracking-[0.18em] uppercase mb-2">

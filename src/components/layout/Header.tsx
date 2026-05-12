@@ -46,7 +46,7 @@ export function Header() {
               alt="Rustam Battery & Solar Energy House — Solar Energy Company Lahore Pakistan"
               width={160}
               height={52}
-              className="h-13 w-auto object-contain block"
+              className="h-12 w-auto object-contain block"
               priority
             />
           </Link>

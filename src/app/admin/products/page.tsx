@@ -98,7 +98,7 @@ export default function AdminProductsPage() {
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Yaqeenan delete karna chahte ho?')) return
+    if (!confirm('Are you sure you want to delete this product?')) return
     setDeleting(id)
     await fetch(`/api/admin/products/${id}`, { method: 'DELETE' })
     setDeleting(null)
@@ -114,7 +114,7 @@ export default function AdminProductsPage() {
   }
 
   async function handleSeed() {
-    if (!confirm('Products.ts se saare products database mein import karein? (existing skip honge)')) return
+    if (!confirm('Import missing products from catalog? (existing products will be skipped)')) return
     setSeeding(true)
     const res  = await fetch('/api/admin/seed-products', { method: 'POST' })
     const data = await res.json()
@@ -124,7 +124,7 @@ export default function AdminProductsPage() {
   }
 
   async function handleReseed() {
-    if (!confirm('Saare products DELETE ho jaenge aur fresh import hoga. Sure ho?')) return
+    if (!confirm('All products will be deleted and re-imported from catalog. Are you sure?')) return
     setSeeding(true)
     const res  = await fetch('/api/admin/seed-products', { method: 'DELETE' })
     const data = await res.json()
@@ -146,10 +146,10 @@ export default function AdminProductsPage() {
   }
 
   const catColors: Record<string, string> = {
-    'Battery':     'bg-blue-50 text-blue-700 border-blue-200',
-    'Solar Panel': 'bg-amber-50 text-amber-700 border-amber-200',
-    'Inverter':    'bg-purple-50 text-purple-700 border-purple-200',
-    'Accessory':   'bg-gray-50 text-gray-600 border-gray-200',
+    'Battery':     'bg-amber-50 text-amber-700 border-amber-200',
+    'Solar Panel': 'bg-emerald-50 text-emerald-700 border-emerald-100',
+    'Inverter':    'bg-slate-50 text-slate-600 border-slate-200',
+    'Accessory':   'bg-gray-50 text-gray-500 border-gray-200',
   }
 
   return (
@@ -282,7 +282,7 @@ export default function AdminProductsPage() {
                     <td className="px-4 py-3 text-center">
                       <button onClick={() => toggleField(p.id, 'inStock', p.inStock)} title="Toggle stock">
                         {p.inStock
-                          ? <ToggleRight size={20} className="text-green-500 mx-auto" />
+                          ? <ToggleRight size={20} className="text-emerald-500 mx-auto" />
                           : <ToggleLeft  size={20} className="text-gray-300 mx-auto" />}
                       </button>
                     </td>
