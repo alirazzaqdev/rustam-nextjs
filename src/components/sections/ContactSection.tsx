@@ -221,17 +221,19 @@ export function ContactSection() {
           </div>
 
           {/* Map iframe */}
-          <div className="rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
-            <iframe
-              src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="420"
-              style={{ border: 0, display: 'block' }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Rustam Battery Location — Kahna Nau Lahore"
-            />
+          <div className="p-1 rounded-3xl bg-gradient-to-br from-emerald-400 via-emerald-500 to-slate-700 shadow-xl shadow-emerald-900/10">
+            <div className="rounded-[22px] overflow-hidden">
+              <iframe
+                src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="420"
+                style={{ border: 0, display: 'block' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Rustam Battery Location — Kahna Nau Lahore"
+              />
+            </div>
           </div>
 
           {/* Info chips below map */}
