@@ -79,7 +79,7 @@ export function ContactSection() {
 
         {/* Map */}
         <div className="mt-12">
-          <h3 className="text-xl font-semibold text-slate-800 tracking-tight mb-6 text-center">Find us in Lahore</h3>
+          <h3 className="text-xl font-semibold text-slate-800 tracking-tight mb-4 text-center">Find Us in Lahore</h3>
           <div className="rounded-2xl overflow-hidden border border-gray-100">
             <iframe
               src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"

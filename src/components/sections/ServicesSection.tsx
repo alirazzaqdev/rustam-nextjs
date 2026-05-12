@@ -74,7 +74,7 @@ export function ServicesSection({ services }: ServicesSectionProps) {
                   onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                   className="inline-flex items-center gap-1.5 text-sm font-semibold text-emerald-700 hover:text-emerald-600 transition-colors"
                 >
-                  Learn more
+                  Learn More
                   <ArrowRight size={13} className="group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </div>

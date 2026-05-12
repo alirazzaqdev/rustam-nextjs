@@ -224,15 +224,15 @@ export function CalculatorSection() {
             </Card>
 
             {/* Annual Savings Card */}
-            <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
+            <Card className="bg-gradient-to-br from-emerald-50 to-emerald-50 border-emerald-200">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <TrendingUp className="text-green-600" size={24} />
+                  <TrendingUp className="text-emerald-700" size={24} />
                   Annual Savings
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-4xl font-bold text-green-600 mb-2">
+                <div className="text-4xl font-bold text-emerald-700 mb-2">
                   PKR {results.annualSavings.toLocaleString()}
                 </div>
                 <p className="text-sm text-slate-600">

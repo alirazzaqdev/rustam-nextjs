@@ -81,7 +81,7 @@ function Stars() {
 
 export function TestimonialsSection({ testimonials: _ }: TestimonialsSectionProps) {
   return (
-    <section id="testimonials" className="py-24 bg-slate-50 relative overflow-hidden">
+    <section id="testimonials" className="py-20 bg-slate-50 relative overflow-hidden">
       {/* Background texture hint */}
       <div className="absolute inset-0 bg-gradient-to-b from-white via-slate-50 to-slate-50 pointer-events-none" aria-hidden />
 

@@ -145,8 +145,7 @@ export function HeroSection() {
 
                 <div className="mt-6 pt-5 border-t border-gray-100">
                   <p className="text-xs text-gray-400 leading-relaxed">
-                    Based on a typical 5kW residential system in Lahore. Actual savings vary
-                    by household consumption.
+                    Based on a typical 50kW system in Lahore. Actual savings vary by system size and consumption.
                   </p>
                 </div>
               </div>
