@@ -196,12 +196,36 @@ export function ContactSection() {
         </div>
 
         {/* Map */}
-        <div className="mt-8">
+        <div className="mt-10">
+
+          {/* Map header row */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+                <MapPin size={16} className="text-emerald-600" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-slate-800">Our Location</p>
+                <p className="text-xs text-gray-400">Kahna Nau, Lahore — Punjab, Pakistan</p>
+              </div>
+            </div>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=31.3739000,74.3675000"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-colors self-start sm:self-auto"
+            >
+              <MapPin size={14} />
+              Get Directions
+            </a>
+          </div>
+
+          {/* Map iframe */}
           <div className="rounded-3xl overflow-hidden border border-gray-100 shadow-sm">
             <iframe
               src="https://maps.google.com/maps?q=31.3739000,74.3675000&z=16&t=&ie=UTF8&iwloc=&output=embed"
               width="100%"
-              height="360"
+              height="420"
               style={{ border: 0, display: 'block' }}
               allowFullScreen
               loading="lazy"
@@ -209,9 +233,32 @@ export function ContactSection() {
               title="Rustam Battery Location — Kahna Nau Lahore"
             />
           </div>
-          <p className="text-center text-gray-400 mt-3 text-xs font-medium tracking-wide uppercase">
-            Kahna Nau, Lahore — Punjab, Pakistan
-          </p>
+
+          {/* Info chips below map */}
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
+              <MapPin size={15} className="text-emerald-600 shrink-0" />
+              <div>
+                <p className="text-xs text-gray-400 font-medium">Address</p>
+                <p className="text-sm text-slate-700 font-semibold">Kahna Nau, Lahore</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
+              <Phone size={15} className="text-emerald-600 shrink-0" />
+              <div>
+                <p className="text-xs text-gray-400 font-medium">Call Us</p>
+                <p className="text-sm text-slate-700 font-semibold">+92 321 3770402</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-3 bg-gray-50 border border-gray-100 rounded-2xl px-4 py-3">
+              <Clock size={15} className="text-emerald-600 shrink-0" />
+              <div>
+                <p className="text-xs text-gray-400 font-medium">Open Today</p>
+                <p className="text-sm text-slate-700 font-semibold">9:00 AM – 6:00 PM</p>
+              </div>
+            </div>
+          </div>
+
         </div>
 
       </div>
