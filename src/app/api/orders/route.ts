@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// In-memory store — persists for the lifetime of this server instance
-const orders: Record<string, unknown>[] = []
+import { prisma } from '@/lib/prisma'
 
 export async function POST(req: NextRequest) {
   try {
@@ -14,29 +12,32 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    const order = {
-      id: `RB-${Date.now()}`,
-      customerName: body.customerName || '',
-      phone: body.phone || '',
-      email: body.email || '',
-      address: body.address || '',
-      city: body.city || '',
-      projectType: body.projectType || '',
-      notes: body.notes || '',
-      product: body.product || '',
-      price: body.price || 0,
-      paymentMethod: body.paymentMethod || 'Cash on Delivery',
-      status: 'pending',
-      createdAt: new Date().toISOString(),
-    }
+    const orderNumber = `RB-${Date.now().toString(36).toUpperCase()}`
 
-    orders.push(order)
-    console.log('New Order:', JSON.stringify(order, null, 2))
+    const order = await prisma.order.create({
+      data: {
+        orderNumber,
+        customerName: body.customerName || '',
+        phone:        body.phone || '',
+        whatsapp:     body.whatsapp || body.phone || '',
+        email:        body.email || '',
+        address:      body.address || '',
+        city:         body.city || '',
+        items:        body.items || body.product ? [{ name: body.product, price: body.price }] : [],
+        subtotal:     Number(body.price || body.subtotal || 0),
+        total:        Number(body.price || body.total || 0),
+        paymentMethod: body.paymentMethod || 'Cash on Delivery',
+        paymentStatus: 'pending',
+        orderStatus:   'pending',
+        notes:         body.notes || '',
+      },
+    })
 
     return NextResponse.json({
-      success: true,
-      orderId: order.id,
-      message: 'Order received successfully',
+      success:   true,
+      orderId:   order.id,
+      orderNumber: order.orderNumber,
+      message:   'Order received successfully',
     })
   } catch (error) {
     console.error('Order API Error:', error)
@@ -47,22 +48,20 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET() {
-  // Also try to pull from DB if available
-  let dbOrders: unknown[] = []
+export async function GET(req: NextRequest) {
   try {
-    const { prisma } = await import('@/lib/prisma')
-    dbOrders = await prisma.quoteRequest.findMany({
-      orderBy: { createdAt: 'desc' },
-      take: 100,
-    })
-  } catch {
-    // DB not available — return in-memory orders only
-  }
+    const { searchParams } = new URL(req.url)
+    const status = searchParams.get('status') || ''
 
-  return NextResponse.json({
-    success: true,
-    orders: [...orders, ...dbOrders],
-    total: orders.length + dbOrders.length,
-  })
+    const orders = await prisma.order.findMany({
+      where: status ? { orderStatus: status } : {},
+      orderBy: { createdAt: 'desc' },
+      take: 200,
+    })
+
+    return NextResponse.json(orders)
+  } catch (error) {
+    console.error('Orders fetch error:', error)
+    return NextResponse.json([], { status: 200 })
+  }
 }

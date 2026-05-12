@@ -114,11 +114,21 @@ export default function AdminProductsPage() {
   }
 
   async function handleSeed() {
-    if (!confirm('Products.ts se saare products database mein import karein?')) return
+    if (!confirm('Products.ts se saare products database mein import karein? (existing skip honge)')) return
     setSeeding(true)
     const res  = await fetch('/api/admin/seed-products', { method: 'POST' })
     const data = await res.json()
     setSeedMsg(`✓ ${data.inserted} inserted, ${data.skipped} already existed`)
+    setSeeding(false)
+    fetchProducts()
+  }
+
+  async function handleReseed() {
+    if (!confirm('Saare products DELETE ho jaenge aur fresh import hoga. Sure ho?')) return
+    setSeeding(true)
+    const res  = await fetch('/api/admin/seed-products', { method: 'DELETE' })
+    const data = await res.json()
+    setSeedMsg(`✓ Full re-import: ${data.inserted} products loaded`)
     setSeeding(false)
     fetchProducts()
   }
@@ -156,11 +166,20 @@ export default function AdminProductsPage() {
             <button
               onClick={handleSeed}
               disabled={seeding}
-              title="Import from products.ts"
+              title="Import missing products from catalog"
               className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-600 hover:bg-gray-50 transition-colors disabled:opacity-50"
             >
               <Database size={14} />
               {seeding ? 'Importing...' : 'Import Catalog'}
+            </button>
+            <button
+              onClick={handleReseed}
+              disabled={seeding}
+              title="Delete all and re-import full catalog"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg border border-red-100 text-sm text-red-600 hover:bg-red-50 transition-colors disabled:opacity-50"
+            >
+              <RefreshCw size={14} className={seeding ? 'animate-spin' : ''} />
+              Re-import All
             </button>
             <button
               onClick={openAdd}
