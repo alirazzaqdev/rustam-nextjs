@@ -1,7 +1,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = 'https://rustam-nextjs.vercel.app'
+  const base = 'https://rustambattery.com'
   const now  = new Date()
 
   return [
