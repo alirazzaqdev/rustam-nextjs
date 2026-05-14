@@ -1,22 +1,22 @@
-export default function JsonLd() {
+﻿export default function JsonLd() {
   const localBusiness = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://rustam-nextjs.vercel.app/#business',
+    '@id': 'https://rustambattery.com/#business',
     name: 'Rustam Battery & Solar Energy House',
     alternateName: 'Rustam Battery Solar',
     description: "Pakistan's trusted solar energy company since 2016. Solar panels, batteries, and Knox inverters for residential, commercial and industrial customers in Lahore.",
-    url: 'https://rustam-nextjs.vercel.app',
+    url: 'https://rustambattery.com',
     telephone: '+923213770402',
     email: 'ia6969537@gmail.com',
     foundingDate: '2016',
     priceRange: 'PKR 5,000 - PKR 2,000,000',
     currenciesAccepted: 'PKR',
     paymentAccepted: 'Cash, JazzCash, EasyPaisa, Bank Transfer',
-    image: 'https://rustam-nextjs.vercel.app/logo.png',
+    image: 'https://rustambattery.com/logo.png',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://rustam-nextjs.vercel.app/logo.png',
+      url: 'https://rustambattery.com/logo.png',
       width: 1040,
       height: 1040,
     },
@@ -75,8 +75,8 @@ export default function JsonLd() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Rustam Battery & Solar Energy House',
-    url: 'https://rustam-nextjs.vercel.app',
-    logo: 'https://rustam-nextjs.vercel.app/logo.png',
+    url: 'https://rustambattery.com',
+    logo: 'https://rustambattery.com/logo.png',
     foundingDate: '2016',
     founder: { '@type': 'Person', name: 'Muhammad Rustam' },
     contactPoint: {
@@ -92,10 +92,10 @@ export default function JsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Rustam Battery & Solar Energy House',
-    url: 'https://rustam-nextjs.vercel.app',
+    url: 'https://rustambattery.com',
     potentialAction: {
       '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', urlTemplate: 'https://rustam-nextjs.vercel.app/?search={search_term_string}' },
+      target: { '@type': 'EntryPoint', urlTemplate: 'https://rustambattery.com/?search={search_term_string}' },
       'query-input': 'required name=search_term_string',
     },
   }
@@ -104,9 +104,9 @@ export default function JsonLd() {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://rustam-nextjs.vercel.app' },
-      { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://rustam-nextjs.vercel.app/#products' },
-      { '@type': 'ListItem', position: 3, name: 'Services', item: 'https://rustam-nextjs.vercel.app/#services' },
+      { '@type': 'ListItem', position: 1, name: 'Home',     item: 'https://rustambattery.com' },
+      { '@type': 'ListItem', position: 2, name: 'Products', item: 'https://rustambattery.com/#products' },
+      { '@type': 'ListItem', position: 3, name: 'Services', item: 'https://rustambattery.com/#services' },
     ],
   }
 
@@ -145,7 +145,7 @@ export default function JsonLd() {
   const productList = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: 'Solar Panels, Batteries & Inverters — Rustam Battery Lahore',
+    name: 'Solar Panels, Batteries & Inverters â€” Rustam Battery Lahore',
     description: 'Complete range of solar products available at Rustam Battery & Solar Energy House, Kahna Nau, Lahore',
     numberOfItems: 93,
     itemListElement: [
@@ -156,9 +156,9 @@ export default function JsonLd() {
           '@type': 'Product',
           name: 'Osaka HT115 Plus-A Battery',
           description: 'Popular Osaka lead-acid battery for home solar and UPS. 72Ah capacity.',
-          image: 'https://rustam-nextjs.vercel.app/logo.png',
+          image: 'https://rustambattery.com/logo.png',
           brand: { '@type': 'Brand', name: 'Osaka' },
-          offers: { '@type': 'Offer', price: '14214', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustam-nextjs.vercel.app/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
+          offers: { '@type': 'Offer', price: '14214', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustambattery.com/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
         },
       },
       {
@@ -168,9 +168,9 @@ export default function JsonLd() {
           '@type': 'Product',
           name: 'Knox Krypton 6000 4kW Hybrid Inverter',
           description: 'Knox Krypton 6000 4kW hybrid inverter with built-in WiFi and BMS. Genuine Voltronic Power Taiwan.',
-          image: 'https://rustam-nextjs.vercel.app/logo.png',
+          image: 'https://rustambattery.com/logo.png',
           brand: { '@type': 'Brand', name: 'Knox' },
-          offers: { '@type': 'Offer', price: '120500', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustam-nextjs.vercel.app/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
+          offers: { '@type': 'Offer', price: '120500', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustambattery.com/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
         },
       },
       {
@@ -180,9 +180,9 @@ export default function JsonLd() {
           '@type': 'Product',
           name: 'Canadian Solar 585W N-Type Bifacial Panel',
           description: 'Canadian Solar 585W N-Type Bifacial solar panel. Ready stock in Lahore.',
-          image: 'https://rustam-nextjs.vercel.app/logo.png',
+          image: 'https://rustambattery.com/logo.png',
           brand: { '@type': 'Brand', name: 'Canadian Solar' },
-          offers: { '@type': 'Offer', price: '26179', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustam-nextjs.vercel.app/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
+          offers: { '@type': 'Offer', price: '26179', priceCurrency: 'PKR', availability: 'https://schema.org/InStock', url: 'https://rustambattery.com/#products', seller: { '@type': 'Organization', name: 'Rustam Battery' } },
         },
       },
     ],

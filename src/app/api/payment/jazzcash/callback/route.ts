@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { verifyJazzCashCallback } from '@/lib/payment'
 import { prisma } from '@/lib/prisma'
 
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
 }
 
 async function handleCallback(req: NextRequest) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustam-nextjs.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustambattery.com'
 
   try {
     let params: Record<string, string> = {}

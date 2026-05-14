@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { buildEasyPaisaPayload, EASYPAISA_URL } from '@/lib/payment'
 import { prisma } from '@/lib/prisma'
 
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
     const order = await prisma.order.findUnique({ where: { id: orderId } })
     if (!order) return NextResponse.json({ error: 'Order not found' }, { status: 404 })
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustam-nextjs.vercel.app'
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustambattery.com'
     const returnUrl = `${baseUrl}/api/payment/easypaisa/callback`
 
     const payload = buildEasyPaisaPayload({

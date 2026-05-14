@@ -19,7 +19,7 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://rustam-nextjs.vercel.app'),
+  metadataBase: new URL('https://rustambattery.com'),
 
   title: {
     default: 'Solar Panels, Batteries & Inverters in Lahore | Rustam Battery',
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_PK',
-    url: 'https://rustam-nextjs.vercel.app',
+    url: 'https://rustambattery.com',
     siteName: 'Rustam Battery & Solar Energy House',
     title: 'Solar Panels, Batteries & Inverters in Lahore | Rustam Battery',
     description: "Pakistan's trusted solar energy company since 2016. 500+ installations. Solar panels, batteries, lithium batteries and inverters. Free site visit in Lahore.",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
   },
 
   alternates: {
-    canonical: 'https://rustam-nextjs.vercel.app',
+    canonical: 'https://rustambattery.com',
   },
 
   category: 'Solar Energy',

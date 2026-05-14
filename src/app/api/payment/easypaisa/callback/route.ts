@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+﻿import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { createHmac } from 'crypto'
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
 }
 
 async function handleCallback(req: NextRequest) {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustam-nextjs.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://rustambattery.com'
   const hashKey = process.env.EASYPAISA_HASH_KEY || ''
 
   try {
