@@ -67,7 +67,7 @@ export function CalculatorSection() {
 
     // ── System sizing ──────────────────────────────────────────────────────────
     const rawKw   = dailyConsumption / (sunHours * SYSTEM_EFFICIENCY)
-    const systemKw = Math.ceil(rawKw * 2) / 2           // round up to nearest 0.5kW
+    const systemKw = Math.max(6, Math.ceil(rawKw * 2) / 2) // min 6kW for residential
 
     // ── Panels ─────────────────────────────────────────────────────────────────
     const panelCount     = Math.ceil((systemKw * 1000) / PANEL_WATTS)
@@ -325,12 +325,11 @@ export function CalculatorSection() {
                   </thead>
                   <tbody className="divide-y divide-gray-50">
                     {([
-                      { kw: '3–4 kW',   ac: '0 (Daily)',  bat: '24V · 100Ah', units: '2.5' },
-                      { kw: '6 kW',     ac: '1',          bat: '48V · 100Ah', units: '5'   },
-                      { kw: '8 kW',     ac: '2',          bat: '48V · 150Ah', units: '7.5' },
-                      { kw: '10 kW',    ac: '3',          bat: '48V · 200Ah', units: '10'  },
-                      { kw: '11–12 kW', ac: '3–4',        bat: '48V · 200Ah', units: '10'  },
-                      { kw: '15 kW',    ac: '5–6',        bat: '48V · 314Ah', units: '15'  },
+                      { kw: '6 kW',     ac: '0 (Daily)',  bat: '48V · 100Ah', units: '5'   },
+                      { kw: '8 kW',     ac: '1',          bat: '48V · 150Ah', units: '7.5' },
+                      { kw: '10 kW',    ac: '2',          bat: '48V · 200Ah', units: '10'  },
+                      { kw: '12 kW',    ac: '3',          bat: '48V · 200Ah', units: '12'  },
+                      { kw: '15 kW',    ac: '4–5',        bat: '48V · 314Ah', units: '15'  },
                     ] as { kw: string; ac: string; bat: string; units: string }[]).map(({ kw, ac, bat, units }) => (
                       <tr key={kw}>
                         <td className="py-1.5 pr-2 font-bold text-slate-700">{kw}</td>
