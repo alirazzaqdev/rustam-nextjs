@@ -45,7 +45,7 @@ export function createSessionCookie(): { name: string; value: string; options: o
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      maxAge: COOKIE_MAX_AGE,
+      // No maxAge — session cookie, expires when browser closes
       path: '/',
     },
   }

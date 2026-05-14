@@ -11,14 +11,14 @@ export async function middleware(req: NextRequest) {
   if (pathname === '/admin/login') return NextResponse.next()
 
   const token = req.cookies.get(COOKIE_NAME)?.value
-  if (!token) return NextResponse.redirect(new URL('/', req.url))
+  if (!token) return NextResponse.redirect(new URL('/admin/login', req.url))
 
   const payload = await verifyTokenEdge(token)
-  if (!payload) return NextResponse.redirect(new URL('/', req.url))
+  if (!payload) return NextResponse.redirect(new URL('/admin/login', req.url))
 
   const [role, ts] = payload.split(':')
   if (role !== 'admin' || Date.now() - Number(ts) > COOKIE_MAX_AGE) {
-    return NextResponse.redirect(new URL('/', req.url))
+    return NextResponse.redirect(new URL('/admin/login', req.url))
   }
 
   return NextResponse.next()

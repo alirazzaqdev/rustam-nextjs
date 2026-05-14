@@ -49,7 +49,7 @@ export default function LoginForm() {
           <p className="text-gray-500 text-sm font-medium">Admin Dashboard</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-4">
+        <form onSubmit={handleSubmit} autoComplete="off" className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 space-y-4">
           <h1 className="text-xl font-bold text-gray-900 mb-2">Sign In</h1>
 
           {error && (
@@ -64,6 +64,7 @@ export default function LoginForm() {
             <input
               type="email"
               required
+              autoComplete="off"
               value={email}
               onChange={e => setEmail(e.target.value)}
               placeholder="admin@rustambattery.com"
@@ -76,6 +77,7 @@ export default function LoginForm() {
             <input
               type="password"
               required
+              autoComplete="new-password"
               value={password}
               onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
