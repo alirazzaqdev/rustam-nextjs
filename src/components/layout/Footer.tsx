@@ -142,8 +142,18 @@ export function Footer() {
           </span>
         </address>
 
+        {/* FBR Registration */}
+        <div className="mt-8 pt-6 border-t border-slate-800/60 flex flex-wrap items-center gap-3">
+          <span className="inline-flex items-center gap-2 bg-slate-800 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-gray-400">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-500"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            <span className="text-gray-500">FBR Registered</span>
+            <span className="text-white font-semibold">NTN: I394935</span>
+          </span>
+          <span className="text-xs text-gray-600">New Fast Solar Energy (SMC-Pvt) Ltd · Income Tax Active</span>
+        </div>
+
         {/* Bottom bar */}
-        <div className="mt-6 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-gray-500">
+        <div className="mt-4 pt-6 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-2 text-xs text-gray-500">
           <p>&copy; {currentYear} Rustam Battery & Solar Energy House. All rights reserved.</p>
           <p className="text-gray-600">Serving Lahore since 2016 · Kahna Nau, Punjab, Pakistan</p>
           <p>
