@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyTokenEdge } from '@/lib/authEdge'
 
 const COOKIE_NAME = 'admin_session'
-const GATE_COOKIE = 'admin_gate'
 const COOKIE_MAX_AGE = 60 * 60 * 8 * 1000 // 8h in ms
 
 export async function middleware(req: NextRequest) {
@@ -25,22 +24,12 @@ export async function middleware(req: NextRequest) {
     // Already logged in — send to dashboard
     if (sessionValid) return NextResponse.redirect(new URL('/admin', req.url))
 
-    // Check secret key in URL
+    // Allow if valid secret key present in URL
     const keyParam = req.nextUrl.searchParams.get('key')
     const accessKey = process.env.ADMIN_ACCESS_KEY
-    if (accessKey && keyParam === accessKey) {
-      // Valid key — set gate cookie and strip key from URL
-      const cleanUrl = new URL('/admin/login', req.url)
-      const res = NextResponse.redirect(cleanUrl)
-      res.cookies.set(GATE_COOKIE, '1', { httpOnly: true, sameSite: 'strict', maxAge: 3600 })
-      return res
-    }
+    if (accessKey && keyParam === accessKey) return NextResponse.next()
 
-    // Check gate cookie (already passed key check before)
-    const gateCookie = req.cookies.get(GATE_COOKIE)?.value
-    if (gateCookie === '1') return NextResponse.next()
-
-    // No key, no gate — block access entirely
+    // No valid key — block access
     return NextResponse.redirect(new URL('/', req.url))
   }
 
