@@ -15,6 +15,10 @@ function OrderPageContent() {
     ? `${decodeURIComponent(prefilledName)}${prefilledPrice && Number(prefilledPrice) > 0 ? ` — PKR ${Number(prefilledPrice).toLocaleString('en-PK')}` : ''}`
     : undefined
 
+  const prefilledAmount = prefilledPrice && Number(prefilledPrice) > 0
+    ? String(Number(prefilledPrice))
+    : undefined
+
   return (
     <main className="min-h-screen bg-slate-50 py-8 px-4">
       <div className="max-w-7xl mx-auto">
@@ -38,7 +42,7 @@ function OrderPageContent() {
           </p>
         </div>
 
-        <OrderForm products={products} prefilledProduct={prefilledProduct} />
+        <OrderForm products={products} prefilledProduct={prefilledProduct} prefilledAmount={prefilledAmount} />
       </div>
     </main>
   )

@@ -5,7 +5,7 @@ const BRANDS = [
   { name: 'Phoenix',          category: 'BATTERY'      },
   { name: 'AGS',              category: 'BATTERY'      },
   { name: 'Alaska',           category: 'BATTERY'      },
-  { name: 'Knox Inverters',   category: 'INVERTER'     },
+  { name: 'Lithium Batteries', category: 'BATTERY'     },
   { name: 'Canadian Solar',   category: 'SOLAR'        },
   { name: 'JinkoSolar',       category: 'SOLAR'        },
   { name: 'JA Solar',         category: 'SOLAR'        },

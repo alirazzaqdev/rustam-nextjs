@@ -23,7 +23,7 @@ const STATIC_FAQS: { id: string; question: string; answer: string }[] = [
     id: 'warranty',
     question: 'What is the warranty on solar panels?',
     answer:
-      'All solar panels we supply come with a 25-year performance warranty from the manufacturer. Inverters carry 2–5 year warranty depending on brand and model. Batteries: lithium batteries 5 years, lead-acid 1–2 years. We handle all warranty claims directly on your behalf.',
+      'All solar panels we supply come with a 25-year performance warranty from the manufacturer. Inverters carry 2–5 year warranty depending on brand and model. Batteries: Lithium batteries 5 years, Phoenix 6 months, AGS 6 months, Alaska 9 months, Osaka varies by model. We handle all warranty claims directly on your behalf.',
   },
   {
     id: 'cloudy',
@@ -35,7 +35,7 @@ const STATIC_FAQS: { id: string; question: string; answer: string }[] = [
     id: 'battery-life',
     question: 'How long do batteries last?',
     answer:
-      'Lithium batteries (Knox Powerwall) last 8–12 years with 8000+ charge cycles. Quality lead-acid batteries (AGS, Osaka, Phoenix) last 3–5 years with proper maintenance. Tubular batteries last 5–7 years. We recommend lithium for best long-term value.',
+      'Lithium batteries last 8–12 years with 8000+ charge cycles and carry a 5-year warranty. Quality lead-acid batteries (AGS, Osaka, Phoenix, Alaska) last 3–5 years with proper maintenance. Tubular batteries last 5–7 years. Warranty by brand: Phoenix 6 months, AGS 6 months, Alaska 9 months, Lithium 5 years. We recommend lithium for best long-term value.',
   },
   {
     id: 'install-time',

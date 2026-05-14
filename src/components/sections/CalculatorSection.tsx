@@ -515,8 +515,53 @@ export function CalculatorSection() {
           </div>
         </div>
 
+        {/* System size & battery quick reference */}
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          {/* System size guide */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <p className="text-xs font-bold tracking-[4px] uppercase text-emerald-600 mb-4">System Size Guide</p>
+            <p className="text-sm text-gray-500 mb-4">How many ACs can each system run?</p>
+            <div className="space-y-2">
+              {([
+                { size: '3 kW – 4 kW', ac: 'House daily routine (no AC)',    color: 'bg-slate-50  text-slate-600' },
+                { size: '6 kW',         ac: '1 AC',                           color: 'bg-emerald-50 text-emerald-700' },
+                { size: '8 kW',         ac: '2 ACs',                          color: 'bg-emerald-50 text-emerald-700' },
+                { size: '10 kW',        ac: '3 ACs',                          color: 'bg-emerald-50 text-emerald-700' },
+                { size: '11 – 12 kW',   ac: '3 – 4 ACs',                     color: 'bg-amber-50   text-amber-700'  },
+                { size: '15 kW',        ac: '5 – 6 ACs',                      color: 'bg-amber-50   text-amber-700'  },
+              ] as { size: string; ac: string; color: string }[]).map(({ size, ac, color }) => (
+                <div key={size} className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm ${color}`}>
+                  <span className="font-bold">{size}</span>
+                  <span className="font-medium">{ac}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Battery backup capacity */}
+          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+            <p className="text-xs font-bold tracking-[4px] uppercase text-emerald-600 mb-4">Battery Backup Capacity</p>
+            <p className="text-sm text-gray-500 mb-4">Daily units per battery configuration</p>
+            <div className="space-y-2">
+              {([
+                { config: '24V  100Ah', units: '2.5 units / day' },
+                { config: '48V  100Ah', units: '5 units / day'   },
+                { config: '48V  150Ah', units: '7.5 units / day' },
+                { config: '48V  200Ah', units: '10 units / day'  },
+                { config: '48V  314Ah', units: '15 units / day'  },
+              ] as { config: string; units: string }[]).map(({ config, units }) => (
+                <div key={config} className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm bg-slate-50">
+                  <span className="font-bold text-slate-700 font-mono">{config}</span>
+                  <span className="font-semibold text-emerald-700">{units}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* How it's calculated */}
-        <div className="mt-10 p-5 bg-slate-100 border border-slate-200 rounded-2xl">
+        <div className="mt-6 p-5 bg-slate-100 border border-slate-200 rounded-2xl">
           <p className="text-sm text-slate-600">
             <strong>How these numbers are calculated:</strong> System size = daily consumption ÷ (sun hours × 80% efficiency).
             Battery count = load shedding hours × hourly load × 1.25 safety factor ÷ 1.44kWh usable per battery.

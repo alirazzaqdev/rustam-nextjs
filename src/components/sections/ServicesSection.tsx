@@ -23,7 +23,7 @@ const FALLBACK_SERVICES: Service[] = [
   { id: 's2', name: 'Professional Installation', slug: 'professional-installation', description: 'Certified technicians install your system in 1–2 days with quality wiring and structural mounting.', featured: false },
   { id: 's3', name: 'Maintenance & Support', slug: 'maintenance-support', description: 'Annual cleaning, inspection, and 24/7 support to keep your system running at peak performance.', featured: false },
   { id: 's4', name: 'Performance Monitoring', slug: 'performance-monitoring', description: 'Track real-time output and savings via smartphone — get alerted before any issue.', featured: false },
-  { id: 's5', name: 'Battery Backup Solutions', slug: 'battery-backup', description: 'Run your home through load-shedding with lithium battery backup tailored to your needs.', featured: false },
+  { id: 's5', name: 'Battery Backup Solutions', slug: 'battery-backup', description: 'Run your home through load-shedding with battery backup tailored to your needs. Backup capacity depends on brand — Phoenix, AGS, Alaska, Osaka, and Lithium options available.', featured: false },
 ]
 
 export function ServicesSection({ services }: ServicesSectionProps) {

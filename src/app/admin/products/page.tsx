@@ -24,7 +24,7 @@ interface Product {
 }
 
 const CATEGORIES = ['Battery', 'Solar Panel', 'Inverter', 'Accessory']
-const BRANDS = ['Osaka', 'Phoenix', 'AGS', 'Alaska', 'Knox', 'Canadian Solar', 'JinkoSolar', 'JA Solar', 'LONGi', 'Astro Energy', 'Risen', 'Trina', 'AIKO', 'Ronma', 'Other']
+const BRANDS = ['Osaka', 'Phoenix', 'AGS', 'Alaska', 'Lithium', 'Canadian Solar', 'JinkoSolar', 'JA Solar', 'LONGi', 'Astro Energy', 'Risen', 'Trina', 'AIKO', 'Ronma', 'Other']
 
 const EMPTY: Partial<Product> = { name: '', category: 'Battery', brand: '', price: 0, image: '', description: '', specs: {}, featured: false, inStock: true }
 

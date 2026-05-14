@@ -74,9 +74,10 @@ const PAYMENT_METHODS = [
 interface OrderFormProps {
   products: Product[]
   prefilledProduct?: string
+  prefilledAmount?: string
 }
 
-export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
+export function OrderForm({ products, prefilledProduct, prefilledAmount }: OrderFormProps) {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
@@ -94,6 +95,7 @@ export function OrderForm({ products, prefilledProduct }: OrderFormProps) {
       paymentMethod: 'Cash on Delivery',
       city: 'Kahna Nau',
       selectedProducts: prefilledProduct || '',
+      totalAmount: prefilledAmount || '',
     },
   })
 

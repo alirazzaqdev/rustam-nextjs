@@ -26,18 +26,18 @@ export const metadata: Metadata = {
     template: '%s | Rustam Battery & Solar Energy House Lahore',
   },
 
-  description: "Pakistan's trusted solar energy company since 2016. Buy solar panels, batteries (Osaka, AGS, Phoenix, Alaska), Knox inverters in Lahore. Free site visit. 500+ installations. Call +92 321 3770402",
+  description: "Pakistan's trusted solar energy company since 2016. Buy solar panels, batteries (Osaka, AGS, Phoenix, Alaska), lithium batteries and inverters in Lahore. Free site visit. 500+ installations. Call +92 321 3770402",
 
   keywords: [
     'solar panels Lahore', 'solar panels Pakistan', 'battery shop Lahore',
     'solar energy Lahore', 'Osaka battery Lahore', 'AGS battery price Pakistan',
-    'Phoenix battery Lahore', 'Alaska battery price', 'Knox inverter Lahore',
+    'Phoenix battery Lahore', 'Alaska battery price', 'inverter Lahore',
     'solar inverter Pakistan', 'solar installation Lahore', 'solar system price Pakistan',
     'net metering Lahore', 'hybrid solar system Pakistan', 'on grid solar system Lahore',
     'solar panels price Pakistan 2026', 'Canadian Solar panels Pakistan',
-    'JinkoSolar Pakistan', 'LONGi solar panels', 'Knox Krypton inverter',
+    'JinkoSolar Pakistan', 'LONGi solar panels', 'hybrid inverter Pakistan',
     'solar battery backup Lahore', 'UPS battery Lahore', 'tubular battery Pakistan',
-    'lithium battery Pakistan', 'Knox Powerwall Pakistan', 'solar company Lahore',
+    'lithium battery Pakistan', 'lithium battery Lahore', 'solar company Lahore',
     'Kahna Nau solar', 'load shedding solution Lahore', 'bijli bill kam karna',
     'solar panel installation Lahore', 'best solar company Pakistan',
     'cheap solar panels Lahore', 'solar panels for home Pakistan',
@@ -66,14 +66,14 @@ export const metadata: Metadata = {
     url: 'https://rustam-nextjs.vercel.app',
     siteName: 'Rustam Battery & Solar Energy House',
     title: 'Solar Panels, Batteries & Inverters in Lahore | Rustam Battery',
-    description: "Pakistan's trusted solar energy company since 2016. 500+ installations. Solar panels, batteries, Knox inverters. Free site visit in Lahore.",
+    description: "Pakistan's trusted solar energy company since 2016. 500+ installations. Solar panels, batteries, lithium batteries and inverters. Free site visit in Lahore.",
     images: [{ url: '/logo.png', width: 1040, height: 1040, alt: 'Rustam Battery & Solar Energy House — Solar Panels Lahore' }],
   },
 
   twitter: {
     card: 'summary_large_image',
     title: 'Solar Panels & Batteries in Lahore | Rustam Battery',
-    description: 'Trusted solar energy company since 2016. Solar panels, batteries, Knox inverters. Free site visit. 500+ installations across Lahore.',
+    description: 'Trusted solar energy company since 2016. Solar panels, batteries, lithium batteries and inverters. Free site visit. 500+ installations across Lahore.',
     images: ['/logo.png'],
   },
 

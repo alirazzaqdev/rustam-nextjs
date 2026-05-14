@@ -61,10 +61,10 @@ export function HeroSection() {
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-slate-900 leading-[1.04] mb-6">
-              Lahore&apos;s most<br />
-              trusted{' '}
-              <span className="text-amber-600">solar energy</span><br />
-              company
+              Lahore&apos;s Most<br />
+              Trusted{' '}
+              <span className="text-amber-600">Solar Energy</span><br />
+              Company
             </h1>
 
             <p className="text-lg text-gray-500 leading-relaxed mb-8 max-w-lg">

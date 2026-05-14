@@ -36,8 +36,8 @@ const teamMembers = [
     gradientFrom: 'from-slate-700',
     gradientTo: 'to-slate-800',
     description:
-      'Expert in solar panel and Knox inverter sales, installation, and technical support. Go-to person for system sizing and configuration.',
-    tags: ['Solar Panels', 'Knox Inverters', 'Knox Batteries'],
+      'Expert in solar panel and inverter sales, installation, and technical support. Go-to person for system sizing and configuration.',
+    tags: ['Solar Panels', 'Lithium Inverters', 'Lithium Batteries'],
     isFounder: false,
   },
   {
