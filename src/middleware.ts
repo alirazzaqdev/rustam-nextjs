@@ -8,33 +8,18 @@ export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (!pathname.startsWith('/admin')) return NextResponse.next()
+  if (pathname === '/admin/login') return NextResponse.next()
 
   const token = req.cookies.get(COOKIE_NAME)?.value
-  let sessionValid = false
+  if (!token) return NextResponse.redirect(new URL('/', req.url))
 
-  if (token) {
-    const payload = await verifyTokenEdge(token)
-    if (payload) {
-      const [role, ts] = payload.split(':')
-      sessionValid = role === 'admin' && Date.now() - Number(ts) <= COOKIE_MAX_AGE
-    }
-  }
+  const payload = await verifyTokenEdge(token)
+  if (!payload) return NextResponse.redirect(new URL('/', req.url))
 
-  if (pathname === '/admin/login') {
-    // Already logged in — send to dashboard
-    if (sessionValid) return NextResponse.redirect(new URL('/admin', req.url))
-
-    // Allow if valid secret key present in URL
-    const keyParam = req.nextUrl.searchParams.get('key')
-    const accessKey = process.env.ADMIN_ACCESS_KEY
-    if (accessKey && keyParam === accessKey) return NextResponse.next()
-
-    // No valid key — block access
+  const [role, ts] = payload.split(':')
+  if (role !== 'admin' || Date.now() - Number(ts) > COOKIE_MAX_AGE) {
     return NextResponse.redirect(new URL('/', req.url))
   }
-
-  // All other /admin/* routes require valid session
-  if (!sessionValid) return NextResponse.redirect(new URL('/', req.url))
 
   return NextResponse.next()
 }
