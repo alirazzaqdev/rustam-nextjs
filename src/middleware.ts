@@ -2,24 +2,50 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyTokenEdge } from '@/lib/authEdge'
 
 const COOKIE_NAME = 'admin_session'
+const GATE_COOKIE = 'admin_gate'
 const COOKIE_MAX_AGE = 60 * 60 * 8 * 1000 // 8h in ms
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
 
   if (!pathname.startsWith('/admin')) return NextResponse.next()
-  if (pathname === '/admin/login') return NextResponse.next()
 
   const token = req.cookies.get(COOKIE_NAME)?.value
-  if (!token) return NextResponse.redirect(new URL('/admin/login', req.url))
+  let sessionValid = false
 
-  const payload = await verifyTokenEdge(token)
-  if (!payload) return NextResponse.redirect(new URL('/admin/login', req.url))
-
-  const [role, ts] = payload.split(':')
-  if (role !== 'admin' || Date.now() - Number(ts) > COOKIE_MAX_AGE) {
-    return NextResponse.redirect(new URL('/admin/login', req.url))
+  if (token) {
+    const payload = await verifyTokenEdge(token)
+    if (payload) {
+      const [role, ts] = payload.split(':')
+      sessionValid = role === 'admin' && Date.now() - Number(ts) <= COOKIE_MAX_AGE
+    }
   }
+
+  if (pathname === '/admin/login') {
+    // Already logged in — send to dashboard
+    if (sessionValid) return NextResponse.redirect(new URL('/admin', req.url))
+
+    // Check secret key in URL
+    const keyParam = req.nextUrl.searchParams.get('key')
+    const accessKey = process.env.ADMIN_ACCESS_KEY
+    if (accessKey && keyParam === accessKey) {
+      // Valid key — set gate cookie and strip key from URL
+      const cleanUrl = new URL('/admin/login', req.url)
+      const res = NextResponse.redirect(cleanUrl)
+      res.cookies.set(GATE_COOKIE, '1', { httpOnly: true, sameSite: 'strict', maxAge: 3600 })
+      return res
+    }
+
+    // Check gate cookie (already passed key check before)
+    const gateCookie = req.cookies.get(GATE_COOKIE)?.value
+    if (gateCookie === '1') return NextResponse.next()
+
+    // No key, no gate — block access entirely
+    return NextResponse.redirect(new URL('/', req.url))
+  }
+
+  // All other /admin/* routes require valid session
+  if (!sessionValid) return NextResponse.redirect(new URL('/', req.url))
 
   return NextResponse.next()
 }
