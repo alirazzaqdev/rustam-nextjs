@@ -82,6 +82,7 @@ export function OrderForm({ products, prefilledProduct, prefilledAmount }: Order
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
   const [activeTab, setActiveTab] = useState<'Bank Transfer' | 'Cash on Delivery'>('Cash on Delivery')
+  const [selectedItems, setSelectedItems] = useState<{ id: string; name: string; price: number }[]>([])
 
   const {
     register,
@@ -102,10 +103,28 @@ export function OrderForm({ products, prefilledProduct, prefilledAmount }: Order
   const watchedProducts = watch('selectedProducts')
   const watchedAmount = watch('totalAmount')
 
+  const autoTotal = selectedItems.reduce((sum, i) => sum + i.price, 0)
+
   const estimatedTotal = useMemo(() => {
+    if (autoTotal > 0) return autoTotal
     if (watchedAmount) return Number(watchedAmount.replace(/[^\d]/g, '')) || 0
     return 0
-  }, [watchedAmount])
+  }, [autoTotal, watchedAmount])
+
+  function toggleItem(product: { id: string; name: string; price: number }) {
+    const isSelected = selectedItems.some(i => i.id === product.id)
+    const newItems = isSelected
+      ? selectedItems.filter(i => i.id !== product.id)
+      : [...selectedItems, product]
+
+    setSelectedItems(newItems)
+
+    const lines = newItems.map(i => `${i.name} — PKR ${i.price.toLocaleString('en-PK')}`).join('\n')
+    setValue('selectedProducts', lines, { shouldValidate: true })
+
+    const total = newItems.reduce((s, i) => s + i.price, 0)
+    setValue('totalAmount', total > 0 ? String(total) : '', { shouldValidate: false })
+  }
 
   function pickTab(id: 'Bank Transfer' | 'Cash on Delivery') {
     setActiveTab(id)
@@ -232,47 +251,88 @@ export function OrderForm({ products, prefilledProduct, prefilledAmount }: Order
         <Section title="2. What to Order">
           {products.length > 0 && (
             <div className="mb-4 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
-              <p className="text-sm font-medium text-amber-800 mb-3">Quick add from our catalog:</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-40 overflow-y-auto pr-1">
-                {products.filter(p => p.price > 0).slice(0, 8).map((p) => (
-                  <button
-                    key={p.id}
-                    type="button"
-                    onClick={() => {
-                      const current = watchedProducts || ''
-                      const line = `${p.name} — PKR ${p.price.toLocaleString('en-PK')}`
-                      setValue('selectedProducts', current ? `${current}\n${line}` : line, { shouldValidate: true })
-                    }}
-                    className="text-left text-xs px-3 py-2 bg-white border border-emerald-300 rounded-lg hover:bg-emerald-100 transition-colors text-slate-700"
-                  >
-                    <span className="font-medium block">{p.name}</span>
-                    <span className="text-amber-700">PKR {p.price.toLocaleString('en-PK')}</span>
-                  </button>
-                ))}
+              <p className="text-sm font-medium text-amber-800 mb-3">
+                Select from our catalog <span className="text-emerald-700 font-bold">(click to add/remove):</span>
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1">
+                {products.filter(p => p.price > 0).slice(0, 12).map((p) => {
+                  const isSelected = selectedItems.some(i => i.id === p.id)
+                  return (
+                    <button
+                      key={p.id}
+                      type="button"
+                      disabled={loading}
+                      onClick={() => toggleItem({ id: p.id, name: p.name, price: p.price })}
+                      className={`text-left text-xs px-3 py-2 border rounded-lg transition-all duration-150 ${
+                        isSelected
+                          ? 'bg-emerald-600 border-emerald-600 text-white shadow-sm'
+                          : 'bg-white border-emerald-300 hover:bg-emerald-50 text-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-start justify-between gap-1">
+                        <span className="font-medium block leading-tight">{p.name}</span>
+                        {isSelected && <span className="text-white text-[10px] shrink-0">✓</span>}
+                      </div>
+                      <span className={isSelected ? 'text-emerald-100' : 'text-amber-700'}>
+                        PKR {p.price.toLocaleString('en-PK')}
+                      </span>
+                    </button>
+                  )
+                })}
               </div>
+
+              {/* Selected items summary */}
+              {selectedItems.length > 0 && (
+                <div className="mt-3 pt-3 border-t border-emerald-200 space-y-1.5">
+                  <p className="text-xs font-bold text-emerald-800 mb-2">
+                    Selected ({selectedItems.length} item{selectedItems.length > 1 ? 's' : ''}):
+                  </p>
+                  {selectedItems.map(item => (
+                    <div key={item.id} className="flex items-center justify-between bg-white rounded-lg px-3 py-2 border border-emerald-200 text-xs">
+                      <span className="text-slate-700 font-medium truncate mr-2">{item.name}</span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="font-bold text-emerald-700">PKR {item.price.toLocaleString('en-PK')}</span>
+                        <button
+                          type="button"
+                          onClick={() => toggleItem(item)}
+                          className="w-5 h-5 flex items-center justify-center rounded-full bg-red-100 text-red-500 hover:bg-red-200 transition-colors font-bold text-sm leading-none"
+                        >
+                          ×
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <div className="flex justify-between items-center px-3 py-2 bg-emerald-100 rounded-lg text-xs font-black text-emerald-800 border border-emerald-300">
+                    <span>Total</span>
+                    <span>PKR {autoTotal.toLocaleString('en-PK')}</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
           <Field label="Order Details *" error={errors.selectedProducts?.message}>
             <textarea
               {...register('selectedProducts')}
-              rows={4}
-              placeholder="e.g. LONGI 550W Solar Panel x2, Hybrid Inverter 5kW x1"
+              rows={selectedItems.length > 0 ? 2 : 4}
+              placeholder={selectedItems.length > 0 ? 'Add custom items or special requirements...' : 'e.g. LONGI 550W Solar Panel x2, Hybrid Inverter 5kW x1'}
               className={inp(!!errors.selectedProducts) + ' resize-none'}
               disabled={loading}
             />
           </Field>
 
-          <div className="mt-4">
-            <Field label="Estimated Budget (PKR) — Optional">
-              <input
-                {...register('totalAmount')}
-                placeholder="e.g. 500000"
-                className={inp(false)}
-                disabled={loading}
-              />
-            </Field>
-          </div>
+          {selectedItems.length === 0 && (
+            <div className="mt-4">
+              <Field label="Estimated Budget (PKR) — Optional">
+                <input
+                  {...register('totalAmount')}
+                  placeholder="e.g. 500000"
+                  className={inp(false)}
+                  disabled={loading}
+                />
+              </Field>
+            </div>
+          )}
         </Section>
 
         {/* Section 3 */}
@@ -348,18 +408,32 @@ export function OrderForm({ products, prefilledProduct, prefilledAmount }: Order
             <div className="p-6">
               <h3 className="font-bold text-slate-900 mb-4 text-lg">Order Summary</h3>
 
-              <div className="bg-slate-50 rounded-xl p-4 mb-4 min-h-[80px]">
-                {watchedProducts ? (
-                  <pre className="text-sm text-slate-700 whitespace-pre-wrap font-sans leading-relaxed">{watchedProducts}</pre>
+              {/* Items breakdown */}
+              <div className="mb-4 min-h-[70px]">
+                {selectedItems.length > 0 ? (
+                  <div className="space-y-1.5">
+                    {selectedItems.map(item => (
+                      <div key={item.id} className="flex items-start justify-between gap-2 text-xs">
+                        <span className="text-slate-600 leading-tight">{item.name}</span>
+                        <span className="font-semibold text-slate-800 shrink-0">PKR {item.price.toLocaleString('en-PK')}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : watchedProducts ? (
+                  <div className="bg-slate-50 rounded-xl p-3">
+                    <pre className="text-xs text-slate-600 whitespace-pre-wrap font-sans leading-relaxed">{watchedProducts}</pre>
+                  </div>
                 ) : (
-                  <p className="text-sm text-slate-400 italic">Your selected items will appear here</p>
+                  <p className="text-sm text-slate-400 italic text-center py-4">Select products above to see summary</p>
                 )}
               </div>
 
               <div className="space-y-2 text-sm border-t border-slate-100 pt-4">
                 <div className="flex justify-between text-slate-600">
-                  <span>Subtotal</span>
-                  <span>PKR {estimatedTotal.toLocaleString()}</span>
+                  <span>Subtotal ({selectedItems.length || 1} item{(selectedItems.length || 1) > 1 ? 's' : ''})</span>
+                  <span className={estimatedTotal > 0 ? 'font-semibold text-slate-800' : 'text-slate-400'}>
+                    {estimatedTotal > 0 ? `PKR ${estimatedTotal.toLocaleString('en-PK')}` : '—'}
+                  </span>
                 </div>
                 <div className="flex justify-between text-slate-600">
                   <span>Delivery</span>
@@ -367,7 +441,9 @@ export function OrderForm({ products, prefilledProduct, prefilledAmount }: Order
                 </div>
                 <div className="flex justify-between font-bold text-slate-900 text-base border-t border-slate-100 pt-2 mt-2">
                   <span>Total</span>
-                  <span className="text-emerald-700">PKR {estimatedTotal.toLocaleString()}</span>
+                  <span className={estimatedTotal > 0 ? 'text-emerald-700' : 'text-slate-400'}>
+                    {estimatedTotal > 0 ? `PKR ${estimatedTotal.toLocaleString('en-PK')}` : '—'}
+                  </span>
                 </div>
               </div>
 
