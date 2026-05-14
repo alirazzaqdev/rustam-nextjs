@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useMemo, useEffect } from 'react'
-import { Zap, TrendingUp, TrendingDown, Leaf, Sun, BatteryCharging, Info, Phone, Banknote, CalendarClock, RefreshCw, Radio } from 'lucide-react'
+import { Zap, TrendingUp, TrendingDown, Leaf, Sun, BatteryCharging, Info, Phone, RefreshCw, Radio } from 'lucide-react'
 
 // ─── Fixed engineering constants ──────────────────────────────────────────────
 const LAHORE_SUN_HOURS   = 4.8   // Lahore annual average peak sun hours
@@ -143,25 +143,22 @@ export function CalculatorSection() {
   }, [monthlyBill, systemType, sunHours, unitRate, withBattery, loadSheddingHours, batteryPrice, panelPrice])
 
   return (
-    <section id="calculator" className="bg-slate-50 py-20 md:py-24">
+    <section id="calculator" className="bg-slate-50 py-14 md:py-18">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Header */}
-        <div className="max-w-4xl mx-auto mb-14">
-          <p className="text-emerald-600 text-xs font-bold tracking-[5px] uppercase mb-4 text-center">
+        <div className="max-w-3xl mx-auto mb-8 text-center">
+          <p className="text-emerald-600 text-xs font-bold tracking-[5px] uppercase mb-3">
             Free Solar Savings Calculator
           </p>
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight text-center leading-tight mb-5">
-            How much can solar reduce<br />
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-tight mb-3">
+            How much can solar reduce{' '}
             <span className="text-emerald-600">your electricity bill?</span>
           </h2>
-          <p className="text-gray-500 text-base text-center leading-relaxed mb-6 max-w-2xl mx-auto">
-            Enter your monthly bill and load-shedding hours — get an accurate system size,
-            real battery count, live pricing, and 25-year savings estimate.
+          <p className="text-gray-500 text-sm leading-relaxed mb-4 max-w-xl mx-auto">
+            Enter your monthly bill and load-shedding hours — get system size, battery count, live pricing, and 25-year savings.
           </p>
-
-          {/* Live prices badge */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center">
             <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold border ${
               priceLoading
                 ? 'bg-slate-50 border-slate-200 text-slate-500'
@@ -172,28 +169,10 @@ export function CalculatorSection() {
               {priceLoading
                 ? <><RefreshCw size={11} className="animate-spin" /> Loading live prices...</>
                 : prices?.source === 'live'
-                  ? <><Radio size={11} className="text-emerald-500" /> Prices pulled live from our current inventory</>
+                  ? <><Radio size={11} className="text-emerald-500" /> Live prices from our inventory</>
                   : <><Info size={11} /> Using 2025 Lahore market rates</>
               }
             </div>
-          </div>
-
-          {/* 4 feature chips */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {([
-              { Icon: Zap,           color: 'text-amber-600',   bg: 'bg-amber-50',   title: 'System Size',    desc: 'Exact kW for your usage' },
-              { Icon: Banknote,      color: 'text-emerald-600', bg: 'bg-emerald-50', title: 'Real Cost',      desc: 'Live prices from our stock' },
-              { Icon: TrendingDown,  color: 'text-emerald-700', bg: 'bg-emerald-50', title: 'Bill Reduction', desc: 'New monthly electricity bill' },
-              { Icon: CalendarClock, color: 'text-amber-700',   bg: 'bg-amber-50',   title: 'Payback Period', desc: 'Years to recover investment' },
-            ] as const).map((f) => (
-              <div key={f.title} className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm text-center">
-                <div className={`w-10 h-10 ${f.bg} rounded-xl flex items-center justify-center mx-auto mb-3`}>
-                  <f.Icon size={20} className={f.color} />
-                </div>
-                <p className="text-sm font-bold text-slate-800">{f.title}</p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-snug">{f.desc}</p>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -328,6 +307,40 @@ export function CalculatorSection() {
               <div className="flex justify-between text-xs text-gray-400 mt-2">
                 <span>3.5 (Winter)</span>
                 <span>6.5 (Summer)</span>
+              </div>
+            </div>
+
+            {/* ── Quick Reference Table ── */}
+            <div className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
+              <p className="text-xs font-bold tracking-[3px] uppercase text-emerald-600 mb-3">Quick Reference</p>
+              <div className="overflow-x-auto">
+                <table className="w-full text-xs">
+                  <thead>
+                    <tr className="border-b border-gray-100">
+                      <th className="text-left text-gray-400 font-semibold pb-2 pr-2">System</th>
+                      <th className="text-center text-gray-400 font-semibold pb-2 px-1">ACs</th>
+                      <th className="text-center text-gray-400 font-semibold pb-2 px-1">Battery</th>
+                      <th className="text-right text-gray-400 font-semibold pb-2 pl-2">Units/day</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-50">
+                    {([
+                      { kw: '3–4 kW',   ac: '0 (Daily)',  bat: '24V · 100Ah', units: '2.5' },
+                      { kw: '6 kW',     ac: '1',          bat: '48V · 100Ah', units: '5'   },
+                      { kw: '8 kW',     ac: '2',          bat: '48V · 150Ah', units: '7.5' },
+                      { kw: '10 kW',    ac: '3',          bat: '48V · 200Ah', units: '10'  },
+                      { kw: '11–12 kW', ac: '3–4',        bat: '48V · 200Ah', units: '10'  },
+                      { kw: '15 kW',    ac: '5–6',        bat: '48V · 314Ah', units: '15'  },
+                    ] as { kw: string; ac: string; bat: string; units: string }[]).map(({ kw, ac, bat, units }) => (
+                      <tr key={kw}>
+                        <td className="py-1.5 pr-2 font-bold text-slate-700">{kw}</td>
+                        <td className="py-1.5 px-1 text-center text-emerald-700 font-semibold">{ac}</td>
+                        <td className="py-1.5 px-1 text-center text-slate-500 font-mono">{bat}</td>
+                        <td className="py-1.5 pl-2 text-right font-bold text-amber-700">{units}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
@@ -515,61 +528,12 @@ export function CalculatorSection() {
           </div>
         </div>
 
-        {/* System size & battery quick reference */}
-        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-
-          {/* System size guide */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <p className="text-xs font-bold tracking-[4px] uppercase text-emerald-600 mb-4">System Size Guide</p>
-            <p className="text-sm text-gray-500 mb-4">How many ACs can each system run?</p>
-            <div className="space-y-2">
-              {([
-                { size: '3 kW – 4 kW', ac: 'House daily routine (no AC)',    color: 'bg-slate-50  text-slate-600' },
-                { size: '6 kW',         ac: '1 AC',                           color: 'bg-emerald-50 text-emerald-700' },
-                { size: '8 kW',         ac: '2 ACs',                          color: 'bg-emerald-50 text-emerald-700' },
-                { size: '10 kW',        ac: '3 ACs',                          color: 'bg-emerald-50 text-emerald-700' },
-                { size: '11 – 12 kW',   ac: '3 – 4 ACs',                     color: 'bg-amber-50   text-amber-700'  },
-                { size: '15 kW',        ac: '5 – 6 ACs',                      color: 'bg-amber-50   text-amber-700'  },
-              ] as { size: string; ac: string; color: string }[]).map(({ size, ac, color }) => (
-                <div key={size} className={`flex items-center justify-between px-4 py-2.5 rounded-xl text-sm ${color}`}>
-                  <span className="font-bold">{size}</span>
-                  <span className="font-medium">{ac}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Battery backup capacity */}
-          <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-            <p className="text-xs font-bold tracking-[4px] uppercase text-emerald-600 mb-4">Battery Backup Capacity</p>
-            <p className="text-sm text-gray-500 mb-4">Daily units per battery configuration</p>
-            <div className="space-y-2">
-              {([
-                { config: '24V  100Ah', units: '2.5 units / day' },
-                { config: '48V  100Ah', units: '5 units / day'   },
-                { config: '48V  150Ah', units: '7.5 units / day' },
-                { config: '48V  200Ah', units: '10 units / day'  },
-                { config: '48V  314Ah', units: '15 units / day'  },
-              ] as { config: string; units: string }[]).map(({ config, units }) => (
-                <div key={config} className="flex items-center justify-between px-4 py-2.5 rounded-xl text-sm bg-slate-50">
-                  <span className="font-bold text-slate-700 font-mono">{config}</span>
-                  <span className="font-semibold text-emerald-700">{units}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* How it's calculated */}
-        <div className="mt-6 p-5 bg-slate-100 border border-slate-200 rounded-2xl">
-          <p className="text-sm text-slate-600">
-            <strong>How these numbers are calculated:</strong> System size = daily consumption ÷ (sun hours × 80% efficiency).
-            Battery count = load shedding hours × hourly load × 1.25 safety factor ÷ 1.44kWh usable per battery.
-            {prices?.source === 'live'
-              ? ' Panel and battery prices are pulled live from our current product inventory.'
-              : ' Costs use 2025 Lahore market rates.'}
-            {' '}Payback and 25-year savings include 15% annual electricity inflation (Pakistan historical average).
-            Contact us for a free site visit and exact quote.
+        <div className="mt-6 p-4 bg-slate-100 border border-slate-200 rounded-xl">
+          <p className="text-xs text-slate-500">
+            <strong className="text-slate-700">Formula:</strong> System kW = daily units ÷ (sun hours × 80% efficiency). Battery count = load shedding hrs × load × 1.25 ÷ 1.44kWh per battery.
+            {prices?.source === 'live' ? ' Prices live from inventory.' : ' Market rates 2025.'}
+            {' '}15% annual electricity inflation applied. Free site visit for exact quote.
           </p>
         </div>
       </div>
